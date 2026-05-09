@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ডেলিভারি রাইডার প্যানেল | রংপুর সেবা</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/svg+xml" href="icons/favicon.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body { background: var(--bg); }
+        .rider-section { padding: 2rem 0; }
+
+        .login-card { max-width: 400px; margin: 2rem auto; background: var(--bg-white); border-radius: var(--radius-xl); padding: 2.5rem; border: 1px solid var(--border); box-shadow: var(--shadow-lg); text-align: center; }
+        .login-card .login-icon { font-size: 4rem; margin-bottom: 1rem; }
+        .login-card h2 { font-size: 1.375rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.5rem; }
+        .login-card p { font-size: 0.875rem; color: var(--text-light); margin-bottom: 1.5rem; }
+
+        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+        .stat-card { background: var(--bg-white); border-radius: var(--radius-xl); padding: 1.25rem; border: 1px solid var(--border); box-shadow: var(--shadow-sm); transition: var(--transition); }
+        .stat-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+        .stat-card .st-icon { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.125rem; margin-bottom: 0.75rem; }
+        .stat-card .st-label { font-size: 0.8125rem; color: var(--text-light); margin-bottom: 0.125rem; }
+        .stat-card .st-value { font-size: 1.5rem; font-weight: 700; color: var(--text-dark); }
+
+        .section-card { background: var(--bg-white); border-radius: var(--radius-xl); border: 1px solid var(--border); box-shadow: var(--shadow-sm); padding: 1.5rem; margin-bottom: 1.5rem; }
+        .section-card h2 { font-size: 1.125rem; font-weight: 700; color: var(--text-dark); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+
+        .delivery-card { display: flex; flex-wrap: wrap; gap: 1rem; padding: 1rem; background: var(--bg); border-radius: var(--radius-lg); margin-bottom: 0.75rem; border: 1px solid var(--border); align-items: center; transition: var(--transition); }
+        .delivery-card:hover { border-color: var(--primary); }
+        .delivery-card .dc-icon { width: 44px; height: 44px; border-radius: 50%; background: var(--primary-bg); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1.25rem; flex-shrink: 0; }
+        .delivery-card .dc-info { flex: 1; min-width: 160px; }
+        .delivery-card .dc-order-id { font-size: 0.75rem; color: var(--primary); font-weight: 700; }
+        .delivery-card .dc-customer { font-weight: 600; color: var(--text-dark); font-size: 0.9375rem; }
+        .delivery-card .dc-detail { font-size: 0.8125rem; color: var(--text-light); display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.125rem; }
+        .delivery-card .dc-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+        .history-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+        .history-table th { padding: 0.625rem 0.75rem; text-align: left; font-size: 0.75rem; font-weight: 600; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 2px solid var(--border); background: var(--bg); }
+        .history-table td { padding: 0.625rem 0.75rem; border-bottom: 1px solid var(--border); color: var(--text-body); }
+        .history-table tr:hover td { background: var(--bg); }
+
+        .earning-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+        .earning-item { text-align: center; padding: 1rem; background: var(--primary-bg); border-radius: var(--radius-lg); }
+        .earning-item .ei-value { font-size: 1.375rem; font-weight: 700; color: var(--primary); }
+        .earning-item .ei-label { font-size: 0.8125rem; color: var(--text-light); margin-top: 0.25rem; }
+
+        .profile-card { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+        .profile-card .pc-avatar { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 700; color: white; flex-shrink: 0; }
+        .profile-card .pc-info { flex: 1; }
+        .profile-card .pc-name { font-size: 1.25rem; font-weight: 700; color: var(--text-dark); }
+        .profile-card .pc-row { font-size: 0.875rem; color: var(--text-light); display: flex; align-items: center; gap: 0.375rem; margin-top: 0.125rem; }
+        .profile-card .pc-stars { color: #FBBF24; font-size: 1rem; margin-top: 0.25rem; }
+
+        .status-badge { display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.25rem 0.625rem; border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 600; }
+        .status-badge.processing { background: #DBEAFE; color: #2563EB; }
+        .status-badge.completed { background: #D1FAE5; color: #059669; }
+        .status-badge.pending { background: #FEF3C7; color: #D97706; }
+
+        .empty-state { text-align: center; padding: 3rem 1rem; color: var(--text-muted); }
+        .empty-state i { font-size: 3rem; margin-bottom: 1rem; }
+        .empty-state p { font-size: 0.9375rem; }
+
+        @media (max-width: 640px) {
+            .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
+            .earning-grid { grid-template-columns: 1fr; }
+            .history-table th:nth-child(3), .history-table td:nth-child(3) { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+    <div id="floating-buttons"></div>
+    <div id="sticky-mobile-cta"></div>
+
+    <main>
+        <section class="page-header" style="padding:6rem 0 2.5rem;">
+            <div class="page-header-content" data-aos="fade-up">
+                <h1 class="page-title">ডেলিভারি রাইডার প্যানেল</h1>
+                <div class="page-breadcrumb">
+                    <a href="index.html">হোম</a>
+                    <span><i class="fas fa-chevron-right" style="font-size:0.625rem;"></i></span>
+                    <span>রাইডার প্যানেল</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rider Login -->
+        <section class="rider-section" id="loginSection">
+            <div class="container">
+                <div class="login-card" data-aos="fade-up">
+                    <div class="login-icon">🏍️</div>
+                    <h2>রাইডার লগইন</h2>
+                    <p>আপনার নাম ও ফোন নম্বর দিন — আপনার রাইডার আইডি জেনারেট হবে</p>
+                    <form id="riderLoginForm" onsubmit="riderLogin(event)">
+                        <div class="form-group" style="text-align:left;">
+                            <label class="form-label">আপনার নাম *</label>
+                            <input type="text" class="form-input" id="riderName" placeholder="আপনার পুরো নাম" required>
+                        </div>
+                        <div class="form-group" style="text-align:left;">
+                            <label class="form-label">মোবাইল নম্বর *</label>
+                            <input type="tel" class="form-input" id="riderPhone" placeholder="০১XXXXXXXXX" required>
+                        </div>
+                        <button type="submit" class="btn btn-lg btn-primary" style="width:100%;">
+                            <i class="fas fa-sign-in-alt"></i> লগইন / সাইন আপ
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rider Dashboard -->
+        <section class="rider-section" id="dashboardSection" style="display:none;">
+            <div class="container">
+
+                <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.75rem;margin-bottom:1rem;" data-aos="fade-up">
+                    <h2 style="font-size:1.25rem;font-weight:700;color:var(--text-dark);display:flex;align-items:center;gap:0.5rem;">
+                        <i class="fas fa-tachometer-alt" style="color:var(--primary);"></i> ড্যাশবোর্ড
+                    </h2>
+                    <button class="btn btn-sm btn-outline" onclick="riderLogout()" style="border-color:#DC2626;color:#DC2626;">
+                        <i class="fas fa-sign-out-alt"></i> লগআউট
+                    </button>
+                </div>
+
+                <div class="dashboard-grid" id="dashboardStats" data-aos="fade-up">
+                    <div class="stat-card">
+                        <div class="st-icon" style="background:#DBEAFE;color:#2563EB;"><i class="fas fa-calendar-day"></i></div>
+                        <div class="st-label">আজকের ডেলিভারি</div>
+                        <div class="st-value" id="todayDeliveries">০</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="st-icon" style="background:#D1FAE5;color:#059669;"><i class="fas fa-check-circle"></i></div>
+                        <div class="st-label">মোট ডেলিভারি</div>
+                        <div class="st-value" id="totalDeliveries">০</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="st-icon" style="background:#FEF3C7;color:#D97706;"><i class="fas fa-money-bill-wave"></i></div>
+                        <div class="st-label">আজকের আয়</div>
+                        <div class="st-value" id="todayEarnings">৳ ০</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="st-icon" style="background:#F3E8FF;color:#7C3AED;"><i class="fas fa-star"></i></div>
+                        <div class="st-label">রেটিং</div>
+                        <div class="st-value" id="riderRating">★ ৪.৮</div>
+                    </div>
+                </div>
+
+                <div class="section-card" data-aos="fade-up">
+                    <h2><i class="fas fa-truck" style="color:var(--primary);"></i> সক্রিয় ডেলিভারি</h2>
+                    <div id="activeDeliveries"></div>
+                    <div class="empty-state" id="activeEmpty" style="display:none;">
+                        <i class="fas fa-inbox"></i>
+                        <p>কোনো সক্রিয় ডেলিভারি নেই</p>
+                    </div>
+                </div>
+
+                <div class="section-card" data-aos="fade-up">
+                    <h2><i class="fas fa-history" style="color:var(--primary);"></i> ডেলিভারি ইতিহাস</h2>
+                    <div style="overflow-x:auto;">
+                        <table class="history-table">
+                            <thead>
+                                <tr>
+                                    <th>অর্ডার আইডি</th>
+                                    <th>গ্রাহক</th>
+                                    <th>ঠিকানা</th>
+                                    <th>তারিখ</th>
+                                    <th>পরিমাণ</th>
+                                    <th>স্ট্যাটাস</th>
+                                </tr>
+                            </thead>
+                            <tbody id="historyBody"></tbody>
+                        </table>
+                    </div>
+                    <div class="empty-state" id="historyEmpty" style="display:none;">
+                        <i class="fas fa-history"></i>
+                        <p>কোনো ডেলিভারি ইতিহাস নেই</p>
+                    </div>
+                </div>
+
+                <div class="section-card" data-aos="fade-up">
+                    <h2><i class="fas fa-coins" style="color:var(--primary);"></i> আয়ের সারাংশ</h2>
+                    <div class="earning-grid" id="earningsGrid">
+                        <div class="earning-item"><div class="ei-value" id="earnToday">৳ ০</div><div class="ei-label">আজকে</div></div>
+                        <div class="earning-item"><div class="ei-value" id="earnWeek">৳ ০</div><div class="ei-label">এই সপ্তাহে</div></div>
+                        <div class="earning-item"><div class="ei-value" id="earnMonth">৳ ০</div><div class="ei-label">এই মাসে</div></div>
+                    </div>
+                </div>
+
+                <div class="section-card" data-aos="fade-up">
+                    <h2><i class="fas fa-id-card" style="color:var(--primary);"></i> আপনার প্রোফাইল</h2>
+                    <div class="profile-card" id="profileContent"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+        function getRider() {
+            return JSON.parse(localStorage.getItem('rangpurseba_rider')) || null;
+        }
+
+        function saveRider(rider) {
+            localStorage.setItem('rangpurseba_rider', JSON.stringify(rider));
+        }
+
+        function getOrders() {
+            return JSON.parse(localStorage.getItem('rangpurseba_orders')) || [];
+        }
+
+        function saveOrders(orders) {
+            localStorage.setItem('rangpurseba_orders', JSON.stringify(orders));
+        }
+
+        function formatBDT(amount) {
+            return '৳ ' + Number(amount).toLocaleString('bn-BD');
+        }
+
+        function formatDate(iso) {
+            if (!iso) return '';
+            var d = new Date(iso);
+            return d.toLocaleDateString('bn-BD', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+        }
+
+        function generateRiderId() {
+            return 'RDR-' + Date.now().toString(36).toUpperCase() + Math.random().toString(36).substring(2, 5).toUpperCase();
+        }
+
+        function riderLogin(e) {
+            e.preventDefault();
+            var name = document.getElementById('riderName').value.trim();
+            var phone = document.getElementById('riderPhone').value.trim();
+
+            if (!name || !phone) {
+                alert('নাম ও ফোন নম্বর দিন');
+                return;
+            }
+
+            var existing = getRider();
+            if (existing) {
+                existing.name = name;
+                existing.phone = phone;
+                saveRider(existing);
+            } else {
+                var rider = {
+                    id: generateRiderId(),
+                    name: name,
+                    phone: phone,
+                    joinedAt: new Date().toISOString(),
+                    totalDeliveries: 0,
+                    rating: 4.8
+                };
+                saveRider(rider);
+            }
+
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('dashboardSection').style.display = 'block';
+            renderDashboard();
+            showRiderToast('স্বাগতম ' + name + '! আপনি লগইন করেছেন।');
+        }
+
+        function riderLogout() {
+            if (!confirm('লগআউট করবেন?')) return;
+            localStorage.removeItem('rangpurseba_rider');
+            document.getElementById('loginSection').style.display = 'block';
+            document.getElementById('dashboardSection').style.display = 'none';
+            document.getElementById('riderLoginForm').reset();
+        }
+
+        function renderDashboard() {
+            var rider = getRider();
+            if (!rider) return;
+
+            var orders = getOrders();
+            var now = new Date();
+            var todayStr = now.toISOString().split('T')[0];
+
+            var processing = orders.filter(function(o) { return o.status === 'Processing'; });
+            var completed = orders.filter(function(o) { return o.status === 'Completed'; });
+            var todayCompleted = completed.filter(function(o) { return o.createdAt && o.createdAt.split('T')[0] === todayStr; });
+
+            var todayEarnings = 0;
+            todayCompleted.forEach(function(o) { todayEarnings += Number(o.total) || 0; });
+
+            var weekEarnings = 0;
+            var weekAgo = new Date(now);
+            weekAgo.setDate(weekAgo.getDate() - 7);
+            completed.forEach(function(o) {
+                if (o.createdAt) {
+                    var d = new Date(o.createdAt);
+                    if (d >= weekAgo) weekEarnings += Number(o.total) || 0;
+                }
+            });
+
+            var monthEarnings = 0;
+            var monthAgo = new Date(now);
+            monthAgo.setMonth(monthAgo.getMonth() - 1);
+            completed.forEach(function(o) {
+                if (o.createdAt) {
+                    var d = new Date(o.createdAt);
+                    if (d >= monthAgo) monthEarnings += Number(o.total) || 0;
+                }
+            });
+
+            var deliveryFee = 30;
+            document.getElementById('todayDeliveries').textContent = todayCompleted.length;
+            document.getElementById('totalDeliveries').textContent = completed.length;
+            document.getElementById('todayEarnings').textContent = formatBDT(todayCompleted.length * deliveryFee);
+            document.getElementById('riderRating').textContent = '★ ' + rider.rating;
+
+            document.getElementById('earnToday').textContent = formatBDT(todayCompleted.length * deliveryFee);
+            document.getElementById('earnWeek').textContent = formatBDT(Math.round(weekEarnings * 0.08));
+            document.getElementById('earnMonth').textContent = formatBDT(Math.round(monthEarnings * 0.08));
+
+            renderActiveDeliveries(processing);
+            renderHistory(completed);
+
+            renderProfile(rider);
+        }
+
+        function renderActiveDeliveries(orders) {
+            var container = document.getElementById('activeDeliveries');
+            var empty = document.getElementById('activeEmpty');
+
+            if (orders.length === 0) {
+                container.innerHTML = '';
+                empty.style.display = 'block';
+                return;
+            }
+            empty.style.display = 'none';
+
+            var html = '';
+            orders.forEach(function(o) {
+                var itemCount = o.items ? o.items.length : 0;
+                html += '<div class="delivery-card">';
+                html += '<div class="dc-icon"><i class="fas fa-box"></i></div>';
+                html += '<div class="dc-info">';
+                html += '<div class="dc-order-id">' + o.id + '</div>';
+                html += '<div class="dc-customer">' + o.customerName + '</div>';
+                html += '<div class="dc-detail">';
+                html += '<span><i class="fas fa-map-marker-alt"></i> ' + (o.address || 'ঠিকানা দেওয়া হয়নি') + '</span>';
+                html += '<span><i class="fas fa-box"></i> ' + itemCount + ' টি পণ্য</span>';
+                html += '<span>' + formatBDT(o.total) + '</span>';
+                html += '</div>';
+                html += '</div>';
+                html += '<div class="dc-actions">';
+                html += '<button class="btn btn-sm btn-primary" onclick="pickupComplete(\'' + o.id + '\')"><i class="fas fa-hand-paper"></i> পিকআপ</button>';
+                html += '<button class="btn btn-sm btn-secondary" onclick="deliveryComplete(\'' + o.id + '\')"><i class="fas fa-check-circle"></i> ডেলিভারি</button>';
+                html += '</div>';
+                html += '</div>';
+            });
+            container.innerHTML = html;
+        }
+
+        function renderHistory(orders) {
+            var tbody = document.getElementById('historyBody');
+            var empty = document.getElementById('historyEmpty');
+
+            if (orders.length === 0) {
+                tbody.innerHTML = '';
+                empty.style.display = 'block';
+                return;
+            }
+            empty.style.display = 'none';
+
+            var sorted = orders.slice().sort(function(a, b) {
+                return new Date(b.createdAt) - new Date(a.createdAt);
+            });
+
+            var html = '';
+            sorted.slice(0, 20).forEach(function(o) {
+                html += '<tr>';
+                html += '<td style="font-weight:600;color:var(--primary);font-size:0.8125rem;">' + o.id + '</td>';
+                html += '<td>' + (o.customerName || '-') + '</td>';
+                html += '<td style="font-size:0.8125rem;color:var(--text-light);max-width:150px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + (o.address || '-') + '</td>';
+                html += '<td style="font-size:0.8125rem;color:var(--text-light);white-space:nowrap;">' + formatDate(o.createdAt) + '</td>';
+                html += '<td style="font-weight:600;">' + formatBDT(o.total) + '</td>';
+                html += '<td><span class="status-badge completed">✅ সম্পন্ন</span></td>';
+                html += '</tr>';
+            });
+            tbody.innerHTML = html;
+        }
+
+        function renderProfile(rider) {
+            var container = document.getElementById('profileContent');
+            if (!rider) return;
+            var initial = rider.name.charAt(0);
+            var stars = '';
+            var fullStars = Math.floor(rider.rating);
+            for (var i = 0; i < fullStars; i++) stars += '<i class="fas fa-star"></i>';
+            if (rider.rating % 1 >= 0.5) stars += '<i class="fas fa-star-half-alt"></i>';
+
+            var html = '';
+            html += '<div class="pc-avatar">' + initial + '</div>';
+            html += '<div class="pc-info">';
+            html += '<div class="pc-name">' + rider.name + '</div>';
+            html += '<div class="pc-row"><i class="fas fa-phone" style="color:var(--primary);"></i> ' + rider.phone + '</div>';
+            html += '<div class="pc-row"><i class="fas fa-id-card" style="color:var(--primary);"></i> আইডি: ' + rider.id + '</div>';
+            html += '<div class="pc-row"><i class="fas fa-truck" style="color:var(--primary);"></i> মোট ডেলিভারি: ' + (getOrders().filter(function(o) { return o.status === 'Completed'; }).length) + ' টি</div>';
+            html += '<div class="pc-stars">' + stars + ' (' + rider.rating + ')</div>';
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        function pickupComplete(orderId) {
+            var orders = getOrders();
+            var order = orders.find(function(o) { return o.id === orderId; });
+            if (order) {
+                order.status = 'Completed';
+                order.updatedAt = new Date().toISOString();
+                saveOrders(orders);
+                renderDashboard();
+                showRiderToast('পিকআপ সম্পন্ন! অর্ডার ' + orderId + ' ডেলিভারির জন্য প্রস্তুত।');
+            }
+        }
+
+        function deliveryComplete(orderId) {
+            var orders = getOrders();
+            var order = orders.find(function(o) { return o.id === orderId; });
+            if (order) {
+                order.status = 'Completed';
+                order.updatedAt = new Date().toISOString();
+                saveOrders(orders);
+
+                var rider = getRider();
+                if (rider) {
+                    rider.totalDeliveries = (rider.totalDeliveries || 0) + 1;
+                    if (rider.rating < 5) rider.rating = Math.min(5, rider.rating + 0.01);
+                    rider.rating = Math.round(rider.rating * 10) / 10;
+                    saveRider(rider);
+                }
+
+                renderDashboard();
+                showRiderToast('ডেলিভারি সম্পন্ন হয়েছে! 🎉');
+            }
+        }
+
+        function showRiderToast(msg) {
+            var t = document.createElement('div');
+            t.style.cssText = 'position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:#0F172A;color:white;padding:0.75rem 1.5rem;border-radius:12px;font-size:0.9375rem;font-family:Hind Siliguri,sans-serif;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,0.2);display:flex;align-items:center;gap:0.5rem;opacity:0;transition:opacity 0.3s ease;pointer-events:none;';
+            t.innerHTML = '<i class="fas fa-check-circle" style="color:#22C55E;"></i> ' + msg;
+            document.body.appendChild(t);
+            requestAnimationFrame(function() { t.style.opacity = '1'; });
+            setTimeout(function() { t.style.opacity = '0'; setTimeout(function() { t.remove(); }, 300); }, 2500);
+        }
+
+        // Auto-login check
+        document.addEventListener('DOMContentLoaded', function() {
+            var rider = getRider();
+            if (rider) {
+                document.getElementById('loginSection').style.display = 'none';
+                document.getElementById('dashboardSection').style.display = 'block';
+                renderDashboard();
+            }
+            if (typeof AOS !== 'undefined') setTimeout(function() { AOS.refresh(); }, 200);
+        });
+    </script>
+</body>
+</html>

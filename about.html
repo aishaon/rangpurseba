@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>আমাদের সম্পর্কে | রংপুর সেবা - Rangpur Seba</title>
+    <meta name="description" content="রংপুর সেবা সম্পর্কে জানুন — আমাদের মিশন, ভিশন, ইতিহাস, টিম ও মূল্যবোধ। রংপুরের বিশ্বস্ত অনলাইন বাজার।">
+    <meta name="keywords" content="রংপুর সেবা, আমাদের সম্পর্কে, রংপুর অনলাইন বাজার, রংপুর গ্রোসারি ডেলিভারি, Rangpur Seba about">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="আমাদের সম্পর্কে | রংপুর সেবা - Rangpur Seba">
+    <meta property="og:description" content="রংপুর সেবা সম্পর্কে জানুন — আমাদের মিশন, ভিশন, ইতিহাস, টিম ও মূল্যবোধ।">
+    <meta property="og:image" content="https://rangpurseba.com/og-image.jpg">
+    <meta property="og:url" content="https://rangpurseba.comabout.html">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="bn_BD">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="আমাদের সম্পর্কে | রংপুর সেবা">
+    <meta name="twitter:description" content="রংপুর সেবা সম্পর্কে জানুন — আমাদের মিশন, ভিশন, ইতিহাস, টিম ও মূল্যবোধ।">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="icons/favicon.svg">
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .mission-vision-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        .mission-card, .vision-card { background: var(--bg-white); border-radius: var(--radius-xl); padding: 2.5rem; border: 1px solid var(--border); transition: var(--transition); position: relative; overflow: hidden; }
+        .mission-card:hover, .vision-card:hover { box-shadow: var(--shadow-xl); transform: translateY(-6px); }
+        .mission-card::before, .vision-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px; }
+        .mission-card::before { background: linear-gradient(90deg, var(--primary), var(--primary-light)); }
+        .vision-card::before { background: linear-gradient(90deg, var(--secondary), var(--secondary-light)); }
+        .mv-icon { width: 64px; height: 64px; border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; font-size: 1.75rem; margin-bottom: 1.25rem; }
+        .mission-card .mv-icon { background: var(--primary-bg); color: var(--primary); }
+        .vision-card .mv-icon { background: var(--secondary-bg); color: var(--secondary); }
+        .mv-title { font-size: 1.5rem; font-weight: 700; color: var(--text-dark); margin-bottom: 1rem; }
+        .mv-text { font-size: 0.9375rem; color: var(--text-light); line-height: 1.8; }
+
+        .story-section { background: var(--primary-bg); position: relative; overflow: hidden; }
+        .story-section::before { content: ''; position: absolute; top: -50%; right: -20%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(22,163,74,0.1), transparent 70%); border-radius: 50%; }
+        .story-content { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+        .story-image { width: 100%; aspect-ratio: 4/3; border-radius: var(--radius-xl); background: linear-gradient(135deg, var(--primary), var(--primary-dark)); display: flex; align-items: center; justify-content: center; font-size: 6rem; color: rgba(255,255,255,0.3); position: relative; overflow: hidden; }
+        .story-image::before { content: ''; position: absolute; inset: 0; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.05)" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,208C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom; background-size: cover; opacity: 0.3; }
+        .story-tag { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--bg-white); padding: 0.5rem 1.25rem; border-radius: var(--radius-full); font-size: 0.875rem; font-weight: 600; color: var(--primary); margin-bottom: 1.5rem; box-shadow: var(--shadow-sm); }
+        .story-title { font-size: 2rem; font-weight: 700; color: var(--text-dark); margin-bottom: 1.25rem; line-height: 1.3; }
+        .story-text { font-size: 0.9375rem; color: var(--text-light); line-height: 1.8; margin-bottom: 1rem; }
+
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; }
+        .team-card { background: var(--bg-white); border-radius: var(--radius-xl); padding: 2rem; text-align: center; border: 1px solid var(--border); transition: var(--transition); }
+        .team-card:hover { box-shadow: var(--shadow-xl); transform: translateY(-6px); border-color: transparent; }
+        .team-avatar { width: 96px; height: 96px; margin: 0 auto 1.25rem; border-radius: 50%; background: linear-gradient(135deg, var(--primary-bg), #DCFCE7); display: flex; align-items: center; justify-content: center; font-size: 2rem; color: var(--primary); border: 3px solid var(--primary-bg); transition: var(--transition); position: relative; }
+        .team-card:hover .team-avatar { border-color: var(--primary); transform: scale(1.05); }
+        .team-name { font-size: 1.125rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.25rem; }
+        .team-role { font-size: 0.875rem; color: var(--primary); font-weight: 600; margin-bottom: 0.75rem; }
+        .team-bio { font-size: 0.8125rem; color: var(--text-light); line-height: 1.6; }
+
+        .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+        .value-card { background: var(--bg-white); border-radius: var(--radius-xl); padding: 2rem; border: 1px solid var(--border); transition: var(--transition); text-align: center; }
+        .value-card:hover { box-shadow: var(--shadow-xl); transform: translateY(-6px); border-color: transparent; }
+        .value-icon { width: 72px; height: 72px; margin: 0 auto 1.25rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; transition: var(--transition); }
+        .value-card:nth-child(1) .value-icon { background: #F0FDF4; color: var(--primary); }
+        .value-card:nth-child(2) .value-icon { background: #FFF7ED; color: var(--secondary); }
+        .value-card:nth-child(3) .value-icon { background: #EFF6FF; color: #3B82F6; }
+        .value-card:nth-child(4) .value-icon { background: #FAF5FF; color: #8B5CF6; }
+        .value-card:hover .value-icon { transform: scale(1.1) rotate(-5deg); }
+        .value-title { font-size: 1.125rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.75rem; }
+        .value-desc { font-size: 0.875rem; color: var(--text-light); line-height: 1.7; }
+
+        .cta-about { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); position: relative; overflow: hidden; }
+        .cta-about::before { content: ''; position: absolute; inset: 0; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.05)" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,208C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom; background-size: cover; }
+        .cta-about-content { position: relative; z-index: 1; text-align: center; padding: 2rem 0; color: white; }
+        .cta-about-title { font-size: 2rem; font-weight: 700; margin-bottom: 1rem; }
+        .cta-about-text { font-size: 1.125rem; opacity: 0.9; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+        @media (max-width: 768px) {
+            .mission-vision-grid { grid-template-columns: 1fr; }
+            .story-content { grid-template-columns: 1fr; }
+            .story-image { aspect-ratio: 16/9; font-size: 4rem; }
+            .team-grid { grid-template-columns: repeat(2, 1fr); }
+            .values-grid { grid-template-columns: 1fr 1fr; }
+            .cta-about-title { font-size: 1.5rem; }
+        }
+        @media (max-width: 480px) {
+            .team-grid { grid-template-columns: 1fr; }
+            .values-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+    <div id="floating-buttons"></div>
+    <div id="sticky-mobile-cta"></div>
+
+    <main>
+
+        <!-- ===== PAGE HEADER ===== -->
+        <section class="page-header">
+            <div class="container">
+                <div class="page-header-content" data-aos="fade-up">
+                    <h1 class="page-title">আমাদের সম্পর্কে</h1>
+                    <nav class="page-breadcrumb">
+                        <a href="index.html">হোম</a>
+                        <span>/</span>
+                        <span>আমাদের সম্পর্কে</span>
+                    </nav>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== MISSION & VISION ===== -->
+        <section class="section" data-aos="fade-up">
+            <div class="container">
+                <h2 class="section-title">আমাদের <span class="gradient-text">মিশন ও ভিশন</span></h2>
+                <p class="section-subtitle">আমরা কেন কাজ করি এবং কোথায় পৌঁছাতে চাই</p>
+                <div class="mission-vision-grid">
+                    <div class="mission-card" data-aos="fade-right" data-aos-delay="100">
+                        <div class="mv-icon"><i class="fas fa-bullseye"></i></div>
+                        <h3 class="mv-title">আমাদের মিশন</h3>
+                        <p class="mv-text">রংপুরবাসীর দোরগোড়ায় পৌঁছে দেওয়া তাজা, মানসম্মত ও সাশ্রয়ী মূল্যের বাজার। আমরা প্রযুক্তি ও মানবিক সেবার সমন্বয়ে এমন একটি প্ল্যাটফর্ম তৈরি করতে চাই যেখানে যে কেউ খুব সহজেই তার প্রয়োজনীয় বাজার করতে পারে — সময়, খরচ ও শ্রম বাঁচিয়ে।</p>
+                        <p class="mv-text" style="margin-top: 1rem;">আমাদের লক্ষ্য প্রতিটি অর্ডার যেন হয় নির্ভুল, প্রতিটি পণ্য যেন হয় তাজা, এবং প্রতিটি গ্রাহক যেন থাকেন সন্তুষ্ট। আমরা বিশ্বাস করি সততা ও নিষ্ঠাই আমাদের সাফল্যের চাবিকাঠি।</p>
+                    </div>
+                    <div class="vision-card" data-aos="fade-left" data-aos-delay="200">
+                        <div class="mv-icon"><i class="fas fa-eye"></i></div>
+                        <h3 class="mv-title">আমাদের ভিশন</h3>
+                        <p class="mv-text">রংপুর সেবা হতে চায় বাংলাদেশের উত্তরাঞ্চলের সবচেয়ে বিশ্বস্ত ও নির্ভরযোগ্য অনলাইন বাজার সেবা। আমরা দেখতে চাই একটি দিন যেখানে রংপুরের প্রতিটি বাড়িতে পৌঁছে যাবে আমাদের সেবা — শহর থেকে গ্রাম, সবার জন্যই সমানভাবে accessible একটি ডিজিটাল বাজার।</p>
+                        <p class="mv-text" style="margin-top: 1rem;">আমরা স্বপ্ন দেখি একটি স্বনির্ভর ইকোসিস্টেমের যেখানে স্থানীয় কৃষক, মাছচাষি ও উদ্যোক্তারা আমাদের প্ল্যাটফর্মের মাধ্যমে তাদের পণ্য সরাসরি ভোক্তাদের কাছে পৌঁছে দিতে পারবেন।</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== STORY ===== -->
+        <section class="section story-section" data-aos="fade-up">
+            <div class="container">
+                <div class="story-content">
+                    <div class="story-image" data-aos="fade-right">
+                        <i class="fas fa-shopping-basket"></i>
+                    </div>
+                    <div data-aos="fade-left" data-aos-delay="100">
+                        <div class="story-tag"><i class="fas fa-book-open"></i> আমাদের যাত্রা</div>
+                        <h2 class="story-title">কিভাবে <span class="gradient-text">রংপুর সেবা</span> শুরু হলো</h2>
+                        <p class="story-text">২০২৪ সালের শুরুর দিকে, রংপুর শহরের কয়েকজন তরুণ উদ্যোক্তা লক্ষ্য করলেন যে ব্যস্ত জীবনযাত্রার কারণে অনেক পরিবারই নিয়মিত বাজার করতে পারেন না। বিশেষ করে চাকরিজীবী দম্পতি, প্রবীণ নাগরিক এবং ছোটখাটো ব্যবসায়ীদের জন্য বাজারে যাওয়া একটি বড় চ্যালেঞ্জ হয়ে দাঁড়িয়েছে।</p>
+                        <p class="story-text">তখনই জন্ম হয় "রংপুর সেবা"-র। শুরুটা ছিল খুব ছোট — মাত্র কয়েকটি পরিবারের জন্য WhatsApp গ্রুপের মাধ্যমে বাজার সরবরাহ। গ্রাহকের সংখ্যা বাড়তে থাকলে আমরা বুঝতে পারি যে এই সেবার ব্যাপক চাহিদা রয়েছে। ধীরে ধীরে আমরা আমাদের টিম বাড়াই, ডেলিভারি এলাকা সম্প্রসারণ করি এবং একটি সুশৃঙ্খল অর্ডার ম্যানেজমেন্ট সিস্টেম গড়ে তুলি।</p>
+                        <p class="story-text">আজ আমরা রংপুর সদর, হাজিরহাট, বেগমগঞ্জ, মধুপুর, পীরগাছা, কাউনিয়াসহ একাধিক এলাকায় সেবা প্রদান করছি। আমাদের লক্ষ্য — প্রতিদিন আরও বেশি মানুষের কাছে পৌঁছানো, আরও বেশি মুখে হাসি ফোটানো।</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== TEAM ===== -->
+        <section class="section" data-aos="fade-up">
+            <div class="container">
+                <h2 class="section-title">আমাদের <span class="gradient-text">টিম</span></h2>
+                <p class="section-subtitle">যারা নিরলসভাবে কাজ করে যাচ্ছেন আপনার সেবায়</p>
+                <div class="team-grid">
+                    <div class="team-card" data-aos="zoom-in" data-aos-delay="0">
+                        <div class="team-avatar"><i class="fas fa-user-tie"></i></div>
+                        <h3 class="team-name">আব্দুর রহিম</h3>
+                        <div class="team-role">প্রতিষ্ঠাতা ও সিইও</div>
+                        <p class="team-bio">রংপুর সেবার প্রতিষ্ঠাতা। অনলাইন মার্কেটপ্লেস ও ডিজিটাল সেবায় ৮ বছরের অভিজ্ঞতা। রংপুরের মানুষের জন্য ডিজিটাল বাজার আনার স্বপ্ন দেখেন।</p>
+                    </div>
+                    <div class="team-card" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="team-avatar"><i class="fas fa-user-tie"></i></div>
+                        <h3 class="team-name">সাবরিনা আক্তার</h3>
+                        <div class="team-role">অপারেশন ম্যানেজার</div>
+                        <p class="team-bio">প্রতিদিনের অর্ডার ম্যানেজমেন্ট, গ্রাহক সেবা ও ডেলিভারি অপারেশনের দায়িত্বে। নারী উদ্যোক্তা হিসেবে রংপুর সেবায় গুরুত্বপূর্ণ ভূমিকা রাখছেন।</p>
+                    </div>
+                    <div class="team-card" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="team-avatar"><i class="fas fa-user-tie"></i></div>
+                        <h3 class="team-name">মোঃ ইbrahim হোসেন</h3>
+                        <div class="team-role">সাপ্লাই চেইন হেড</div>
+                        <p class="team-bio">স্থানীয় কৃষক ও পাইকারদের সাথে সমন্বয় করে তাজা পণ্য সংগ্রহের কাজ করেন। সরবরাহ চেইন ম্যানেজমেন্টে দক্ষ।</p>
+                    </div>
+                    <div class="team-card" data-aos="zoom-in" data-aos-delay="300">
+                        <div class="team-avatar"><i class="fas fa-user-tie"></i></div>
+                        <h3 class="team-name">ফাতেমা বেগম</h3>
+                        <div class="team-role">গ্রাহক সেবা প্রধান</div>
+                        <p class="team-bio">গ্রাহকদের সাথে সরাসরি যোগাযোগ, অর্ডার কনফার্মেশন ও সাপোর্টের দায়িত্বে। গ্রাহক সন্তুষ্টিই তার মূল মন্ত্র।</p>
+                    </div>
+                    <div class="team-card" data-aos="zoom-in" data-aos-delay="400">
+                        <div class="team-avatar"><i class="fas fa-user-tie"></i></div>
+                        <h3 class="team-name">মোঃ জাকির হোসেন</h3>
+                        <div class="team-role">ডেলিভারি কো-অর্ডিনেটর</div>
+                        <p class="team-bio">ডেলিভারি রাইডারদের সমন্বয় ও সময়মতো ডেলিভারি নিশ্চিত করার দায়িত্বে। ফাস্ট ও রিলায়েবল ডেলিভারি তার টিমের মূল শক্তি।</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== VALUES ===== -->
+        <section class="section" style="background: var(--primary-bg);" data-aos="fade-up">
+            <div class="container">
+                <h2 class="section-title">আমাদের <span class="gradient-text">মূল্যবোধ</span></h2>
+                <p class="section-subtitle">যে নীতিগুলো আমাদের পথ দেখায়</p>
+                <div class="values-grid">
+                    <div class="value-card" data-aos="fade-up" data-aos-delay="0">
+                        <div class="value-icon"><i class="fas fa-shield-alt"></i></div>
+                        <h3 class="value-title">সততা ও নিষ্ঠা</h3>
+                        <p class="value-desc">আমরা বিশ্বাস করি সততা ব্যবসার মূল ভিত্তি। পণ্যের মান, ওজন ও মূল্য সম্পর্কে আমরা গ্রাহকদের সাথে সম্পূর্ণ স্বচ্ছ। আমরা যা প্রতিশ্রুতি দিই, তা রাখি।</p>
+                    </div>
+                    <div class="value-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="value-icon"><i class="fas fa-leaf"></i></div>
+                        <h3 class="value-title">মানসম্মত পণ্য</h3>
+                        <p class="value-desc">প্রতিদিন সকালে বাজার থেকে তাজা পণ্য সংগ্রহ করা হয়। নিম্নমানের পণ্য আমরা কখনই গ্রহণ করি না। ফ্রেশনেসই আমাদের প্রথম অগ্রাধিকার।</p>
+                    </div>
+                    <div class="value-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="value-icon"><i class="fas fa-heart"></i></div>
+                        <h3 class="value-title">গ্রাহক প্রথম</h3>
+                        <p class="value-desc">আমাদের প্রতিটি সিদ্ধান্তের কেন্দ্রে রয়েছেন আমাদের গ্রাহক। তাদের সুবিধা, সন্তুষ্টি ও বিশ্বাস আমাদের কাছে সবচেয়ে গুরুত্বপূর্ণ। ২৪/৭ সাপোর্ট নিশ্চিত।</p>
+                    </div>
+                    <div class="value-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="value-icon"><i class="fas fa-lightbulb"></i></div>
+                        <h3 class="value-title">উদ্ভাবন ও উন্নতি</h3>
+                        <p class="value-desc">আমরা ক্রমাগত শিখছি এবং উন্নতি করছি। নতুন প্রযুক্তি, ভালো প্রক্রিয়া এবং গ্রাহকের ফিডব্যাককে কাজে লাগিয়ে প্রতিদিন আরও ভালো হওয়ার চেষ্টা করি।</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== CTA ===== -->
+        <section class="section cta-about" data-aos="fade-up">
+            <div class="container">
+                <div class="cta-about-content">
+                    <h2 class="cta-about-title" data-aos="fade-up">আজই আপনার প্রথম অর্ডার দিন</h2>
+                    <p class="cta-about-text" data-aos="fade-up" data-aos-delay="100">আমাদের টিম আপনার বাজারের লিস্ট নিয়ে প্রস্তুত। WhatsApp এ মেসেজ দিন, আমরা বাকিটা দেখব। ক্যাশ অন ডেলিভারি — সম্পূর্ণ নিরাপদ ও বিশ্বস্ত।</p>
+                    <div data-aos="fade-up" data-aos-delay="200">
+                        <a href="https://wa.me/8801700000000" target="_blank" class="btn btn-lg btn-secondary" style="font-size: 1.125rem;">
+                            <i class="fab fa-whatsapp"></i> WhatsApp এ অর্ডার করুন
+                        </a>
+                        <a href="https://m.me/RangpurSeba" target="_blank" class="btn btn-lg btn-white" style="margin-left: 1rem;">
+                            <i class="fab fa-facebook-messenger"></i> Messenger
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/main.js"></script>
+
+</body>
+</html>

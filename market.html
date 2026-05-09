@@ -1,0 +1,1863 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>বাজার | রংপুর সেবা - Rangpur Seba</title>
+    <meta name="description" content="রংপুর সেবা অনলাইন বাজার — তাজা সবজি, মাছ, মাংস, মুদি ও অন্যান্য নিত্যপ্রয়োজনীয় পণ্য। কার্টে যোগ করে সম্পূর্ণ লিস্ট WhatsApp/Facebook এ পাঠান।">
+    <meta name="keywords" content="রংপুর অনলাইন বাজার, সবজি, মাছ, মাংস, মুদি বাজার, Rangpur grocery, অনলাইন কাঁচা বাজার">
+
+    <meta property="og:title" content="বাজার | রংপুর সেবা">
+    <meta property="og:description" content="তাজা সবজি, মাছ, মাংস ও মুদি — ঘরে বসেই অর্ডার করুন। কার্টে যোগ করে লিস্ট পাঠান।">
+    <meta property="og:image" content="https://rangpurseba.com/og-image.jpg">
+    <meta property="og:url" content="https://rangpurseba.com/market.html">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="bn_BD">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="বাজার | রংপুর সেবা">
+    <meta name="twitter:description" content="তাজা সবজি, মাছ, মাংস ও মুদি — ঘরে বসেই অর্ডার করুন।">
+
+    <link rel="icon" type="image/svg+xml" href="icons/favicon.svg">
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.25rem; }
+        @media (max-width: 480px) { .product-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; } }
+        .filter-bar { position: sticky; top: 80px; z-index: 10; padding: 1.5rem 0 0.5rem; background: var(--bg); }
+        .category-tabs-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+        .category-tabs-wrap::-webkit-scrollbar { display: none; }
+        .search-bar { max-width: 600px; margin: 0 auto 1.5rem; }
+        .product-count { text-align: center; font-size: 0.9375rem; color: var(--text-light); margin-bottom: 1.5rem; }
+        .product-card .product-image { background: linear-gradient(135deg, var(--primary-bg), #DCFCE7); cursor: pointer; }
+        .product-card:hover .product-image { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); }
+        .product-card:hover .product-image .product-emoji { transform: scale(1.15) rotate(-5deg); }
+        .product-emoji { font-size: 4rem; transition: var(--transition); }
+        .skeleton-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.25rem; }
+        @media (max-width: 480px) { .skeleton-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; } }
+        .skeleton-card { background: var(--bg-white); border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border); }
+        .no-products { text-align: center; padding: 4rem 0; font-size: 1.125rem; color: var(--text-light); display: none; }
+        .no-products.visible { display: block; }
+        .add-to-cart-btn { width: 100%; margin-top: 0.75rem; cursor: pointer; }
+        .added-to-cart { background: var(--primary) !important; color: white !important; border-color: var(--primary) !important; pointer-events: none; }
+        .added-to-cart i { margin-right: 0.375rem; }
+        @keyframes cartBounce { 0% { transform: scale(1); } 50% { transform: scale(1.3); } 100% { transform: scale(1); } }
+        .cart-badge-pulse { animation: cartBounce 0.3s ease; }
+
+        /* ===== CART PANEL ===== */
+        .cart-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 2000;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+        }
+        .cart-overlay.active { opacity: 1; pointer-events: all; }
+
+        .cart-panel {
+            position: fixed; top: 0; right: -420px; width: 400px; max-width: 100vw; height: 100vh;
+            background: var(--bg-white); z-index: 2001;
+            display: flex; flex-direction: column;
+            transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: -8px 0 30px rgba(0,0,0,0.12);
+        }
+        .cart-panel.active { right: 0; }
+
+        .cart-header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+        .cart-header h3 { font-size: 1.25rem; font-weight: 700; color: var(--text-dark); display: flex; align-items: center; gap: 0.5rem; }
+        .cart-close {
+            width: 36px; height: 36px; border: none; background: var(--bg); border-radius: 50%;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            font-size: 1rem; color: var(--text-body); transition: var(--transition);
+        }
+        .cart-close:hover { background: #FEE2E2; color: #DC2626; }
+
+        .cart-items {
+            flex: 1; overflow-y: auto; padding: 1rem 1.5rem;
+        }
+        .cart-empty {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            height: 100%; color: var(--text-muted); text-align: center;
+        }
+        .cart-empty i { font-size: 4rem; margin-bottom: 1rem; color: var(--border); }
+        .cart-empty p { font-size: 1rem; }
+
+        .cart-item {
+            display: flex; gap: 0.75rem; padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .cart-item-emoji {
+            width: 48px; height: 48px; background: var(--primary-bg); border-radius: var(--radius-md);
+            display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;
+        }
+        .cart-item-info { flex: 1; min-width: 0; }
+        .cart-item-name { font-weight: 600; color: var(--text-dark); font-size: 0.9375rem; }
+        .cart-item-unit { font-size: 0.8125rem; color: var(--text-light); }
+        .cart-item-price { font-weight: 700; color: var(--primary); font-size: 1rem; margin-top: 0.25rem; }
+
+        .cart-item-actions {
+            display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem;
+        }
+        .cart-qty-btn {
+            width: 32px; height: 32px; border: 1px solid var(--border); border-radius: 50%;
+            background: var(--bg-white); cursor: pointer; display: flex; align-items: center; justify-content: center;
+            font-size: 0.8125rem; color: var(--text-body); transition: var(--transition);
+        }
+        .cart-qty-btn:hover { border-color: var(--primary); color: var(--primary); }
+        .cart-qty-btn.minus:hover:not(:disabled) { border-color: #DC2626; color: #DC2626; }
+        .cart-qty-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+        .cart-qty { font-weight: 600; font-size: 1rem; min-width: 24px; text-align: center; color: var(--text-dark); }
+        .cart-item-remove {
+            width: 28px; height: 28px; border: none; background: transparent; cursor: pointer;
+            color: var(--text-muted); font-size: 0.8125rem; transition: var(--transition); margin-left: auto;
+        }
+        .cart-item-remove:hover { color: #DC2626; }
+
+        .cart-footer {
+            border-top: 1px solid var(--border); padding: 1.25rem 1.5rem; flex-shrink: 0;
+            background: var(--bg-white);
+        }
+        .cart-total-row {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0.5rem 0; font-size: 0.9375rem;
+        }
+        .cart-total-row.total { border-top: 2px solid var(--border); padding-top: 0.75rem; margin-top: 0.25rem; font-weight: 700; font-size: 1.125rem; color: var(--text-dark); }
+        .cart-total-row.total .amount { color: var(--primary); font-size: 1.375rem; }
+
+        .cart-share-actions {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.75rem;
+        }
+        .cart-share-btn {
+            display: flex; align-items: center; justify-content: center; gap: 0.375rem;
+            padding: 0.625rem; border-radius: var(--radius-md); border: none; cursor: pointer;
+            font-family: var(--font-bn); font-size: 0.8125rem; font-weight: 600;
+            transition: var(--transition);
+        }
+        .cart-share-btn:hover { transform: translateY(-2px); }
+        .cart-share-btn.whatsapp { background: #E8F5E9; color: #075E54; }
+        .cart-share-btn.whatsapp:hover { background: #25D366; color: white; }
+        .cart-share-btn.facebook { background: #E3F2FD; color: #0078FF; }
+        .cart-share-btn.facebook:hover { background: #0078FF; color: white; }
+        .cart-share-btn.image { background: var(--secondary-bg); color: var(--secondary); }
+        .cart-share-btn.image:hover { background: var(--secondary); color: white; }
+        .cart-share-btn.copy { background: var(--primary-bg); color: var(--primary); }
+        .cart-share-btn.copy:hover { background: var(--primary); color: white; }
+        .cart-share-btn.full { grid-column: 1 / -1; }
+
+        /* Cart badge in header (injected by JS into the navbar) */
+        .cart-badge {
+            position: relative; display: inline-flex; align-items: center; gap: 0.25rem;
+            background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-full);
+            padding: 0.375rem 0.75rem; cursor: pointer; transition: var(--transition);
+            font-family: var(--font-bn); font-size: 0.8125rem; color: var(--text-dark); font-weight: 500;
+        }
+        .cart-badge:hover { border-color: var(--primary); color: var(--primary); }
+        .cart-badge i { color: var(--primary); font-size: 1rem; }
+        .cart-badge-count {
+            background: var(--primary); color: white; font-size: 0.6875rem; font-weight: 700;
+            width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            position: absolute; top: -6px; right: -6px;
+        }
+
+        /* Toast notification for add to cart */
+        .cart-toast {
+            position: fixed; bottom: 120px; right: 24px; z-index: 3000;
+            background: var(--text-dark); color: white; padding: 0.75rem 1.25rem;
+            border-radius: var(--radius-md); font-size: 0.875rem; font-family: var(--font-bn);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            opacity: 0; transform: translateY(20px); transition: all 0.3s ease;
+            pointer-events: none; display: flex; align-items: center; gap: 0.5rem;
+        }
+        .cart-toast.show { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 480px) {
+            .cart-panel { width: 100vw; }
+        }
+
+        /* ===== CHECKOUT MODAL ===== */
+        .checkout-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 3000;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+        }
+        .checkout-overlay.active { opacity: 1; pointer-events: all; }
+
+        .checkout-modal {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.9);
+            width: 480px; max-width: calc(100vw - 2rem); max-height: 90vh; overflow-y: auto;
+            background: var(--bg-white); border-radius: var(--radius-xl); z-index: 3001;
+            padding: 2rem; box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+            opacity: 0; pointer-events: none; transition: all 0.3s ease;
+        }
+        .checkout-modal.active { opacity: 1; pointer-events: all; transform: translate(-50%, -50%) scale(1); }
+
+        .checkout-modal h2 { font-size: 1.375rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.375rem; display: flex; align-items: center; gap: 0.5rem; }
+        .checkout-modal .subtitle { font-size: 0.875rem; color: var(--text-light); margin-bottom: 1.5rem; }
+        .checkout-modal .form-group { margin-bottom: 1rem; }
+        .checkout-modal label { display: block; font-weight: 600; color: var(--text-dark); font-size: 0.9375rem; margin-bottom: 0.375rem; }
+        .checkout-modal label .required { color: #DC2626; }
+        .checkout-modal input, .checkout-modal textarea {
+            width: 100%; padding: 0.75rem 1rem; border: 2px solid var(--border);
+            border-radius: var(--radius-md); font-family: var(--font-bn); font-size: 0.9375rem;
+            outline: none; transition: var(--transition); background: var(--bg);
+        }
+        .checkout-modal input:focus, .checkout-modal textarea:focus {
+            border-color: var(--primary); box-shadow: 0 0 0 3px rgba(22,163,74,0.12); background: var(--bg-white);
+        }
+        .checkout-modal textarea { resize: vertical; min-height: 70px; }
+        .checkout-modal .checkout-summary {
+            background: var(--primary-bg); border-radius: var(--radius-md); padding: 1rem;
+            margin-bottom: 1.25rem;
+        }
+        .checkout-modal .checkout-summary-row {
+            display: flex; justify-content: space-between; font-size: 0.875rem;
+            padding: 0.25rem 0; color: var(--text-body);
+        }
+        .checkout-modal .checkout-summary-row.total {
+            border-top: 1px solid rgba(22,163,74,0.2); margin-top: 0.375rem; padding-top: 0.5rem;
+            font-weight: 700; font-size: 1rem; color: var(--text-dark);
+        }
+        .checkout-modal .checkout-actions { display: flex; gap: 0.75rem; margin-top: 1.25rem; }
+        .checkout-modal .checkout-actions button { flex: 1; padding: 0.875rem; border-radius: var(--radius-md); font-family: var(--font-bn); font-size: 1rem; font-weight: 600; cursor: pointer; border: none; transition: var(--transition); }
+        .checkout-modal .btn-cancel { background: var(--bg); color: var(--text-body); }
+        .checkout-modal .btn-cancel:hover { background: var(--border); }
+        .checkout-modal .btn-submit { background: var(--primary); color: white; }
+        .checkout-modal .btn-submit:hover { background: var(--primary-dark); }
+        .checkout-modal .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+        .checkout-modal .form-error { color: #DC2626; font-size: 0.8125rem; margin-top: 0.25rem; display: none; }
+
+        .order-success {
+            text-align: center; padding: 1rem 0;
+        }
+        .order-success .success-icon {
+            width: 72px; height: 72px; background: var(--primary-bg); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 2rem; color: var(--primary);
+            margin: 0 auto 1rem;
+        }
+        .order-success h3 { font-size: 1.375rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.375rem; }
+        .order-success p { font-size: 0.9375rem; color: var(--text-light); margin-bottom: 0.25rem; }
+        .order-success .order-id { font-weight: 700; color: var(--primary); }
+        .order-success .share-btns { display: flex; gap: 0.75rem; justify-content: center; margin-top: 1.25rem; }
+        .order-success .share-btns a {
+            display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-full); font-family: var(--font-bn); font-weight: 600; font-size: 0.9375rem;
+            text-decoration: none; transition: var(--transition);
+        }
+        .order-success .share-btns a:hover { transform: translateY(-2px); }
+
+        /* ===== ORDER SUMMARY FOR EXPORT ===== */
+        .order-summary-export {
+            position: fixed; left: -9999px; top: 0;
+            width: 600px; background: white; padding: 2rem;
+            font-family: 'Hind Siliguri', 'Noto Sans Bengali', sans-serif;
+        }
+        .order-summary-export .export-header { text-align: center; border-bottom: 2px dashed var(--border); padding-bottom: 1rem; margin-bottom: 1rem; }
+        .order-summary-export .export-header h2 { color: var(--primary); font-size: 1.5rem; margin-bottom: 0.25rem; }
+        .order-summary-export .export-header p { color: var(--text-light); font-size: 0.875rem; }
+        .order-summary-export table { width: 100%; border-collapse: collapse; }
+        .order-summary-export th, .order-summary-export td { padding: 0.5rem; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.875rem; }
+        .order-summary-export th { background: var(--primary-bg); color: var(--primary); font-weight: 600; }
+        .order-summary-export .export-total { text-align: right; margin-top: 1rem; font-size: 1.125rem; font-weight: 700; color: var(--text-dark); }
+        .order-summary-export .export-footer { text-align: center; margin-top: 1.5rem; font-size: 0.8125rem; color: var(--text-light); border-top: 2px dashed var(--border); padding-top: 1rem; }
+
+        /* ===== EMERGENCY KITS ===== */
+        .emergency-section { margin-bottom: 2rem; }
+        .emergency-section .section-label { display: flex; align-items: center; gap: 0.5rem; font-size: 1.25rem; font-weight: 700; color: var(--text-dark); margin-bottom: 1rem; }
+        .emergency-scroll { display: flex; gap: 1rem; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 0.5rem; }
+        .emergency-scroll::-webkit-scrollbar { display: none; }
+        .emergency-card { min-width: 260px; max-width: 280px; border-radius: var(--radius-xl); padding: 1.5rem; color: white; flex-shrink: 0; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease; position: relative; overflow: hidden; }
+        .emergency-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.2); }
+        .emergency-card .kit-name { font-size: 1.125rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .emergency-card .kit-desc { font-size: 0.8125rem; opacity: 0.9; margin-bottom: 0.75rem; }
+        .emergency-card .kit-badge { display: inline-flex; align-items: center; gap: 0.25rem; background: rgba(255,255,255,0.2); padding: 0.25rem 0.625rem; border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 600; margin-bottom: 1rem; }
+        .emergency-card .kit-order-btn { display: inline-flex; align-items: center; gap: 0.375rem; background: rgba(255,255,255,0.25); border: 1px solid rgba(255,255,255,0.4); color: white; padding: 0.5rem 1.25rem; border-radius: var(--radius-full); font-family: var(--font-bn); font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; backdrop-filter: blur(4px); }
+        .emergency-card .kit-order-btn:hover { background: rgba(255,255,255,0.4); transform: scale(1.05); }
+
+        /* ===== RECIPE SECTION ===== */
+        .recipe-section { margin: 1.5rem 0 2rem; }
+        .recipe-section .section-label { display: flex; align-items: center; gap: 0.5rem; font-size: 1.25rem; font-weight: 700; color: var(--text-dark); margin-bottom: 1rem; }
+        .recipe-scroll { display: flex; gap: 1rem; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 0.5rem; }
+        .recipe-scroll::-webkit-scrollbar { display: none; }
+        .recipe-card { min-width: 200px; max-width: 220px; background: var(--bg-white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; flex-shrink: 0; cursor: pointer; transition: all 0.3s ease; text-align: center; }
+        .recipe-card:hover { border-color: var(--primary); box-shadow: 0 8px 24px rgba(22,163,74,0.12); transform: translateY(-3px); }
+        .recipe-card .recipe-emoji { font-size: 2.5rem; margin-bottom: 0.5rem; display: block; }
+        .recipe-card .recipe-name { font-weight: 700; color: var(--text-dark); font-size: 0.9375rem; margin-bottom: 0.375rem; }
+        .recipe-card .recipe-items { font-size: 0.8125rem; color: var(--text-light); margin-bottom: 0.75rem; }
+        .recipe-card .recipe-add-btn { display: inline-flex; align-items: center; gap: 0.375rem; background: var(--primary); color: white; border: none; padding: 0.5rem 1rem; border-radius: var(--radius-full); font-family: var(--font-bn); font-size: 0.8125rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; }
+        .recipe-card .recipe-add-btn:hover { background: var(--primary-dark); transform: scale(1.05); }
+
+        /* ===== MEAL PLANNER ===== */
+        .meal-section { margin-bottom: 2rem; }
+        .meal-section .section-label { display: flex; align-items: center; gap: 0.5rem; font-size: 1.25rem; font-weight: 700; color: var(--text-dark); margin-bottom: 1rem; }
+        .meal-scroll { display: flex; gap: 1rem; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 0.5rem; }
+        .meal-scroll::-webkit-scrollbar { display: none; }
+        .meal-card { min-width: 300px; max-width: 340px; background: var(--bg-white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; flex-shrink: 0; }
+        .meal-card .meal-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
+        .meal-card .meal-header .meal-emoji { font-size: 1.75rem; }
+        .meal-card .meal-header .meal-title { font-weight: 700; color: var(--text-dark); font-size: 1rem; }
+        .meal-card .meal-days { display: grid; gap: 0.375rem; margin-bottom: 0.75rem; }
+        .meal-card .meal-day { font-size: 0.8125rem; color: var(--text-body); display: flex; gap: 0.375rem; }
+        .meal-card .meal-day .day-name { font-weight: 600; color: var(--text-dark); min-width: 3.5rem; }
+        .meal-card .meal-day .day-meals { color: var(--text-light); }
+        .meal-card .meal-add-btn { display: inline-flex; align-items: center; gap: 0.375rem; background: var(--primary); color: white; border: none; padding: 0.5rem 1.25rem; border-radius: var(--radius-full); font-family: var(--font-bn); font-size: 0.8125rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; width: 100%; justify-content: center; }
+        .meal-card .meal-add-btn:hover { background: var(--primary-dark); }
+
+        /* ===== EVENT SECTION ===== */
+        .event-section { margin: 1.5rem 0 2rem; }
+        .event-section .section-label { display: flex; align-items: center; gap: 0.5rem; font-size: 1.25rem; font-weight: 700; color: var(--text-dark); margin-bottom: 1rem; }
+        .event-scroll { display: flex; gap: 1rem; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 0.5rem; flex-wrap: nowrap; }
+        .event-scroll::-webkit-scrollbar { display: none; }
+        .event-card { min-width: 240px; max-width: 280px; border-radius: var(--radius-xl); padding: 1.25rem; flex-shrink: 0; cursor: pointer; transition: all 0.3s ease; color: white; position: relative; overflow: hidden; }
+        .event-card::before { content: ''; position: absolute; inset: 0; background: rgba(255,255,255,0.08); border-radius: inherit; pointer-events: none; }
+        .event-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.2); }
+        .event-card .event-emoji { font-size: 2rem; margin-bottom: 0.5rem; display: block; }
+        .event-card .event-name { font-size: 1.125rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .event-card .event-desc { font-size: 0.8125rem; opacity: 0.9; margin-bottom: 0.75rem; }
+        .event-card .event-badge { display: inline-flex; align-items: center; gap: 0.25rem; background: rgba(255,255,255,0.2); padding: 0.25rem 0.625rem; border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 600; margin-bottom: 1rem; }
+        .event-card .event-order-btn { display: inline-flex; align-items: center; gap: 0.375rem; background: rgba(255,255,255,0.25); border: 1px solid rgba(255,255,255,0.4); color: white; padding: 0.5rem 1.25rem; border-radius: var(--radius-full); font-family: var(--font-bn); font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; backdrop-filter: blur(4px); }
+        .event-card .event-order-btn:hover { background: rgba(255,255,255,0.4); transform: scale(1.05); }
+    </style>
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+    <div id="floating-buttons"></div>
+    <div id="sticky-mobile-cta"></div>
+
+    <!-- ===== CART PANEL ===== -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <div class="cart-panel" id="cartPanel">
+        <div class="cart-header">
+            <h3><i class="fas fa-shopping-cart" style="color:var(--primary);"></i> আপনার কার্ট</h3>
+            <button class="cart-close" id="cartClose" aria-label="Close cart"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="cart-empty">
+                <i class="fas fa-shopping-basket"></i>
+                <p>আপনার কার্ট খালি</p>
+                <p style="font-size:0.8125rem; color:var(--text-muted); margin-top:0.25rem;">পণ্যে ক্লিক করে কার্টে যোগ করুন</p>
+            </div>
+        </div>
+        <div class="cart-footer" id="cartFooter" style="display:none;">
+            <div class="cart-total-row">
+                <span>পণ্যের সংখ্যা</span>
+                <span class="amount" id="cartItemCount">০ টি</span>
+            </div>
+            <div class="cart-total-row total">
+                <span>মোট মূল্য</span>
+                <span class="amount" id="cartTotal">৳ ০</span>
+            </div>
+            <div class="cart-share-actions">
+                <button class="cart-share-btn whatsapp" id="shareWhatsApp"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+                <button class="cart-share-btn facebook" id="shareFacebook"><i class="fab fa-facebook-messenger"></i> Messenger</button>
+                <button class="cart-share-btn image" id="shareImage"><i class="fas fa-image"></i> ছবি</button>
+                <button class="cart-share-btn copy" id="shareCopy"><i class="fas fa-copy"></i> কপি</button>
+                <button class="cart-share-btn copy full" id="shareClear" style="background:#FEE2E2;color:#DC2626;border:1px solid #FECACA;">
+                    <i class="fas fa-trash-alt"></i> কার্ট খালি করুন
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== CART TOAST ===== -->
+    <div class="cart-toast" id="cartToast"><i class="fas fa-check-circle" style="color:var(--primary-light);"></i> <span id="cartToastText">পণ্য কার্টে যোগ করা হয়েছে</span></div>
+
+    <!-- ===== CHECKOUT MODAL ===== -->
+    <div class="checkout-overlay" id="checkoutOverlay"></div>
+    <div class="checkout-modal" id="checkoutModal">
+        <div id="checkoutFormView">
+            <h2><i class="fas fa-clipboard-list" style="color:var(--primary);"></i> অর্ডার কনফার্ম করুন</h2>
+            <p class="subtitle">অর্ডারটি কনফার্ম করতে আপনার নাম, মোবাইল নম্বর ও ঠিকানা দিন</p>
+
+            <div class="checkout-summary" id="checkoutSummary"></div>
+
+            <div class="form-group">
+                <label>আপনার নাম <span class="required">*</span></label>
+                <input type="text" id="checkoutName" placeholder="আপনার পূর্ণ নাম লিখুন" required>
+                <div class="form-error" id="checkoutNameError">নাম দয়া করে লিখুন</div>
+            </div>
+
+            <div class="form-group">
+                <label>মোবাইল নম্বর <span class="required">*</span></label>
+                <input type="tel" id="checkoutMobile" placeholder="০১XXXXXXXXX" required>
+                <div class="form-error" id="checkoutMobileError">সঠিক মোবাইল নম্বর দিন</div>
+            </div>
+
+            <div class="form-group">
+                <label>ডেলিভারি ঠিকানা <span class="required">*</span></label>
+                <textarea id="checkoutAddress" placeholder="আপনার সম্পূর্ণ ঠিকানা লিখুন (এলাকা, রোড, বাড়ি নম্বর)" required></textarea>
+                <div class="form-error" id="checkoutAddressError">ঠিকানা দয়া করে লিখুন</div>
+            </div>
+
+            <div class="form-group">
+                <label>নোট (ঐচ্ছিক)</label>
+                <textarea id="checkoutNote" placeholder="কোনো বিশেষ নির্দেশনা থাকলে লিখুন..."></textarea>
+            </div>
+
+            <div class="checkout-actions">
+                <button class="btn-cancel" onclick="closeCheckout()">বাতিল</button>
+                <button class="btn-submit" id="checkoutSubmit" onclick="placeOrder()">✅ অর্ডার কনফার্ম করুন</button>
+            </div>
+        </div>
+
+        <div id="checkoutSuccessView" style="display:none;">
+            <div class="order-success">
+                <div class="success-icon"><i class="fas fa-check-circle"></i></div>
+                <h3>অর্ডার সফল হয়েছে! 🎉</h3>
+                <p>আপনার অর্ডার আইডি: <span class="order-id" id="successOrderId"></span></p>
+                <p style="margin-bottom:1.5rem;">আপনার অর্ডারটি <strong>Pending</strong> অবস্থায় রয়েছে। নিচের বাটনে ক্লিক করে আমাদেরকে জানান।</p>
+                <div class="share-btns">
+                    <a href="#" id="successWhatsApp" target="_blank" style="background:#E8F5E9;color:#075E54;"><i class="fab fa-whatsapp"></i> WhatsApp এ পাঠান</a>
+                    <a href="#" id="successMessenger" target="_blank" style="background:#E3F2FD;color:#0078FF;"><i class="fab fa-facebook-messenger"></i> Messenger</a>
+                </div>
+                <p style="margin-top:1rem;font-size:0.8125rem;color:var(--text-muted);">
+                    <i class="fas fa-info-circle"></i> অথবা <a href="orders.html" style="color:var(--primary);text-decoration:underline;">এখানে ক্লিক করে</a> আপনার অর্ডার দেখুন
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== HIDDEN EXPORT AREA ===== -->
+    <div class="order-summary-export" id="orderSummaryExport">
+        <div class="export-header">
+            <h2>🛒 রংপুর সেবা</h2>
+            <p>আপনার অর্ডার তালিকা</p>
+        </div>
+        <table id="exportTable">
+            <thead>
+                <tr><th>পণ্যের নাম</th><th>পরিমাণ</th><th>মূল্য</th><th>মোট</th></tr>
+            </thead>
+            <tbody id="exportBody"></tbody>
+        </table>
+        <div class="export-total" id="exportTotal"></div>
+        <div class="export-footer">
+            <p>রংপুর সেবা — ফেসবুক/WhatsApp এ অর্ডার করুন | 📞 01700-000000</p>
+        </div>
+    </div>
+
+    <main>
+        <!-- ===== PAGE HEADER ===== -->
+        <section class="page-header">
+            <div class="page-header-content" data-aos="fade-up">
+                <h1 class="page-title">বাজার</h1>
+                <div class="page-breadcrumb">
+                    <a href="index.html">হোম</a>
+                    <span><i class="fas fa-chevron-right" style="font-size:0.625rem;"></i></span>
+                    <span>বাজার</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== EMERGENCY KITS ===== -->
+        <section class="section emergency-section" style="padding: 1rem 0 0;">
+            <div class="container">
+                <div class="section-label"><i class="fas fa-bolt" style="color:#DC2626;"></i> জরুরি বাজার কিট</div>
+                <div class="emergency-scroll" id="emergencyScroll"></div>
+            </div>
+        </section>
+
+        <!-- ===== EVENT-BASED SHOPPING ===== -->
+        <section class="section event-section" style="padding: 0.5rem 0 0;" data-aos="fade-up">
+            <div class="container">
+                <div class="section-label"><i class="fas fa-calendar-alt" style="color:#E91E63;"></i> ইভেন্ট বাজার</div>
+                <div class="event-scroll" id="eventScroll"></div>
+            </div>
+        </section>
+
+        <!-- ===== MARKET SECTION ===== -->
+        <section class="section" style="padding-top: 2rem;">
+            <div class="container">
+
+                <!-- Voice + Search Bar -->
+                <div style="display:flex;gap:0.75rem;align-items:stretch;max-width:600px;margin:0 auto 1.5rem;" data-aos="fade-up">
+                    <div class="search-bar" style="flex:1;margin:0;">
+                        <input type="text" id="searchInput" placeholder="পণ্য খুঁজুন... (যেমন: আলু, মাছ, চাল)" aria-label="পণ্য খুঁজুন">
+                        <button type="button" id="searchBtn" aria-label="Search"><i class="fas fa-search"></i></button>
+                    </div>
+                    <button id="voiceBtn" class="btn btn-sm btn-secondary" style="border-radius:var(--radius-md);padding:0.75rem 1rem;flex-shrink:0;" title="ভয়েস সার্চ" onclick="startVoiceSearch()">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                </div>
+                <div id="voiceStatus" style="text-align:center;font-size:0.9375rem;color:var(--text-light);margin-bottom:1rem;display:none;">
+                    <i class="fas fa-spinner fa-spin" style="color:var(--primary);"></i> <span id="voiceStatusText">শুনছি... বলুন "আলু ২ কেজি, মাছ ১ কেজি"</span>
+                </div>
+
+                <!-- Category Tabs -->
+                <div class="filter-bar" data-aos="fade-up">
+                    <div class="category-tabs-wrap">
+                        <div class="category-tabs" id="categoryTabs">
+                            <button class="category-tab active" data-category="all">সবকিছু</button>
+                            <button class="category-tab" data-category="sabji">সবজি</button>
+                            <button class="category-tab" data-category="mach">মাছ</button>
+                            <button class="category-tab" data-category="mangsho">মাংস</button>
+                            <button class="category-tab" data-category="mudi">মুদি</button>
+                            <button class="category-tab" data-category="fol">ফল</button>
+                            <button class="category-tab" data-category="chal-tel">চাল-তেল</button>
+                            <button class="category-tab" data-category="snacks">স্ন্যাক্স</button>
+                            <button class="category-tab" data-category="dairy">ডেইরি</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recipe Based Ordering -->
+                <div class="recipe-section" data-aos="fade-up">
+                    <div class="section-label">🔥 রেসিপি অনুযায়ী বাজার করুন</div>
+                    <div class="recipe-scroll" id="recipeScroll"></div>
+                </div>
+
+                <!-- Weekly Meal Planner -->
+                <div class="meal-section" data-aos="fade-up">
+                    <div class="section-label">📅 সাপ্তাহিক খাবার পরিকল্পনা</div>
+                    <div class="meal-scroll" id="mealScroll"></div>
+                </div>
+
+                <!-- Product Count -->
+                <div class="product-count" id="productCount" data-aos="fade-up"></div>
+
+                <!-- Skeleton Loading -->
+                <div class="skeleton-grid" id="skeletonGrid">
+                    <div class="skeleton-card"><div class="skeleton" style="height:180px;border-radius:0;"></div><div style="padding:1rem;"><div class="skeleton" style="height:18px;width:70%;margin-bottom:0.5rem;"></div><div class="skeleton" style="height:14px;width:40%;margin-bottom:0.75rem;"></div><div class="skeleton" style="height:20px;width:50%;margin-bottom:0.5rem;"></div><div class="skeleton" style="height:36px;width:100%;border-radius:9999px;"></div></div></div>
+                    <div class="skeleton-card"><div class="skeleton" style="height:180px;border-radius:0;"></div><div style="padding:1rem;"><div class="skeleton" style="height:18px;width:65%;margin-bottom:0.5rem;"></div><div class="skeleton" style="height:14px;width:35%;margin-bottom:0.75rem;"></div><div class="skeleton" style="height:20px;width:45%;margin-bottom:0.5rem;"></div><div class="skeleton" style="height:36px;width:100%;border-radius:9999px;"></div></div></div>
+                    <div class="skeleton-card"><div class="skeleton" style="height:180px;border-radius:0;"></div><div style="padding:1rem;"><div class="skeleton" style="height:18px;width:75%;margin-bottom:0.5rem;"></div><div class="skeleton" style="height:14px;width:50%;margin-bottom:0.75rem;"></div><div class="skeleton" style="height:20px;width:55%;margin-bottom:0.5rem;"></div><div class="skeleton" style="height:36px;width:100%;border-radius:9999px;"></div></div></div>
+                    <div class="skeleton-card"><div class="skeleton" style="height:180px;border-radius:0;"></div><div style="padding:1rem;"><div class="skeleton" style="height:18px;width:60%;margin-bottom:0.5rem;"></div><div class="skeleton" style="height:14px;width:30%;margin-bottom:0.75rem;"></div><div class="skeleton" style="height:20px;width:50%;margin-bottom:0.5rem;"></div><div class="skeleton" style="height:36px;width:100%;border-radius:9999px;"></div></div></div>
+                </div>
+
+                <!-- Product Grid -->
+                <div class="product-grid" id="productGrid" style="display:none;">
+
+                    <!-- সবজি -->
+                    <div class="product-card" data-category="sabji" data-price="40" data-unit="১ কেজি" data-name="আলু (পটল)" data-emoji="🥔">
+                        <div class="product-image" onclick="addToCart(this)">
+                            <span class="product-offer-badge"><i class="fas fa-tag"></i> ১৫% ছাড়</span>
+                            <span class="product-emoji">🥔</span>
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name">আলু (পটল)</div>
+                            <div class="product-unit">১ কেজি</div>
+                            <div class="product-footer">
+                                <div class="product-price">৳ ৪০ <s>৳ ৪৮</s></div>
+                            </div>
+                            <button onclick="addToCart(this)" class="btn btn-sm btn-outline add-to-cart-btn">
+                                <i class="fas fa-plus"></i> কার্টে যোগ করুন
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="sabji" data-price="60" data-unit="১ কেজি" data-name="পেঁয়াজ" data-emoji="🧅">
+                        <div class="product-image" onclick="addToCart(this)">
+                            <span class="product-offer-badge"><i class="fas fa-fire"></i> হট</span>
+                            <span class="product-emoji">🧅</span>
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name">পেঁয়াজ</div>
+                            <div class="product-unit">১ কেজি</div>
+                            <div class="product-footer">
+                                <div class="product-price">৳ ৬০ <s>৳ ৭৫</s></div>
+                            </div>
+                            <button onclick="addToCart(this)" class="btn btn-sm btn-outline add-to-cart-btn">
+                                <i class="fas fa-plus"></i> কার্টে যোগ করুন
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="sabji" data-price="15" data-unit="১ বান্ডিল" data-name="লাল শাক" data-emoji="🥬">
+                        <div class="product-image" onclick="addToCart(this)">
+                            <span class="product-offer-badge"><i class="fas fa-tag"></i> ১০% ছাড়</span>
+                            <span class="product-emoji">🥬</span>
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name">লাল শাক</div>
+                            <div class="product-unit">১ বান্ডিল</div>
+                            <div class="product-footer">
+                                <div class="product-price">৳ ১৫ <s>৳ ১৮</s></div>
+                            </div>
+                            <button onclick="addToCart(this)" class="btn btn-sm btn-outline add-to-cart-btn">
+                                <i class="fas fa-plus"></i> কার্টে যোগ করুন
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="sabji" data-price="35" data-unit="১ কেজি" data-name="শসা" data-emoji="🥒">
+                        <div class="product-image" onclick="addToCart(this)">
+                            <span class="product-emoji">🥒</span>
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name">শসা</div>
+                            <div class="product-unit">১ কেজি</div>
+                            <div class="product-footer">
+                                <div class="product-price">৳ ৩৫</div>
+                            </div>
+                            <button onclick="addToCart(this)" class="btn btn-sm btn-outline add-to-cart-btn">
+                                <i class="fas fa-plus"></i> কার্টে যোগ করুন
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- মাছ -->
+                    <div class="product-card" data-category="mach" data-price="320" data-unit="১ কেজি" data-name="রুই মাছ" data-emoji="🐟">
+                        <div class="product-image" onclick="addToCart(this)">
+                            <span class="product-offer-badge"><i class="fas fa-tag"></i> ২০% ছাড়</span>
+                            <span class="product-emoji">🐟</span>
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name">রুই মাছ</div>
+                            <div class="product-unit">১ কেজি</div>
+                            <div class="product-footer">
+                                <div class="product-price">৳ ৩২০ <s>৳ ৪০০</s></div>
+                            </div>
+                            <button onclick="addToCart(this)" class="btn btn-sm btn-outline add-to-cart-btn">
+                                <i class="fas fa-plus"></i> কার্টে যোগ করুন
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="mach" data-price="250" data-unit="১ কেজি" data-name="তেলাপিয়া মাছ" data-emoji="🐠">
+                        <div class="product-image" onclick="addToCart(this)">
+                            <span class="product-emoji">🐠</span>
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name">তেলাপিয়া মাছ</div>
+                            <div class="product-unit">১ কেজি</div>
+                            <div class="product-footer">
+                                <div class="product-price">৳ ২৫০</div>
+                            </div>
+                            <button onclick="addToCart(this)" class="btn btn-sm btn-outline add-to-cart-btn">
+                                <i class="fas fa-plus"></i> কার্টে যোগ করুন
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="mach" data-price="450" data-unit="৫০০ গ্রাম" data-name="চিংড়ি মাছ (গলদা)" data-emoji="🦐">
+                        <div class="product-image" onclick="addToCart(this)">
+                            <span class="product-offer-badge"><i class="fas fa-fire"></i> হট</span>
+                            <span class="product-emoji">🦐</span>
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name">চিংড়ি মাছ (গলদা)</div>
+                            <div class="product-unit">৫০০ গ্রাম</div>
+                            <div class="product-footer">
+                                <div class="product-price">৳ ৪৫০ <s>৳ ৫২০</s></div>
+                            </div>
+                            <button onclick="addToCart(this)" class="btn btn-sm btn-outline add-to-cart-btn">
+                                <i class="fas fa-plus"></i> কার্টে যোগ করুন
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- মাংস -->
+                    <div class="product-card" data-category="mangsho" data-price="750" data-unit="১ কেজি" data-name="গরুর মাংস" data-emoji="🥩">
+                        <div class="product-image" onclick="addToCart(this)">
+                            <span class="product-offer-badge"><i class="fas fa-tag"></i> ১০% ছাড়</span>
+                            <span class="product-emoji">🥩</span>
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name">গরুর মাংস</div>
+                            <div class="product-unit">১ কেজি</div>
+                            <div class="product-footer">
+                                <div class="product-price">৳ ৭৫০ <s>৳ ৮২০</s></div>
+                            </div>
+                            <button onclick="addToCart(this)" class="btn btn-sm btn-outline add-to-cart-btn">
+                                <i class="fas fa-plus"></i> কার্টে যোগ করুন
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="mangsho" data-price="220" data-unit="১ কেজি" data-name="ব্রয়লার মুরগি" data-emoji="🍗">
+                        <div class="product-image" onclick="addToCart(this)">
+                            <span class="product-emoji">🍗</span>
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name">ব্রয়লার মুরগি</div>
+                            <div class="product-unit">১ কেজি</div>
+                            <div class="product-footer">
+                                <div class="product-price">৳ ২২০</div>
+                            </div>
+                            <button onclick="addToCart(this)" class="btn btn-sm btn-outline add-to-cart-btn">
+                                <i class="fas fa-plus"></i> কার্টে যোগ করুন
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="mangsho" data-price="1200" data-unit="১ কেজি" data-name="খাসির মাংস" data-emoji="🥩">
+                        <div class="product-image" onclick="addToCart(this)">
+                            <span class="product-offer-badge"><i class="fas fa-star"></i> স্পেশাল</span>
+                            <span class="product-emoji">🥩</span>
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name">খাসির মাংস</div>
+                            <div class="product-unit">১ কেজি</div>
+                            <div class="product-footer">
+                                <div class="product-price">৳ ১,২০০</div>
+                            </div>
+                            <button onclick="addToCart(this)" class="btn btn-sm btn-outline add-to-cart-btn">
+                                <i class="fas fa-plus"></i> কার্টে যোগ করুন
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- মুদি -->
+                    <div class="product-card" data-category="mudi" data-price="120" data-unit="১ কেজি" data-name="মসুর ডাল" data-emoji="🫘">
+                        <div class="product-image" onclick="addToCart(this)">
+                            <span class="product-offer-badge"><i class="fas fa-tag"></i> ৫% ছাড়</span>
+                            <span class="product-emoji">🫘</span>
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name">মসুর ডাল</div>
+                            <div class="product-unit">১ কেজি</div>
+                            <div class="product-footer">
+                                <div class="product-price">৳ ১২০ <s>৳ ১৩০</s></div>
+                            </div>
+                            <button onclick="addToCart(this)" class="btn btn-sm btn-outline add-to-cart-btn">
+                                <i class="fas fa-plus"></i> কার্টে যোগ করুন
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="mudi" data-price="45" data-unit="২৫০ গ্রাম" data-name="রসুন" data-emoji="🧄">
+                        <div class="product-image" onclick="addToCart(this)">
+                            <span class="product-emoji">🧄</span>
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name">রসুন</div>
+                            <div class="product-unit">২৫০ গ্রাম</div>
+                            <div class="product-footer">
+                                <div class="product-price">৳ ৪৫</div>
+                            </div>
+                            <button onclick="addToCart(this)" class="btn btn-sm btn-outline add-to-cart-btn">
+                                <i class="fas fa-plus"></i> কার্টে যোগ করুন
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ফল -->
+                    <div class="product-card" data-category="fol" data-price="60" data-unit="১ ডজন" data-name="চাঁপা কলা" data-emoji="🍌">
+                        <div class="product-image" onclick="addToCart(this)">
+                            <span class="product-offer-badge"><i class="fas fa-fire"></i> হট</span>
+                            <span class="product-emoji">🍌</span>
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name">চাঁপা কলা</div>
+                            <div class="product-unit">১ ডজন</div>
+                            <div class="product-footer">
+                                <div class="product-price">৳ ৬০ <s>৳ ৭৫</s></div>
+                            </div>
+                            <button onclick="addToCart(this)" class="btn btn-sm btn-outline add-to-cart-btn">
+                                <i class="fas fa-plus"></i> কার্টে যোগ করুন
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="fol" data-price="280" data-unit="১ কেজি" data-name="আপেল (লাল)" data-emoji="🍎">
+                        <div class="product-image" onclick="addToCart(this)">
+                            <span class="product-emoji">🍎</span>
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name">আপেল (লাল)</div>
+                            <div class="product-unit">১ কেজি</div>
+                            <div class="product-footer">
+                                <div class="product-price">৳ ২৮০</div>
+                            </div>
+                            <button onclick="addToCart(this)" class="btn btn-sm btn-outline add-to-cart-btn">
+                                <i class="fas fa-plus"></i> কার্টে যোগ করুন
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="fol" data-price="160" data-unit="১ কেজি" data-name="মাল্টা" data-emoji="🍊">
+                        <div class="product-image" onclick="addToCart(this)">
+                            <span class="product-offer-badge"><i class="fas fa-tag"></i> ১২% ছাড়</span>
+                            <span class="product-emoji">🍊</span>
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name">মাল্টা</div>
+                            <div class="product-unit">১ কেজি</div>
+                            <div class="product-footer">
+                                <div class="product-price">৳ ১৬০ <s>৳ ১৮০</s></div>
+                            </div>
+                            <button onclick="addToCart(this)" class="btn btn-sm btn-outline add-to-cart-btn">
+                                <i class="fas fa-plus"></i> কার্টে যোগ করুন
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- চাল-তেল -->
+                    <div class="product-card" data-category="chal-tel" data-price="450" data-unit="৫ কেজি" data-name="নাজিরশাইল চাল" data-emoji="🍚">
+                        <div class="product-image" onclick="addToCart(this)">
+                            <span class="product-offer-badge"><i class="fas fa-tag"></i> ৮% ছাড়</span>
+                            <span class="product-emoji">🍚</span>
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name">নাজিরশাইল চাল</div>
+                            <div class="product-unit">৫ কেজি</div>
+                            <div class="product-footer">
+                                <div class="product-price">৳ ৪৫০ <s>৳ ৪৯০</s></div>
+                            </div>
+                            <button onclick="addToCart(this)" class="btn btn-sm btn-outline add-to-cart-btn">
+                                <i class="fas fa-plus"></i> কার্টে যোগ করুন
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="chal-tel" data-price="175" data-unit="১ লিটার" data-name="সয়াবিন তেল" data-emoji="🫒">
+                        <div class="product-image" onclick="addToCart(this)">
+                            <span class="product-emoji">🫒</span>
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name">সয়াবিন তেল</div>
+                            <div class="product-unit">১ লিটার</div>
+                            <div class="product-footer">
+                                <div class="product-price">৳ ১৭৫</div>
+                            </div>
+                            <button onclick="addToCart(this)" class="btn btn-sm btn-outline add-to-cart-btn">
+                                <i class="fas fa-plus"></i> কার্টে যোগ করুন
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- স্ন্যাক্স -->
+                    <div class="product-card" data-category="snacks" data-price="45" data-unit="২০০ গ্রাম" data-name="বিস্কুট (প্যাকেট)" data-emoji="🍪">
+                        <div class="product-image" onclick="addToCart(this)">
+                            <span class="product-offer-badge"><i class="fas fa-gift"></i> বিস্কুট ফ্রি</span>
+                            <span class="product-emoji">🍪</span>
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name">বিস্কুট (প্যাকেট)</div>
+                            <div class="product-unit">২০০ গ্রাম</div>
+                            <div class="product-footer">
+                                <div class="product-price">৳ ৪৫ <s>৳ ৫৫</s></div>
+                            </div>
+                            <button onclick="addToCart(this)" class="btn btn-sm btn-outline add-to-cart-btn">
+                                <i class="fas fa-plus"></i> কার্টে যোগ করুন
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="snacks" data-price="30" data-unit="১০০ গ্রাম" data-name="বাদাম ভাজা" data-emoji="🥜">
+                        <div class="product-image" onclick="addToCart(this)">
+                            <span class="product-emoji">🥜</span>
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name">বাদাম ভাজা</div>
+                            <div class="product-unit">১০০ গ্রাম</div>
+                            <div class="product-footer">
+                                <div class="product-price">৳ ৩০</div>
+                            </div>
+                            <button onclick="addToCart(this)" class="btn btn-sm btn-outline add-to-cart-btn">
+                                <i class="fas fa-plus"></i> কার্টে যোগ করুন
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ডেইরি -->
+                    <div class="product-card" data-category="dairy" data-price="80" data-unit="১ লিটার" data-name="দুধ (ফ্রেশ)" data-emoji="🥛">
+                        <div class="product-image" onclick="addToCart(this)">
+                            <span class="product-offer-badge"><i class="fas fa-fire"></i> হট</span>
+                            <span class="product-emoji">🥛</span>
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name">দুধ (ফ্রেশ)</div>
+                            <div class="product-unit">১ লিটার</div>
+                            <div class="product-footer">
+                                <div class="product-price">৳ ৮০ <s>৳ ৯০</s></div>
+                            </div>
+                            <button onclick="addToCart(this)" class="btn btn-sm btn-outline add-to-cart-btn">
+                                <i class="fas fa-plus"></i> কার্টে যোগ করুন
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="dairy" data-price="120" data-unit="২০০ গ্রাম" data-name="পনির (চিজ)" data-emoji="🧀">
+                        <div class="product-image" onclick="addToCart(this)">
+                            <span class="product-emoji">🧀</span>
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name">পনির (চিজ)</div>
+                            <div class="product-unit">২০০ গ্রাম</div>
+                            <div class="product-footer">
+                                <div class="product-price">৳ ১২০</div>
+                            </div>
+                            <button onclick="addToCart(this)" class="btn btn-sm btn-outline add-to-cart-btn">
+                                <i class="fas fa-plus"></i> কার্টে যোগ করুন
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="dairy" data-price="54" data-unit="১২ পিস" data-name="ডিম (ফার্ম)" data-emoji="🥚">
+                        <div class="product-image" onclick="addToCart(this)">
+                            <span class="product-offer-badge"><i class="fas fa-tag"></i> ফ্রি ডেলিভারি</span>
+                            <span class="product-emoji">🥚</span>
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name">ডিম (ফার্ম)</div>
+                            <div class="product-unit">১২ পিস</div>
+                            <div class="product-footer">
+                                <div class="product-price">৳ ৫৪ <s>৳ ৬০</s></div>
+                            </div>
+                            <button onclick="addToCart(this)" class="btn btn-sm btn-outline add-to-cart-btn">
+                                <i class="fas fa-plus"></i> কার্টে যোগ করুন
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- No Products Message -->
+                <div class="no-products" id="noProducts">
+                    <i class="fas fa-search" style="font-size:3rem;color:var(--text-muted);margin-bottom:1rem;display:block;"></i>
+                    <p>কোনো পণ্য পাওয়া যায়নি। অন্য ক্যাটাগরি নির্বাচন করুন।</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ===== CTA BANNER ===== -->
+        <section class="section" style="background: linear-gradient(135deg, var(--primary), var(--primary-dark)); position:relative; overflow:hidden;">
+            <div style="position:absolute;inset:0;background:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1440 320%22><path fill=%22rgba(255,255,255,0.05)%22 d=%22M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,208C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z%22></path></svg>') no-repeat bottom;background-size:cover;"></div>
+            <div class="container" style="position:relative;z-index:1;text-align:center;" data-aos="fade-up">
+                <h2 style="font-size:clamp(1.5rem,3vw,2.25rem);font-weight:700;color:white;margin-bottom:0.75rem;">আপনার বাজারের তালিকা তৈরি করুন</h2>
+                <p style="font-size:1.0625rem;color:rgba(255,255,255,0.85);max-width:500px;margin:0 auto 1.5rem;">পণ্যে ক্লিক করে কার্টে যোগ করুন, তারপর সম্পূর্ণ লিস্ট WhatsApp/Facebook এ পাঠিয়ে দিন।</p>
+                <button onclick="openCart()" class="btn btn-lg btn-secondary">
+                    <i class="fas fa-shopping-cart"></i> কার্ট খুলুন
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/loyalty.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var skeletonGrid = document.getElementById('skeletonGrid');
+        var productGrid = document.getElementById('productGrid');
+        var searchInput = document.getElementById('searchInput');
+        var searchBtn = document.getElementById('searchBtn');
+        var productCount = document.getElementById('productCount');
+        var noProducts = document.getElementById('noProducts');
+
+        setTimeout(function() {
+            if (skeletonGrid) skeletonGrid.style.display = 'none';
+            if (productGrid) productGrid.style.display = 'grid';
+            updateProductCount();
+        }, 800);
+
+        function updateProductCount() {
+            var products = productGrid.querySelectorAll('.product-card');
+            var count = 0;
+            products.forEach(function(p) {
+                if (p.style.display !== 'none') count++;
+            });
+            if (productCount) productCount.innerHTML = '<i class="fas fa-box" style="margin-right:0.375rem;"></i> মোট ' + count + ' টি পণ্য';
+            if (noProducts) noProducts.classList.toggle('visible', count === 0);
+        }
+
+        var tabs = document.querySelectorAll('.category-tab');
+        tabs.forEach(function(tab) {
+            tab.addEventListener('click', function() {
+                tabs.forEach(function(t) { t.classList.remove('active'); });
+                this.classList.add('active');
+                var category = this.getAttribute('data-category');
+                var products = productGrid.querySelectorAll('.product-card');
+                products.forEach(function(p) {
+                    p.style.display = (category === 'all' || p.getAttribute('data-category') === category) ? 'block' : 'none';
+                });
+                updateProductCount();
+            });
+        });
+
+        function searchProducts() {
+            var query = searchInput.value.trim().toLowerCase();
+            var products = productGrid.querySelectorAll('.product-card');
+            var hasVisible = false;
+            products.forEach(function(p) {
+                var name = (p.querySelector('.product-name') || {}).textContent || '';
+                if (!query || name.toLowerCase().includes(query)) {
+                    p.style.display = 'block';
+                    hasVisible = true;
+                } else {
+                    p.style.display = 'none';
+                }
+            });
+            tabs.forEach(function(t) { t.classList.remove('active'); });
+            document.querySelector('.category-tab[data-category="all"]').classList.add('active');
+            updateProductCount();
+        }
+
+        if (searchBtn) searchBtn.addEventListener('click', searchProducts);
+        if (searchInput) searchInput.addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') searchProducts();
+        });
+
+        // Inject cart button into navbar
+        var navActions = document.querySelector('.navbar .nav-actions');
+        if (navActions) {
+            var cartBadge = document.createElement('div');
+            cartBadge.className = 'cart-badge';
+            cartBadge.id = 'cartBadge';
+            cartBadge.setAttribute('onclick', 'toggleCart()');
+            cartBadge.innerHTML = '<i class="fas fa-shopping-cart"></i> <span id="cartBadgeText">কার্ট</span><span class="cart-badge-count" id="cartBadgeCount">0</span>';
+            navActions.insertBefore(cartBadge, navActions.querySelector('.hamburger'));
+        }
+
+        // Cart panel events
+        document.getElementById('cartOverlay').addEventListener('click', closeCart);
+        document.getElementById('cartClose').addEventListener('click', closeCart);
+        document.getElementById('shareWhatsApp').addEventListener('click', shareToWhatsApp);
+        document.getElementById('shareFacebook').addEventListener('click', shareToFacebook);
+        document.getElementById('shareImage').addEventListener('click', shareAsImage);
+        document.getElementById('shareCopy').addEventListener('click', copyOrderList);
+        document.getElementById('shareClear').addEventListener('click', clearCart);
+
+        // Checkout overlay close
+        document.getElementById('checkoutOverlay').addEventListener('click', closeCheckout);
+    });
+
+    // ===== CART STATE =====
+    var cart = JSON.parse(localStorage.getItem('rangpurseba_cart')) || [];
+
+    function saveCart() {
+        localStorage.setItem('rangpurseba_cart', JSON.stringify(cart));
+        updateCartUI();
+    }
+
+    function addToCart(el) {
+        var card = el.closest('.product-card');
+        if (!card) return;
+
+        var name = card.getAttribute('data-name');
+        var price = parseInt(card.getAttribute('data-price')) || 0;
+        var unit = card.getAttribute('data-unit') || '';
+        var emoji = card.getAttribute('data-emoji') || '📦';
+        var category = card.getAttribute('data-category') || '';
+
+        var existing = cart.find(function(item) { return item.name === name; });
+        if (existing) {
+            existing.qty += 1;
+        } else {
+            cart.push({ name: name, price: price, unit: unit, emoji: emoji, category: category, qty: 1 });
+        }
+
+        saveCart();
+
+        // Button feedback
+        var btn = card.querySelector('.add-to-cart-btn');
+        if (btn) {
+            var orig = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check"></i> যোগ করা হয়েছে';
+            btn.classList.add('added-to-cart');
+            setTimeout(function() {
+                btn.innerHTML = orig;
+                btn.classList.remove('added-to-cart');
+            }, 1200);
+        }
+
+        // Toast
+        showCartToast('🥬 ' + name + ' কার্টে যোগ করা হয়েছে');
+
+        // Badge pulse
+        var badge = document.getElementById('cartBadgeCount');
+        if (badge) { badge.classList.remove('cart-badge-pulse'); void badge.offsetWidth; badge.classList.add('cart-badge-pulse'); }
+    }
+
+    function removeFromCart(name) {
+        cart = cart.filter(function(item) { return item.name !== name; });
+        saveCart();
+        if (cart.length === 0) closeCart();
+    }
+
+    function updateQty(name, delta) {
+        var item = cart.find(function(i) { return i.name === name; });
+        if (!item) return;
+        item.qty = Math.max(1, item.qty + delta);
+        saveCart();
+    }
+
+    function clearCart() {
+        if (cart.length === 0) return;
+        if (!confirm('আপনি কি আপনার কার্ট খালি করতে চান?')) return;
+        cart = [];
+        saveCart();
+        showCartToast('কার্ট খালি করা হয়েছে');
+    }
+
+    function getTotal() {
+        return cart.reduce(function(sum, item) { return sum + (item.price * item.qty); }, 0);
+    }
+
+    function getItemCount() {
+        return cart.reduce(function(sum, item) { return sum + item.qty; }, 0);
+    }
+
+    function formatBDT(amount) {
+        return '৳ ' + amount.toLocaleString('bn-BD');
+    }
+
+    // ===== CART UI =====
+    function updateCartUI() {
+        var container = document.getElementById('cartItems');
+        var footer = document.getElementById('cartFooter');
+        var badgeCount = document.getElementById('cartBadgeCount');
+        var badgeText = document.getElementById('cartBadgeText');
+
+        // Update badge
+        var count = getItemCount();
+        if (badgeCount) badgeCount.textContent = count;
+        if (badgeText) badgeText.textContent = count > 0 ? count + ' টি' : 'কার্ট';
+
+        if (cart.length === 0) {
+            container.innerHTML = '<div class="cart-empty"><i class="fas fa-shopping-basket"></i><p>আপনার কার্ট খালি</p><p style="font-size:0.8125rem;color:var(--text-muted);margin-top:0.25rem;">পণ্যে ক্লিক করে কার্টে যোগ করুন</p></div>';
+            footer.style.display = 'none';
+            return;
+        }
+
+        footer.style.display = 'block';
+
+        var html = '';
+        cart.forEach(function(item) {
+            var total = item.price * item.qty;
+            html += '<div class="cart-item">';
+            html += '<div class="cart-item-emoji">' + item.emoji + '</div>';
+            html += '<div class="cart-item-info">';
+            html += '<div class="cart-item-name">' + item.name + '</div>';
+            html += '<div class="cart-item-unit">' + item.unit + '</div>';
+            html += '<div class="cart-item-price">' + formatBDT(item.price) + '</div>';
+            html += '<div class="cart-item-actions">';
+            html += '<button class="cart-qty-btn minus" onclick="updateQty(\'' + item.name + '\', -1)" ' + (item.qty <= 1 ? 'disabled' : '') + '><i class="fas fa-minus"></i></button>';
+            html += '<span class="cart-qty">' + item.qty + '</span>';
+            html += '<button class="cart-qty-btn plus" onclick="updateQty(\'' + item.name + '\', 1)"><i class="fas fa-plus"></i></button>';
+            html += '<button class="cart-item-remove" onclick="removeFromCart(\'' + item.name + '\')"><i class="fas fa-trash-alt"></i></button>';
+            html += '</div></div></div>';
+        });
+
+        container.innerHTML = html;
+        document.getElementById('cartItemCount').textContent = count + ' টি';
+        document.getElementById('cartTotal').textContent = formatBDT(getTotal());
+
+        // Update export table
+        updateExportTable();
+    }
+
+    function updateExportTable() {
+        var tbody = document.getElementById('exportBody');
+        if (!tbody) return;
+        var html = '';
+        cart.forEach(function(item) {
+            html += '<tr><td>' + item.emoji + ' ' + item.name + '</td><td>' + item.qty + ' x ' + item.unit + '</td><td>' + formatBDT(item.price) + '</td><td>' + formatBDT(item.price * item.qty) + '</td></tr>';
+        });
+        tbody.innerHTML = html;
+        document.getElementById('exportTotal').innerHTML = 'মোট: ' + formatBDT(getTotal());
+    }
+
+    // ===== CART PANEL CONTROLS =====
+    function openCart() {
+        document.getElementById('cartPanel').classList.add('active');
+        document.getElementById('cartOverlay').classList.add('active');
+        document.body.style.overflow = 'hidden';
+        updateCartUI();
+    }
+
+    function closeCart() {
+        document.getElementById('cartPanel').classList.remove('active');
+        document.getElementById('cartOverlay').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    function toggleCart() {
+        if (document.getElementById('cartPanel').classList.contains('active')) {
+            closeCart();
+        } else {
+            openCart();
+        }
+    }
+
+    // ===== TOAST =====
+    function showCartToast(msg) {
+        var toast = document.getElementById('cartToast');
+        var text = document.getElementById('cartToastText');
+        if (!toast || !text) return;
+        text.textContent = msg;
+        toast.classList.add('show');
+        clearTimeout(toast._timeout);
+        toast._timeout = setTimeout(function() { toast.classList.remove('show'); }, 2000);
+    }
+
+    // ===== ORDER MANAGEMENT =====
+    function generateOrderId() {
+        return 'RS-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).substr(2,4).toUpperCase();
+    }
+
+    function getOrders() {
+        return JSON.parse(localStorage.getItem('rangpurseba_orders')) || [];
+    }
+
+    function saveOrders(orders) {
+        localStorage.setItem('rangpurseba_orders', JSON.stringify(orders));
+    }
+
+    var pendingShareAction = null;
+
+    // ===== CHECKOUT MODAL =====
+    function showCheckout(action) {
+        if (cart.length === 0) { showCartToast('কার্টে কোনো পণ্য নেই'); return; }
+        pendingShareAction = action;
+
+        // Show summary
+        var summary = document.getElementById('checkoutSummary');
+        var html = '<div style="font-weight:600;font-size:0.875rem;color:var(--text-dark);margin-bottom:0.5rem;">📋 অর্ডার সারাংশ</div>';
+        cart.forEach(function(item) {
+            html += '<div class="checkout-summary-row"><span>' + item.emoji + ' ' + item.name + ' (' + item.qty + ' × ' + item.unit + ')</span><span>' + formatBDT(item.price * item.qty) + '</span></div>';
+        });
+        html += '<div class="checkout-summary-row total"><span>মোট</span><span>' + formatBDT(getTotal()) + '</span></div>';
+        summary.innerHTML = html;
+
+        // Reset form
+        document.getElementById('checkoutName').value = '';
+        document.getElementById('checkoutMobile').value = '';
+        document.getElementById('checkoutAddress').value = '';
+        document.getElementById('checkoutNote').value = '';
+        document.querySelectorAll('.form-error').forEach(function(e) { e.style.display = 'none'; });
+        document.getElementById('checkoutSubmit').disabled = false;
+        document.getElementById('checkoutSubmit').innerHTML = '✅ অর্ডার কনফার্ম করুন';
+
+        document.getElementById('checkoutFormView').style.display = 'block';
+        document.getElementById('checkoutSuccessView').style.display = 'none';
+        document.getElementById('checkoutModal').classList.add('active');
+        document.getElementById('checkoutOverlay').classList.add('active');
+    }
+
+    function closeCheckout() {
+        document.getElementById('checkoutModal').classList.remove('active');
+        document.getElementById('checkoutOverlay').classList.remove('active');
+        pendingShareAction = null;
+    }
+
+    function validateForm() {
+        var valid = true;
+
+        var name = document.getElementById('checkoutName').value.trim();
+        if (!name) {
+            document.getElementById('checkoutNameError').style.display = 'block';
+            valid = false;
+        } else {
+            document.getElementById('checkoutNameError').style.display = 'none';
+        }
+
+        var mobile = document.getElementById('checkoutMobile').value.trim();
+        var mobileRegex = /^01[3-9]\d{8}$/;
+        if (!mobile || !mobileRegex.test(mobile)) {
+            document.getElementById('checkoutMobileError').style.display = 'block';
+            valid = false;
+        } else {
+            document.getElementById('checkoutMobileError').style.display = 'none';
+        }
+
+        var address = document.getElementById('checkoutAddress').value.trim();
+        if (!address || address.length < 5) {
+            document.getElementById('checkoutAddressError').style.display = 'block';
+            valid = false;
+        } else {
+            document.getElementById('checkoutAddressError').style.display = 'none';
+        }
+
+        return valid;
+    }
+
+    function placeOrder() {
+        if (!validateForm()) return;
+
+        var btn = document.getElementById('checkoutSubmit');
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> প্রসেসিং...';
+
+        var order = {
+            id: generateOrderId(),
+            customerName: document.getElementById('checkoutName').value.trim(),
+            mobile: document.getElementById('checkoutMobile').value.trim(),
+            address: document.getElementById('checkoutAddress').value.trim(),
+            note: document.getElementById('checkoutNote').value.trim(),
+            items: JSON.parse(JSON.stringify(cart)),
+            total: getTotal(),
+            itemCount: getItemCount(),
+            progress: 0,
+            status: 'Pending',
+            createdAt: new Date().toISOString()
+        };
+
+        var orders = getOrders();
+        orders.unshift(order);
+        saveOrders(orders);
+
+        // Show success
+        document.getElementById('checkoutFormView').style.display = 'none';
+        document.getElementById('checkoutSuccessView').style.display = 'block';
+        document.getElementById('successOrderId').textContent = order.id;
+
+        // Add loyalty points
+        if (typeof addLoyaltyPoints === 'function') {
+            addLoyaltyPoints(order.total);
+        }
+
+        // Clear cart after order placed
+        cart = [];
+        saveCart();
+
+        // Set share links
+        var orderText = buildOrderText(order);
+        document.getElementById('successWhatsApp').href = 'https://wa.me/8801700000000?text=' + encodeURIComponent(orderText);
+        document.getElementById('successMessenger').href = 'https://m.me/RangpurSeba?text=' + encodeURIComponent(orderText);
+
+        // Execute pending share action
+        if (pendingShareAction) {
+            setTimeout(function() {
+                pendingShareAction(order);
+            }, 500);
+        }
+    }
+
+    function buildOrderText(order) {
+        var items = order ? order.items : cart;
+        var total = order ? order.total : getTotal();
+        var name = order ? order.customerName : '';
+        var mobile = order ? order.mobile : '';
+        var address = order ? order.address : '';
+        var note = order ? order.note : '';
+        var oid = order ? order.id : '';
+
+        var lines = ['🛒 *রংপুর সেবা — অর্ডার তালিকা*', '━━━━━━━━━━━━━━━━━━', ''];
+        if (oid) lines.push('📌 অর্ডার আইডি: ' + oid);
+        if (name) lines.push('👤 গ্রাহক: ' + name);
+        if (mobile) lines.push('📞 মোবাইল: ' + mobile);
+        if (address) lines.push('📍 ঠিকানা: ' + address);
+        if (note) lines.push('📝 নোট: ' + note);
+        lines.push('');
+        lines.push('━━━━━━━━━━━━━━━━━━');
+        lines.push('*পণ্যের তালিকা*');
+        lines.push('');
+        items.forEach(function(item) {
+            lines.push(item.emoji + ' ' + item.name + ' — ' + item.qty + ' × ' + item.unit + ' = ' + formatBDT(item.price * item.qty));
+        });
+        lines.push('');
+        lines.push('━━━━━━━━━━━━━━━━━━');
+        lines.push('*মোট: ' + formatBDT(total) + '*');
+        lines.push('');
+        lines.push('📞 01700-000000 | রংপুর সেবা');
+        return lines.join('\n');
+    }
+
+    function shareToWhatsApp() {
+        if (cart.length === 0) { showCartToast('কার্টে কোনো পণ্য নেই'); return; }
+        showCheckout(function(order) {
+            var text = buildOrderText(order);
+            window.open('https://wa.me/8801700000000?text=' + encodeURIComponent(text), '_blank');
+            closeCheckout();
+        });
+    }
+
+    function shareToFacebook() {
+        if (cart.length === 0) { showCartToast('কার্টে কোনো পণ্য নেই'); return; }
+        showCheckout(function(order) {
+            var text = buildOrderText(order);
+            window.open('https://m.me/RangpurSeba?text=' + encodeURIComponent(text), '_blank');
+            closeCheckout();
+        });
+    }
+
+    function shareAsImage() {
+        if (cart.length === 0) { showCartToast('কার্টে কোনো পণ্য নেই'); return; }
+        showCheckout(function(order) {
+            if (typeof html2canvas === 'undefined') {
+                showCartToast('ইমেজ জেনারেট করতে সমস্যা হয়েছে। দয়া করে আবার চেষ্টা করুন।');
+                return;
+            }
+            var exportEl = document.getElementById('orderSummaryExport');
+            exportEl.style.left = '0';
+            exportEl.style.position = 'fixed';
+            exportEl.style.top = '-9999px';
+            updateExportTable();
+
+            setTimeout(function() {
+                html2canvas(exportEl, { scale: 2, backgroundColor: '#ffffff', useCORS: true, logging: false })
+                .then(function(canvas) {
+                    var link = document.createElement('a');
+                    link.download = 'RangpurSeba_Order_' + order.id + '.png';
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                    exportEl.style.left = '-9999px';
+                    exportEl.style.top = '0';
+                    exportEl.style.position = 'fixed';
+                    showCartToast('✅ অর্ডার তালিকার ছবি ডাউনলোড হয়েছে');
+                    closeCheckout();
+                }).catch(function() {
+                    exportEl.style.left = '-9999px';
+                    exportEl.style.top = '0';
+                    exportEl.style.position = 'fixed';
+                    showCartToast('ছবি জেনারেট করতে সমস্যা হয়েছে');
+                });
+            }, 200);
+        });
+    }
+
+    function copyOrderList() {
+        if (cart.length === 0) { showCartToast('কার্টে কোনো পণ্য নেই'); return; }
+        showCheckout(function(order) {
+            var text = buildOrderText(order);
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(function() {
+                    showCartToast('✅ অর্ডার তালিকা কপি করা হয়েছে');
+                });
+            } else {
+                var ta = document.createElement('textarea');
+                ta.value = text;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                showCartToast('✅ অর্ডার তালিকা কপি করা হয়েছে');
+            }
+            closeCheckout();
+        });
+    }
+    // ===== RECIPE DATA =====
+    var recipes = [
+        { name: 'ইলিশ পোলাও', emoji: '🍚', items: [{name:'ইলিশ মাছ',unit:'১ কেজি',qty:1}, {name:'নাজিরশাইল চাল',unit:'১ কেজি',qty:1}, {name:'পেঁয়াজ',unit:'২০০ গ্রাম',qty:1}, {name:'রসুন',unit:'১ কোয়া',qty:5}, {name:'আদা',unit:'১ টুকরা',qty:1}, {name:'হলুদ গুঁড়া',unit:'১ চা চামচ',qty:1}, {name:'লবণ',unit:'স্বাদমতো',qty:1}, {name:'সয়াবিন তেল',unit:'১০০ মি.লি.',qty:1}] },
+        { name: 'গরুর মাংস ভুনা', emoji: '🥩', items: [{name:'গরুর মাংস',unit:'১ কেজি',qty:1}, {name:'পেঁয়াজ',unit:'৫০০ গ্রাম',qty:1}, {name:'রসুন বাটা',unit:'২ টেবিল চামচ',qty:1}, {name:'আদা বাটা',unit:'১ টেবিল চামচ',qty:1}, {name:'হলুদ গুঁড়া',unit:'১ চা চামচ',qty:1}, {name:'মরিচ গুঁড়া',unit:'১ চা চামচ',qty:1}, {name:'ধনে গুঁড়া',unit:'১ চা চামচ',qty:1}, {name:'জিরা গুঁড়া',unit:'১ চা চামচ',qty:1}, {name:'সয়াবিন তেল',unit:'২০০ মি.লি.',qty:1}, {name:'লবণ',unit:'স্বাদমতো',qty:1}] },
+        { name: 'মুরগি বিরিয়ানি', emoji: '🍛', items: [{name:'ব্রয়লার মুরগি',unit:'১ কেজি',qty:1}, {name:'নাজিরশাইল চাল',unit:'১ কেজি',qty:1}, {name:'পেঁয়াজ',unit:'৫০০ গ্রাম',qty:1}, {name:'রসুন বাটা',unit:'২ টেবিল চামচ',qty:1}, {name:'আদা বাটা',unit:'১ টেবিল চামচ',qty:1}, {name:'বিরিয়ানি মসলা',unit:'১ প্যাকেট',qty:1}, {name:'দই',unit:'২০০ গ্রাম',qty:1}, {name:'সয়াবিন তেল',unit:'২০০ মি.লি.',qty:1}, {name:'লবণ',unit:'স্বাদমতো',qty:1}, {name:'কিশমিশ',unit:'৫০ গ্রাম',qty:1}] },
+        { name: 'ডাল ভাত', emoji: '🫘', items: [{name:'মসুর ডাল',unit:'৫০০ গ্রাম',qty:1}, {name:'নাজিরশাইল চাল',unit:'২ কেজি',qty:1}, {name:'পেঁয়াজ',unit:'২০০ গ্রাম',qty:1}, {name:'রসুন',unit:'১ কোয়া',qty:3}, {name:'হলুদ গুঁড়া',unit:'১ চা চামচ',qty:1}, {name:'সয়াবিন তেল',unit:'১০০ মি.লি.',qty:1}, {name:'লবণ',unit:'স্বাদমতো',qty:1}] },
+        { name: 'সবজি খিচুড়ি', emoji: '🥘', items: [{name:'নাজিরশাইল চাল',unit:'৫০০ গ্রাম',qty:1}, {name:'মসুর ডাল',unit:'২৫০ গ্রাম',qty:1}, {name:'আলু (পটল)',unit:'২৫০ গ্রাম',qty:1}, {name:'গাজর',unit:'১০০ গ্রাম',qty:1}, {name:'বিনস',unit:'১০০ গ্রাম',qty:1}, {name:'পেঁয়াজ',unit:'১০০ গ্রাম',qty:1}, {name:'হলুদ গুঁড়া',unit:'১ চা চামচ',qty:1}, {name:'ঘি',unit:'২ টেবিল চামচ',qty:1}, {name:'লবণ',unit:'স্বাদমতো',qty:1}] },
+        { name: 'ইলিশ ভাপা', emoji: '🐟', items: [{name:'ইলিশ মাছ',unit:'১ কেজি',qty:1}, {name:'হলুদ গুঁড়া',unit:'১ চা চামচ',qty:1}, {name:'মরিচ গুঁড়া',unit:'১ চা চামচ',qty:1}, {name:'সরিষার তেল',unit:'৫০ মি.লি.',qty:1}, {name:'লবণ',unit:'স্বাদমতো',qty:1}] }
+    ];
+
+    // ===== EMERGENCY KITS DATA =====
+    var emergencyKits = [
+        { name: '🆘 সংসার কিট', desc: 'প্রয়োজনীয় জিনিসপত্র', bg: 'linear-gradient(135deg,#DC2626,#F87171)', items: [{name:'ডিম (ফার্ম)',unit:'১২ পিস',qty:2}, {name:'দুধ (ফ্রেশ)',unit:'১ লিটার',qty:2}, {name:'পেঁয়াজ',unit:'১ কেজি',qty:1}, {name:'আলু (পটল)',unit:'২ কেজি',qty:1}, {name:'নাজিরশাইল চাল',unit:'৫ কেজি',qty:1}, {name:'সয়াবিন তেল',unit:'১ লিটার',qty:1}] },
+        { name: '🍳 রান্না কিট', desc: 'রান্নার প্রয়োজনীয় উপকরণ', bg: 'linear-gradient(135deg,#EA580C,#FB923C)', items: [{name:'পেঁয়াজ',unit:'১ কেজি',qty:1}, {name:'রসুন',unit:'২৫০ গ্রাম',qty:1}, {name:'আদা',unit:'২৫০ গ্রাম',qty:1}, {name:'হলুদ গুঁড়া',unit:'১ প্যাকেট',qty:1}, {name:'মরিচ গুঁড়া',unit:'১ প্যাকেট',qty:1}, {name:'লবণ',unit:'১ প্যাকেট',qty:1}, {name:'সয়াবিন তেল',unit:'১ লিটার',qty:1}] },
+        { name: '🤒 অসুখে কিট', desc: 'অসুখে প্রয়োজনীয়', bg: 'linear-gradient(135deg,#7C3AED,#A78BFA)', items: [{name:'লেবু',unit:'৬ পিস',qty:1}, {name:'আদা',unit:'২৫০ গ্রাম',qty:1}, {name:'মধু',unit:'২০০ গ্রাম',qty:1}, {name:'ডিম (ফার্ম)',unit:'১২ পিস',qty:1}, {name:'দুধ (ফ্রেশ)',unit:'১ লিটার',qty:2}, {name:'লবণ',unit:'১ প্যাকেট',qty:1}] },
+        { name: '🧊 ফ্রিজ কিট', desc: 'ফ্রিজ ভর্তি করার জন্য', bg: 'linear-gradient(135deg,#0284C7,#38BDF8)', items: [{name:'ডিম (ফার্ম)',unit:'১২ পিস',qty:3}, {name:'দুধ (ফ্রেশ)',unit:'১ লিটার',qty:4}, {name:'মাখন',unit:'২০০ গ্রাম',qty:1}, {name:'পনির (চিজ)',unit:'২০০ গ্রাম',qty:1}, {name:'ব্রয়লার মুরগি',unit:'১ কেজি',qty:2}, {name:'গরুর মাংস',unit:'১ কেজি',qty:1}] }
+    ];
+
+    // ===== EVENT PACKAGES DATA =====
+    var eventPackages = [
+        { name: '💒 বিয়ের বাজার', desc: 'বিয়ের আয়োজনে যা যা লাগবে', bg: 'linear-gradient(135deg,#D63384,#F06292)', icon: 'wedding', items: [
+            {name:'নাজিরশাইল চাল',unit:'৫ কেজি',qty:2}, {name:'পেঁয়াজ',unit:'৫ কেজি',qty:1}, {name:'আলু (পটল)',unit:'৫ কেজি',qty:1},
+            {name:'গরুর মাংস',unit:'১ কেজি',qty:5}, {name:'ব্রয়লার মুরগি',unit:'১ কেজি',qty:5}, {name:'খাসির মাংস',unit:'১ কেজি',qty:2},
+            {name:'রুই মাছ',unit:'১ কেজি',qty:3}, {name:'চিংড়ি মাছ (গলদা)',unit:'৫০০ গ্রাম',qty:2}, {name:'ডিম (ফার্ম)',unit:'১২ পিস',qty:3},
+            {name:'সয়াবিন তেল',unit:'১ লিটার',qty:3}, {name:'মসুর ডাল',unit:'১ কেজি',qty:2}, {name:'রসুন',unit:'২৫০ গ্রাম',qty:2},
+            {name:'দুধ (ফ্রেশ)',unit:'১ লিটার',qty:5}, {name:'পনির (চিজ)',unit:'২০০ গ্রাম',qty:2}, {name:'চাঁপা কলা',unit:'১ ডজন',qty:2},
+            {name:'আপেল (লাল)',unit:'১ কেজি',qty:3}, {name:'মাল্টা',unit:'১ কেজি',qty:3}, {name:'বাদাম ভাজা',unit:'১০০ গ্রাম',qty:3},
+            {name:'বিস্কুট (প্যাকেট)',unit:'২০০ গ্রাম',qty:3}, {name:'দই',unit:'১ কেজি',qty:3}, {name:'মিষ্টি',unit:'১ কেজি',qty:3},
+            {name:'হলুদ গুঁড়া',unit:'১ প্যাকেট',qty:1}, {name:'মরিচ গুঁড়া',unit:'১ প্যাকেট',qty:1}, {name:'লবণ',unit:'১ প্যাকেট',qty:2}
+        ]},
+        { name: '💛 গায়ে হলুদের বাজার', desc: 'হলুদ অনুষ্ঠানের উপকরণ', bg: 'linear-gradient(135deg,#F57F17,#FDD835)', icon: 'holud', items: [
+            {name:'পেঁয়াজ',unit:'৩ কেজি',qty:1}, {name:'আলু (পটল)',unit:'৩ কেজি',qty:1}, {name:'ব্রয়লার মুরগি',unit:'১ কেজি',qty:3},
+            {name:'গরুর মাংস',unit:'১ কেজি',qty:2}, {name:'রুই মাছ',unit:'১ কেজি',qty:2}, {name:'ডিম (ফার্ম)',unit:'১২ পিস',qty:2},
+            {name:'সয়াবিন তেল',unit:'১ লিটার',qty:2}, {name:'নাজিরশাইল চাল',unit:'৫ কেজি',qty:1}, {name:'রসুন',unit:'২৫০ গ্রাম',qty:1},
+            {name:'দুধ (ফ্রেশ)',unit:'১ লিটার',qty:2}, {name:'চাঁপা কলা',unit:'১ ডজন',qty:2}, {name:'আপেল (লাল)',unit:'১ কেজি',qty:2},
+            {name:'মাল্টা',unit:'১ কেজি',qty:2}, {name:'পনির (চিজ)',unit:'২০০ গ্রাম',qty:1}, {name:'বাদাম ভাজা',unit:'১০০ গ্রাম',qty:2},
+            {name:'দই',unit:'১ কেজি',qty:2}, {name:'মিষ্টি',unit:'১ কেজি',qty:2}, {name:'হলুদ গুঁড়া',unit:'১ প্যাকেট',qty:2}
+        ]},
+        { name: '🎂 জন্মদিনের বাজার', desc: 'জন্মদিনের বিশেষ আয়োজন', bg: 'linear-gradient(135deg,#FF6F00,#FFB74D)', icon: 'birthday', items: [
+            {name:'ব্রয়লার মুরগি',unit:'১ কেজি',qty:2}, {name:'গরুর মাংস',unit:'১ কেজি',qty:1}, {name:'নাজিরশাইল চাল',unit:'৫ কেজি',qty:1},
+            {name:'ডিম (ফার্ম)',unit:'১২ পিস',qty:1}, {name:'দুধ (ফ্রেশ)',unit:'১ লিটার',qty:2}, {name:'পনির (চিজ)',unit:'২০০ গ্রাম',qty:1},
+            {name:'সয়াবিন তেল',unit:'১ লিটার',qty:1}, {name:'পেঁয়াজ',unit:'১ কেজি',qty:1}, {name:'রসুন',unit:'২৫০ গ্রাম',qty:1},
+            {name:'চাঁপা কলা',unit:'১ ডজন',qty:1}, {name:'আপেল (লাল)',unit:'১ কেজি',qty:1}, {name:'মাল্টা',unit:'১ কেজি',qty:1},
+            {name:'দই',unit:'৫০০ গ্রাম',qty:1}, {name:'মিষ্টি',unit:'১ কেজি',qty:1}, {name:'বাদাম ভাজা',unit:'১০০ গ্রাম',qty:2},
+            {name:'বিস্কুট (প্যাকেট)',unit:'২০০ গ্রাম',qty:2}
+        ]},
+        { name: '🌙 ঈদের বাজার', desc: 'ঈদের আনন্দে যা যা লাগবে', bg: 'linear-gradient(135deg,#1B5E20,#43A047)', icon: 'eid', items: [
+            {name:'নাজিরশাইল চাল',unit:'৫ কেজি',qty:2}, {name:'গরুর মাংস',unit:'১ কেজি',qty:5}, {name:'খাসির মাংস',unit:'১ কেজি',qty:2},
+            {name:'ব্রয়লার মুরগি',unit:'১ কেজি',qty:3}, {name:'ডিম (ফার্ম)',unit:'১২ পিস',qty:2}, {name:'দুধ (ফ্রেশ)',unit:'১ লিটার',qty:5},
+            {name:'সয়াবিন তেল',unit:'১ লিটার',qty:3}, {name:'পেঁয়াজ',unit:'৫ কেজি',qty:1}, {name:'আলু (পটল)',unit:'৫ কেজি',qty:1},
+            {name:'রসুন',unit:'২৫০ গ্রাম',qty:2}, {name:'মসুর ডাল',unit:'১ কেজি',qty:2}, {name:'রুই মাছ',unit:'১ কেজি',qty:2},
+            {name:'চিংড়ি মাছ (গলদা)',unit:'৫০০ গ্রাম',qty:1}, {name:'চাঁপা কলা',unit:'১ ডজন',qty:2}, {name:'আপেল (লাল)',unit:'১ কেজি',qty:2},
+            {name:'মাল্টা',unit:'১ কেজি',qty:2}, {name:'দই',unit:'১ কেজি',qty:2}, {name:'মিষ্টি',unit:'১ কেজি',qty:2},
+            {name:'বিস্কুট (প্যাকেট)',unit:'২০০ গ্রাম',qty:2}, {name:'বাদাম ভাজা',unit:'১০০ গ্রাম',qty:2}, {name:'সেমাই',unit:'১ কেজি',qty:2},
+            {name:'ঘি',unit:'২০০ গ্রাম',qty:1}, {name:'হলুদ গুঁড়া',unit:'১ প্যাকেট',qty:1}, {name:'মরিচ গুঁড়া',unit:'১ প্যাকেট',qty:1}
+        ]},
+        { name: '🪔 পূজার বাজার', desc: 'পূজার আয়োজনের উপকরণ', bg: 'linear-gradient(135deg,#BF360C,#FF7043)', icon: 'puja', items: [
+            {name:'নাজিরশাইল চাল',unit:'৫ কেজি',qty:1}, {name:'মসুর ডাল',unit:'১ কেজি',qty:2}, {name:'ডিম (ফার্ম)',unit:'১২ পিস',qty:2},
+            {name:'দুধ (ফ্রেশ)',unit:'১ লিটার',qty:2}, {name:'পনির (চিজ)',unit:'২০০ গ্রাম',qty:1}, {name:'সয়াবিন তেল',unit:'১ লিটার',qty:2},
+            {name:'পেঁয়াজ',unit:'২ কেজি',qty:1}, {name:'আলু (পটল)',unit:'২ কেজি',qty:1}, {name:'রসুন',unit:'২৫০ গ্রাম',qty:1},
+            {name:'চাঁপা কলা',unit:'১ ডজন',qty:2}, {name:'আপেল (লাল)',unit:'১ কেজি',qty:2}, {name:'মাল্টা',unit:'১ কেজি',qty:2},
+            {name:'ঘি',unit:'২০০ গ্রাম',qty:1}, {name:'মিষ্টি',unit:'১ কেজি',qty:2}, {name:'বাদাম ভাজা',unit:'১০০ গ্রাম',qty:2},
+            {name:'হলুদ গুঁড়া',unit:'১ প্যাকেট',qty:1}, {name:'মরিচ গুঁড়া',unit:'১ প্যাকেট',qty:1}, {name:'ধনে গুঁড়া',unit:'১ প্যাকেট',qty:1},
+            {name:'জিরা গুঁড়া',unit:'১ প্যাকেট',qty:1}
+        ]},
+        { name: '🌺 নববর্ষের বাজার', desc: 'পহেলা বৈশাখের আয়োজন', bg: 'linear-gradient(135deg,#00695C,#26A69A)', icon: 'boishakh', items: [
+            {name:'ইলিশ মাছ',unit:'১ কেজি',qty:2}, {name:'নাজিরশাইল চাল',unit:'৫ কেজি',qty:1}, {name:'পেঁয়াজ',unit:'২ কেজি',qty:1},
+            {name:'ডিম (ফার্ম)',unit:'১২ পিস',qty:2}, {name:'দুধ (ফ্রেশ)',unit:'১ লিটার',qty:2}, {name:'সয়াবিন তেল',unit:'১ লিটার',qty:1},
+            {name:'চাঁপা কলা',unit:'১ ডজন',qty:1}, {name:'আপেল (লাল)',unit:'১ কেজি',qty:1}, {name:'মাল্টা',unit:'১ কেজি',qty:1},
+            {name:'মিষ্টি',unit:'১ কেজি',qty:2}, {name:'দই',unit:'১ কেজি',qty:1}, {name:'বাদাম ভাজা',unit:'১০০ গ্রাম',qty:1},
+            {name:'পান্তা ভাতের চাল',unit:'১ কেজি',qty:1}, {name:'সরিষার তেল',unit:'৫০০ মি.লি.',qty:1}, {name:'হলুদ গুঁড়া',unit:'১ প্যাকেট',qty:1},
+            {name:'মরিচ গুঁড়া',unit:'১ প্যাকেট',qty:1}
+        ]},
+        { name: '👶 বেবি শাওয়ারের বাজার', desc: 'নতুন আগন্তুকের আয়োজন', bg: 'linear-gradient(135deg,#4A148C,#AB47BC)', icon: 'baby', items: [
+            {name:'ব্রয়লার মুরগি',unit:'১ কেজি',qty:2}, {name:'ডিম (ফার্ম)',unit:'১২ পিস',qty:1}, {name:'দুধ (ফ্রেশ)',unit:'১ লিটার',qty:2},
+            {name:'পনির (চিজ)',unit:'২০০ গ্রাম',qty:1}, {name:'নাজিরশাইল চাল',unit:'৫ কেজি',qty:1}, {name:'পেঁয়াজ',unit:'১ কেজি',qty:1},
+            {name:'আলু (পটল)',unit:'১ কেজি',qty:1}, {name:'সয়াবিন তেল',unit:'১ লিটার',qty:1}, {name:'চাঁপা কলা',unit:'১ ডজন',qty:2},
+            {name:'আপেল (লাল)',unit:'১ কেজি',qty:2}, {name:'মাল্টা',unit:'১ কেজি',qty:2}, {name:'মিষ্টি',unit:'১ কেজি',qty:2},
+            {name:'দই',unit:'৫০০ গ্রাম',qty:1}, {name:'বিস্কুট (প্যাকেট)',unit:'২০০ গ্রাম',qty:2}, {name:'বাদাম ভাজা',unit:'১০০ গ্রাম',qty:1}
+        ]},
+        { name: '🏠 হাউস ওয়ার্মিং', desc: 'নতুন বাসার শুভ উদ্বোধন', bg: 'linear-gradient(135deg,#4E342E,#8D6E63)', icon: 'house', items: [
+            {name:'নাজিরশাইল চাল',unit:'৫ কেজি',qty:1}, {name:'ডিম (ফার্ম)',unit:'১২ পিস',qty:2}, {name:'দুধ (ফ্রেশ)',unit:'১ লিটার',qty:2},
+            {name:'ব্রয়লার মুরগি',unit:'১ কেজি',qty:2}, {name:'গরুর মাংস',unit:'১ কেজি',qty:2}, {name:'সয়াবিন তেল',unit:'১ লিটার',qty:2},
+            {name:'পেঁয়াজ',unit:'২ কেজি',qty:1}, {name:'আলু (পটল)',unit:'২ কেজি',qty:1}, {name:'মসুর ডাল',unit:'১ কেজি',qty:1},
+            {name:'রসুন',unit:'২৫০ গ্রাম',qty:1}, {name:'চাঁপা কলা',unit:'১ ডজন',qty:2}, {name:'আপেল (লাল)',unit:'১ কেজি',qty:2},
+            {name:'মাল্টা',unit:'১ কেজি',qty:2}, {name:'মিষ্টি',unit:'১ কেজি',qty:2}, {name:'দই',unit:'১ কেজি',qty:1},
+            {name:'বাদাম ভাজা',unit:'১০০ গ্রাম',qty:1}, {name:'লবণ',unit:'১ প্যাকেট',qty:1}, {name:'হলুদ গুঁড়া',unit:'১ প্যাকেট',qty:1},
+            {name:'মরিচ গুঁড়া',unit:'১ প্যাকেট',qty:1}
+        ]}
+    ];
+
+    // ===== MEAL PLANS DATA =====
+    var mealPlans = [
+        { emoji: '🥘', name: 'বাংলা থালি', days: [
+            { day: 'রবি', meals: '🥞 পরোটা+ডিম ➜ 🍚 মুরগি কারি ➜ 🍚 ভাত+ডাল' },
+            { day: 'সোম', meals: '🍚 খিচুড়ি ➜ 🍚 গরুর মাংস ভুনা ➜ 🍚 ভাত+শাক' },
+            { day: 'মঙ্গল', meals: '🥞 রুটি+সবজি ➜ 🐟 ভাত+ইলিশ ➜ 🍚 ভাত+ডাল' },
+            { day: 'বুধ', meals: '🍰 পিঠা ➜ 🍚 মাছ কারি ➜ 🍚 ভাত+বেগুন' },
+            { day: 'বৃহস্পতি', meals: '🥞 পরোটা+চা ➜ 🐑 ভাত+খাসি ➜ 🍚 ভাত+ডাল' },
+            { day: 'শুক্র', meals: '🍛 বিরিয়ানি ➜ 🍛 বিরিয়ানি+দই ➜ 🍉 ফ্রুট চাট' },
+            { day: 'শনি', meals: '🥞 ডাল পিঠা ➜ 🍚 পোলাও+মাংস ➜ 🐟 ভাত+মাছ' }
+        ], items: [{name:'ডিম (ফার্ম)',unit:'১২ পিস',qty:2},{name:'ব্রয়লার মুরগি',unit:'১ কেজি',qty:2},{name:'গরুর মাংস',unit:'১ কেজি',qty:1},{name:'নাজিরশাইল চাল',unit:'৫ কেজি',qty:1},{name:'মসুর ডাল',unit:'১ কেজি',qty:1},{name:'পেঁয়াজ',unit:'১ কেজি',qty:2},{name:'রসুন',unit:'২৫০ গ্রাম',qty:1},{name:'সয়াবিন তেল',unit:'১ লিটার',qty:1},{name:'আলু (পটল)',unit:'২ কেজি',qty:1},{name:'লবণ',unit:'১ প্যাকেট',qty:1}] },
+        { emoji: '🍛', name: 'মাছ-মাংস প্ল্যান', days: [
+            { day: 'রবি', meals: '🥞 পরোটা+ডিম ➜ 🐟 ভাত+রুই মাছ ➜ 🍚 ভাত+সবজি' },
+            { day: 'সোম', meals: '🍚 দুধ+চিড়া ➜ 🐑 ভাত+গরুর মাংস ➜ 🍚 ভাত+ডাল' },
+            { day: 'মঙ্গল', meals: '🥞 পরোটা ➜ 🍗 ভাত+মুরগি ➜ 🍚 ভাত+শাক' },
+            { day: 'বুধ', meals: '🍚 মুড়ি+চা ➜ 🐟 ভাত+তেলাপিয়া ➜ 🍚 ভাত+ডাল' },
+            { day: 'বৃহস্পতি', meals: '🥞 রুটি ➜ 🐑 ভাত+খাসি ➜ 🍚 ভাত+বেগুন' },
+            { day: 'শুক্র', meals: '🍛 পোলাও ➜ 🍛 পোলাও+মাংস ➜ 🍦 মিষ্টি' },
+            { day: 'শনি', meals: '🍚 ডিম ভাত ➜ 🐟 ভাত+চিংড়ি ➜ 🍚 ভাত+ডাল' }
+        ], items: [{name:'ডিম (ফার্ম)',unit:'১২ পিস',qty:2},{name:'ব্রয়লার মুরগি',unit:'১ কেজি',qty:2},{name:'গরুর মাংস',unit:'১ কেজি',qty:1},{name:'রুই মাছ',unit:'১ কেজি',qty:1},{name:'নাজিরশাইল চাল',unit:'৫ কেজি',qty:1},{name:'মসুর ডাল',unit:'১ কেজি',qty:1},{name:'পেঁয়াজ',unit:'১ কেজি',qty:2},{name:'রসুন',unit:'২৫০ গ্রাম',qty:1},{name:'সয়াবিন তেল',unit:'১ লিটার',qty:1},{name:'আলু (পটল)',unit:'২ কেজি',qty:1},{name:'লবণ',unit:'১ প্যাকেট',qty:1}] },
+        { emoji: '🥗', name: 'স্বাস্থ্যকর প্ল্যান', days: [
+            { day: 'রবি', meals: '🥣 ওটস ➜ 🥗 সবজি সালাদ ➜ 🍚 ভাত+ডাল' },
+            { day: 'সোম', meals: '🥛 দুধ+কলা ➜ 🐟 ভাত+মাছ ➜ 🥗 সবজি+দই' },
+            { day: 'মঙ্গল', meals: '🍳 ডিম সেদ্ধ ➜ 🍚 ভাত+ডাল ➜ 🥗 সবজি সালাদ' },
+            { day: 'বুধ', meals: '🥞 পরোটা+দই ➜ 🍚 ভাত+মুরগি ➜ 🥗 সবজি ভাজা' },
+            { day: 'বৃহস্পতি', meals: '🍌 ফল ➜ 🍚 ভাত+মাছ ➜ 🥗 সবজি+ডাল' },
+            { day: 'শুক্র', meals: '🥣 খিচুড়ি ➜ 🥗 খিচুড়ি+সবজি ➜ 🍉 ফল' },
+            { day: 'শনি', meals: '🥞 পরোটা+সবজি ➜ 🍚 ভাত+মুরগি ➜ 🥗 সালাদ' }
+        ], items: [{name:'ডিম (ফার্ম)',unit:'১২ পিস',qty:1},{name:'ব্রয়লার মুরগি',unit:'১ কেজি',qty:1},{name:'নাজিরশাইল চাল',unit:'৫ কেজি',qty:1},{name:'মসুর ডাল',unit:'১ কেজি',qty:1},{name:'পেঁয়াজ',unit:'১ কেজি',qty:1},{name:'আলু (পটল)',unit:'১ কেজি',qty:1},{name:'দুধ (ফ্রেশ)',unit:'১ লিটার',qty:2},{name:'চাঁপা কলা',unit:'১ ডজন',qty:1},{name:'সয়াবিন তেল',unit:'১ লিটার',qty:1},{name:'লবণ',unit:'১ প্যাকেট',qty:1}] }
+    ];
+
+    // ===== BULK ADD FUNCTIONS =====
+    function findMatchingProduct(name) {
+        var cards = document.querySelectorAll('.product-card');
+        var exact = null;
+        var partial = null;
+        cards.forEach(function(card) {
+            var pname = card.getAttribute('data-name') || '';
+            if (pname === name) {
+                exact = card;
+            } else if (!partial && (pname.includes(name) || name.includes(pname))) {
+                partial = card;
+            }
+        });
+        return exact || partial;
+    }
+
+    function addBulkItems(items) {
+        items.forEach(function(item) {
+            var card = findMatchingProduct(item.name);
+            if (card) {
+                var pname = card.getAttribute('data-name');
+                var price = parseInt(card.getAttribute('data-price')) || 0;
+                var unit = card.getAttribute('data-unit') || '';
+                var e = card.getAttribute('data-emoji') || '📦';
+                var category = card.getAttribute('data-category') || '';
+                var existing = cart.find(function(i) { return i.name === pname; });
+                if (existing) {
+                    existing.qty += item.qty;
+                } else {
+                    cart.push({ name: pname, price: price, unit: unit, emoji: e, category: category, qty: item.qty });
+                }
+                var btn = card.querySelector('.add-to-cart-btn');
+                if (btn) {
+                    var orig = btn.innerHTML;
+                    btn.innerHTML = '<i class="fas fa-check"></i> যোগ করা হয়েছে';
+                    btn.classList.add('added-to-cart');
+                    setTimeout(function() {
+                        btn.innerHTML = orig;
+                        btn.classList.remove('added-to-cart');
+                    }, 1200);
+                }
+            } else {
+                var customName = item.name + ' (' + item.unit + ')';
+                var existing = cart.find(function(i) { return i.name === customName; });
+                if (existing) {
+                    existing.qty += item.qty;
+                } else {
+                    cart.push({ name: customName, price: 0, unit: item.unit, emoji: '📦', category: 'custom', qty: item.qty });
+                }
+            }
+        });
+        saveCart();
+        var badge = document.getElementById('cartBadgeCount');
+        if (badge) { badge.classList.remove('cart-badge-pulse'); void badge.offsetWidth; badge.classList.add('cart-badge-pulse'); }
+    }
+
+    function addRecipeToCart(index) {
+        var r = recipes[index];
+        addBulkItems(r.items);
+        showCartToast(r.emoji + ' ' + r.name + ' এর উপকরণ কার্টে যোগ করা হয়েছে!');
+    }
+
+    function addEmergencyKit(index) {
+        var k = emergencyKits[index];
+        addBulkItems(k.items);
+        showCartToast(k.name + ' এর পণ্য কার্টে যোগ করা হয়েছে!');
+    }
+
+    function addMealPlan(index) {
+        var p = mealPlans[index];
+        addBulkItems(p.items);
+        showCartToast(p.emoji + ' ' + p.name + ' এর উপকরণ কার্টে যোগ করা হয়েছে!');
+    }
+
+    function addEventPackage(index) {
+        var e = eventPackages[index];
+        addBulkItems(e.items);
+        showCartToast(e.name + ' এর পণ্য কার্টে যোগ করা হয়েছে! 🎉');
+    }
+
+    // Render emergency kits, recipes, and meal plans
+    (function() {
+        var emergencyScroll = document.getElementById('emergencyScroll');
+        if (emergencyScroll) {
+            var kitHtml = '';
+            emergencyKits.forEach(function(kit, i) {
+                kitHtml += '<div class="emergency-card" style="background:' + kit.bg + ';">';
+                kitHtml += '<div class="kit-name">' + kit.name + '</div>';
+                kitHtml += '<div class="kit-desc">' + kit.desc + '</div>';
+                kitHtml += '<div class="kit-badge"><i class="fas fa-box"></i> ' + kit.items.length + ' টি পণ্য</div>';
+                kitHtml += '<br><button class="kit-order-btn" onclick="addEmergencyKit(' + i + ')"><i class="fas fa-shopping-cart"></i> অর্ডার করুন</button>';
+                kitHtml += '</div>';
+            });
+            emergencyScroll.innerHTML = kitHtml;
+        }
+
+        var recipeScroll = document.getElementById('recipeScroll');
+        if (recipeScroll) {
+            var recipeHtml = '';
+            recipes.forEach(function(r, i) {
+                recipeHtml += '<div class="recipe-card">';
+                recipeHtml += '<span class="recipe-emoji">' + r.emoji + '</span>';
+                recipeHtml += '<div class="recipe-name">' + r.name + '</div>';
+                recipeHtml += '<div class="recipe-items">' + r.items.length + ' টি উপকরণ</div>';
+                recipeHtml += '<button class="recipe-add-btn" onclick="addRecipeToCart(' + i + ')"><i class="fas fa-cart-plus"></i> কার্টে যোগ করুন</button>';
+                recipeHtml += '</div>';
+            });
+            recipeScroll.innerHTML = recipeHtml;
+        }
+
+        var mealScroll = document.getElementById('mealScroll');
+        if (mealScroll) {
+            var mealHtml = '';
+            mealPlans.forEach(function(plan, i) {
+                mealHtml += '<div class="meal-card">';
+                mealHtml += '<div class="meal-header"><span class="meal-emoji">' + plan.emoji + '</span><span class="meal-title">' + plan.name + '</span></div>';
+                mealHtml += '<div class="meal-days">';
+                plan.days.forEach(function(d) {
+                    mealHtml += '<div class="meal-day"><span class="day-name">' + d.day + ':</span><span class="day-meals">' + d.meals + '</span></div>';
+                });
+                mealHtml += '</div>';
+                mealHtml += '<button class="meal-add-btn" onclick="addMealPlan(' + i + ')"><i class="fas fa-cart-plus"></i> পুরো সপ্তাহের বাজার যোগ করুন</button>';
+                mealHtml += '</div>';
+            });
+            mealScroll.innerHTML = mealHtml;
+        }
+
+        var eventScroll = document.getElementById('eventScroll');
+        if (eventScroll) {
+            var eventHtml = '';
+            eventPackages.forEach(function(ev, i) {
+                eventHtml += '<div class="event-card" style="background:' + ev.bg + ';">';
+                eventHtml += '<span class="event-emoji">' + ev.name.split(' ')[0] + '</span>';
+                eventHtml += '<div class="event-name">' + ev.name.substring(ev.name.indexOf(' ') + 1) + '</div>';
+                eventHtml += '<div class="event-desc">' + ev.desc + '</div>';
+                eventHtml += '<div class="event-badge"><i class="fas fa-box"></i> ' + ev.items.length + ' টি পণ্য</div>';
+                eventHtml += '<br><button class="event-order-btn" onclick="addEventPackage(' + i + ')"><i class="fas fa-shopping-cart"></i> বাজার করুন</button>';
+                eventHtml += '</div>';
+            });
+            eventScroll.innerHTML = eventHtml;
+        }
+        })();
+
+        // ===== VOICE ORDERING =====
+        window.startVoiceSearch = function() {
+            var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) {
+                showCartToast('⚠️ আপনার ব্রাউজার ভয়েস সার্চ সাপোর্ট করে না। Chrome ব্যবহার করুন।');
+                return;
+            }
+
+            var recognition = new SpeechRecognition();
+            recognition.lang = 'bn-BD';
+            recognition.continuous = false;
+            recognition.interimResults = false;
+
+            var statusEl = document.getElementById('voiceStatus');
+            var statusText = document.getElementById('voiceStatusText');
+            var voiceBtn = document.getElementById('voiceBtn');
+
+            statusEl.style.display = 'block';
+            statusText.textContent = 'শুনছি... বলুন "আলু ২ কেজি, মাছ ১ কেজি"';
+            voiceBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            voiceBtn.style.background = '#DC2626';
+
+            recognition.onresult = function(event) {
+                var transcript = event.results[0][0].transcript;
+                statusText.textContent = '🔊 আপনি বলেছেন: "' + transcript + '"';
+                processVoiceInput(transcript);
+            };
+
+            recognition.onerror = function(event) {
+                statusText.textContent = '❌ ভয়েস শনাক্ত করতে সমস্যা হয়েছে: ' + event.error;
+                voiceBtn.innerHTML = '<i class="fas fa-microphone"></i>';
+                voiceBtn.style.background = '';
+                setTimeout(function() { statusEl.style.display = 'none'; }, 3000);
+            };
+
+            recognition.onend = function() {
+                voiceBtn.innerHTML = '<i class="fas fa-microphone"></i>';
+                voiceBtn.style.background = '';
+            };
+
+            recognition.start();
+        };
+
+        function processVoiceInput(text) {
+            var items = parseVoiceText(text);
+            if (items.length === 0) {
+                document.getElementById('voiceStatusText').textContent = '❌ কোনো পণ্য শনাক্ত করা যায়নি। আবার চেষ্টা করুন।';
+                return;
+            }
+
+            var added = 0;
+            items.forEach(function(item) {
+                var found = false;
+                var products = document.querySelectorAll('.product-card');
+                products.forEach(function(card) {
+                    var name = (card.getAttribute('data-name') || '').toLowerCase();
+                    var searchName = item.name.toLowerCase();
+                    if (name.indexOf(searchName) !== -1 || searchName.indexOf(name) !== -1) {
+                        // Found a match - add to cart
+                        var existing = cart.find(function(c) { return c.name === card.getAttribute('data-name'); });
+                        if (existing) {
+                            existing.qty += item.qty;
+                        } else {
+                            cart.push({
+                                name: card.getAttribute('data-name'),
+                                price: parseInt(card.getAttribute('data-price')) || 0,
+                                unit: card.getAttribute('data-unit') || '',
+                                emoji: card.getAttribute('data-emoji') || '📦',
+                                category: card.getAttribute('data-category') || '',
+                                qty: item.qty
+                            });
+                        }
+                        found = true;
+                        added++;
+                    }
+                });
+                if (!found) {
+                    // Add as custom item
+                    cart.push({
+                        name: item.name,
+                        price: 0,
+                        unit: item.qty + ' টি',
+                        emoji: '📦',
+                        category: 'voice',
+                        qty: 1
+                    });
+                    added++;
+                }
+            });
+
+            saveCart();
+            var statusText = document.getElementById('voiceStatusText');
+            statusText.textContent = '✅ ' + added + ' টি পণ্য কার্টে যোগ করা হয়েছে! কার্ট খুলে দেখুন।';
+            document.getElementById('voiceStatus').style.background = '#F0FDF4';
+            document.getElementById('voiceStatus').style.padding = '0.75rem';
+            document.getElementById('voiceStatus').style.borderRadius = '12px';
+
+            setTimeout(function() {
+                document.getElementById('voiceStatus').style.display = 'none';
+                document.getElementById('voiceStatus').style.background = '';
+                document.getElementById('voiceStatus').style.padding = '';
+                document.getElementById('voiceStatus').style.borderRadius = '';
+            }, 4000);
+
+            // Pulse badge
+            var badge = document.getElementById('cartBadgeCount');
+            if (badge) { badge.classList.remove('cart-badge-pulse'); void badge.offsetWidth; badge.classList.add('cart-badge-pulse'); }
+        }
+
+        function parseVoiceText(text) {
+            // Extract items like "আলু ২ কেজি" or "মাছ ১"
+            var items = [];
+            // Common number words in Bangla
+            var numMap = {
+                'এক': 1, 'দুই': 2, 'তিন': 3, 'চার': 4, 'পাঁচ': 5,
+                'ছয়': 6, 'সাত': 7, 'আট': 8, 'নয়': 9, 'দশ': 10,
+                '১':1,'২':2,'৩':3,'৪':4,'৫':5,'৬':6,'৭':7,'৮':8,'৯':9,'০':0
+            };
+
+            // Split by comma or "ও" or "এবং"
+            var parts = text.split(/[,، ও এবং আর]/);
+            parts.forEach(function(part) {
+                part = part.trim();
+                if (!part) return;
+
+                var qty = 1;
+                var name = part;
+
+                // Try to extract quantity
+                for (var num in numMap) {
+                    if (part.indexOf(num) === 0 || part.indexOf(' ' + num) !== -1) {
+                        // Find the number and extract what follows
+                        var idx = part.indexOf(num);
+                        var afterNum = part.substring(idx + num.length).trim();
+                        // Remove unit words
+                        afterNum = afterNum.replace(/কেজি|গ্রাম|লিটার|টি|পিস|ডজন|মিটার|গাছা|বান্ডিল|প্যাকেট|খানা/gi, '').trim();
+                        name = part.substring(0, idx).trim() || part;
+                        qty = numMap[num] || 1;
+                        break;
+                    }
+                }
+
+                // Clean up name
+                name = name.replace(/\d+/g, '').replace(/কেজি|গ্রাম|লিটার|টি|পিস|ডজন|মিটার|গাছা|বান্ডিল|প্যাকেট|খানা/gi, '').trim();
+
+                if (name && name.length > 0) {
+                    // Map common Bangla names to product names
+                    var nameMap = {
+                        'আলু': 'আলু', 'পটল': 'আলু', 'পেঁয়াজ': 'পেঁয়াজ', 'পেয়াজ': 'পেঁয়াজ',
+                        'মাছ': 'রুই মাছ', 'রুই': 'রুই মাছ', 'ইলিশ': 'ইলিশ মাছ',
+                        'মাংস': 'গরুর মাংস', 'গরু': 'গরুর মাংস', 'গরুর মাংস': 'গরুর মাংস',
+                        'মুরগি': 'ব্রয়লার মুরগি', 'মুরগী': 'ব্রয়লার মুরগি', 'চাল': 'নাজিরশাইল চাল',
+                        'ডিম': 'ডিম', 'দুধ': 'দুধ', 'তেল': 'সয়াবিন তেল',
+                        'ডাল': 'মসুর ডাল', 'কলা': 'চাঁপা কলা', 'আপেল': 'আপেল',
+                        'রসুন': 'রসুন', 'শাক': 'লাল শাক', 'শসা': 'শসা'
+                    };
+
+                    var mappedName = nameMap[name] || name;
+                    // Capitalize first letter
+                    mappedName = mappedName.charAt(0).toUpperCase() + mappedName.slice(1);
+                    items.push({ name: mappedName, qty: Math.max(1, qty) });
+                }
+            });
+
+            return items;
+        }
+    </script>
+</body>
+</html>

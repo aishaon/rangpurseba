@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>গ্রাহক রিভিউ | রংপুর সেবা</title>
+    <meta name="description" content="রংপুর সেবার গ্রাহকদের রিভিউ ও মতামত দেখুন। হাজারো সন্তুষ্ট গ্রাহক আমাদের সেবায় খুশি।">
+    <meta name="keywords" content="রংপুর সেবা রিভিউ, গ্রাহক মতামত, Rangpur Seba reviews, customer feedback">
+
+    <meta property="og:title" content="গ্রাহক রিভিউ | রংপুর সেবা">
+    <meta property="og:description" content="রংপুর সেবার গ্রাহকদের রিভিউ ও মতামত। হাজারো সন্তুষ্ট গ্রাহক আমাদের সেবায় খুশি।">
+    <meta property="og:image" content="https://rangpurseba.com/og-image.jpg">
+    <meta property="og:url" content="https://rangpurseba.comreviews.html">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="bn_BD">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="গ্রাহক রিভিউ | রংপুর সেবা">
+    <meta name="twitter:description" content="রংপুর সেবার গ্রাহকদের রিভিউ ও মতামত।">
+
+    <link rel="icon" type="image/svg+xml" href="icons/favicon.svg">
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .review-card {
+            background: var(--bg-white); border-radius: var(--radius-xl);
+            padding: 1.75rem; border: 1px solid var(--border);
+            transition: var(--transition); position: relative;
+        }
+        .review-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); border-color: transparent; }
+        .review-card .review-avatar {
+            width: 52px; height: 52px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.25rem; font-weight: 700; color: white; flex-shrink: 0;
+        }
+        .review-card .review-stars { color: #FBBF24; display: flex; gap: 0.125rem; margin-bottom: 0.75rem; }
+        .review-card .review-text { font-size: 0.9375rem; color: var(--text-body); line-height: 1.7; margin-bottom: 1rem; font-style: italic; }
+        .review-card .review-date { font-size: 0.75rem; color: var(--text-muted); }
+        .review-card .review-quote {
+            position: absolute; top: 1rem; right: 1.25rem;
+            font-size: 2rem; color: var(--primary-bg); opacity: 0.5;
+        }
+
+        .review-filter-btn {
+            padding: 0.625rem 1.25rem; border-radius: var(--radius-full);
+            border: 1px solid var(--border); background: var(--bg-white);
+            font-family: var(--font-bn); font-size: 0.875rem; font-weight: 500;
+            cursor: pointer; transition: var(--transition); white-space: nowrap;
+            color: var(--text-body);
+        }
+        .review-filter-btn:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-bg); }
+        .review-filter-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+        .star-rating {
+            display: flex; gap: 0.25rem; flex-direction: row-reverse; justify-content: flex-end;
+        }
+        .star-rating input { display: none; }
+        .star-rating label {
+            font-size: 1.75rem; color: #D1D5DB; cursor: pointer; transition: var(--transition);
+        }
+        .star-rating label:hover,
+        .star-rating label:hover ~ label,
+        .star-rating input:checked ~ label { color: #FBBF24; }
+
+        .submit-review-form {
+            background: var(--bg-white); border-radius: var(--radius-xl);
+            padding: 2.5rem; border: 1px solid var(--border);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .cta-review {
+            background: linear-gradient(135deg, var(--secondary), var(--secondary-dark));
+            border-radius: var(--radius-xl); padding: 3rem; text-align: center;
+            color: white; position: relative; overflow: hidden;
+        }
+        .cta-review::before {
+            content: ''; position: absolute; inset: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.05)" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,208C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+    <div id="floating-buttons"></div>
+    <div id="sticky-mobile-cta"></div>
+
+    <main>
+
+        <!-- ===== PAGE HEADER ===== -->
+        <section class="page-header">
+            <div class="container">
+                <div class="page-header-content" data-aos="fade-up">
+                    <h1 class="page-title">গ্রাহক রিভিউ</h1>
+                    <div class="page-breadcrumb">
+                        <a href="index.html">হোম</a>
+                        <span>/</span>
+                        <span>গ্রাহক রিভিউ</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== STATS ROW ===== -->
+        <section class="section-sm" data-aos="fade-up">
+            <div class="container">
+                <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:1.5rem;">
+                    <div class="review-stat-card">
+                        <div class="review-stat-number" style="font-size:3rem;">২,৫০০+</div>
+                        <div style="font-size:0.9375rem; color:var(--text-light); margin-top:0.5rem;">মোট রিভিউ</div>
+                        <div style="display:flex; justify-content:center; gap:0.125rem; color:#FBBF24; margin-top:0.5rem;">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <div class="review-stat-card">
+                        <div class="review-stat-number" style="font-size:3rem; color:var(--secondary);">৪.৮</div>
+                        <div style="font-size:0.9375rem; color:var(--text-light); margin-top:0.5rem;">গড় রেটিং</div>
+                        <div style="display:flex; justify-content:center; gap:0.125rem; color:#FBBF24; margin-top:0.5rem;">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                    <div class="review-stat-card">
+                        <div class="review-stat-number" style="font-size:3rem; color:#22C55E;">৯৮%</div>
+                        <div style="font-size:0.9375rem; color:var(--text-light); margin-top:0.5rem;">সন্তুষ্ট গ্রাহক</div>
+                        <div style="display:flex; justify-content:center; gap:0.125rem; color:#22C55E; margin-top:0.5rem;">
+                            <i class="fas fa-smile"></i><i class="fas fa-smile"></i><i class="fas fa-smile"></i><i class="fas fa-smile"></i><i class="fas fa-smile"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== REVIEW FILTERS ===== -->
+        <section class="section-sm" style="padding-top:0;">
+            <div class="container">
+                <div style="display:flex; gap:0.5rem; flex-wrap:wrap; justify-content:center;" data-aos="fade-up">
+                    <button class="review-filter-btn active" data-filter="all">সব <span style="font-size:0.75rem; opacity:0.6;">(২৫০০+)</span></button>
+                    <button class="review-filter-btn" data-filter="5">★★★★★ <span style="font-size:0.75rem; opacity:0.6;">(১৮০০+)</span></button>
+                    <button class="review-filter-btn" data-filter="4">★★★★ <span style="font-size:0.75rem; opacity:0.6;">(৫০০+)</span></button>
+                    <button class="review-filter-btn" data-filter="3">★★★ <span style="font-size:0.75rem; opacity:0.6;">(২০০+)</span></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== REVIEW CARDS GRID ===== -->
+        <section class="section-sm" style="padding-top:0;" id="reviews-grid">
+            <div class="container">
+                <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap:1.5rem;">
+
+                    <!-- Review 1 -->
+                    <div class="review-card" data-rating="5" data-aos="fade-up" data-aos-delay="0">
+                        <div class="review-quote"><i class="fas fa-quote-right"></i></div>
+                        <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1rem;">
+                            <div class="review-avatar" style="background:linear-gradient(135deg,#16A34A,#22C55E);">ন</div>
+                            <div>
+                                <div style="font-weight:600; color:var(--text-dark);">নাসরিন আক্তার</div>
+                                <div style="font-size:0.8125rem; color:var(--text-light);">স্টেশন রোড, রংপুর</div>
+                            </div>
+                        </div>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p class="review-text">"রংপুর সেবা সত্যিই অসাধারণ! আমি প্রতিদিন অর্ডার করি। সবজি খুব ফ্রেশ থাকে এবং ডেলিভারি সময়মতো হয়। আমার পরিবারের সবাই খুব খুশি। বিশেষ করে মাছ ও মাংসের কোয়ালিটি দারুণ।"</p>
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <span class="badge badge-primary"><i class="fas fa-calendar"></i> ২৫ এপ্রিল ২০২৬</span>
+                            <span style="font-size:0.8125rem; color:var(--text-muted);"><i class="fas fa-check-circle" style="color:var(--primary);"></i> ভেরিফাইড</span>
+                        </div>
+                    </div>
+
+                    <!-- Review 2 -->
+                    <div class="review-card" data-rating="5" data-aos="fade-up" data-aos-delay="100">
+                        <div class="review-quote"><i class="fas fa-quote-right"></i></div>
+                        <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1rem;">
+                            <div class="review-avatar" style="background:linear-gradient(135deg,#F97316,#FB923C);">ক</div>
+                            <div>
+                                <div style="font-weight:600; color:var(--text-dark);">করিম হোসেন</div>
+                                <div style="font-size:0.8125rem; color:var(--text-light);">হাজিরহাট, রংপুর</div>
+                            </div>
+                        </div>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p class="review-text">"আমি কাজের মানুষ, বাজারে যাওয়ার সময় হয় না। রংপুর সেবা আমার জীবন বদলে দিয়েছে। WhatsApp এ মেসেজ দিলেই সব বাজার চলে আসে। ক্যাশ অন ডেলিভারিতে পেমেন্ট করি, কোনো টেনশন নেই।"</p>
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <span class="badge badge-primary"><i class="fas fa-calendar"></i> ২২ এপ্রিল ২০২৬</span>
+                            <span style="font-size:0.8125rem; color:var(--text-muted);"><i class="fas fa-check-circle" style="color:var(--primary);"></i> ভেরিফাইড</span>
+                        </div>
+                    </div>
+
+                    <!-- Review 3 -->
+                    <div class="review-card" data-rating="5" data-aos="fade-up" data-aos-delay="200">
+                        <div class="review-quote"><i class="fas fa-quote-right"></i></div>
+                        <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1rem;">
+                            <div class="review-avatar" style="background:linear-gradient(135deg,#7C3AED,#8B5CF6);">ফ</div>
+                            <div>
+                                <div style="font-weight:600; color:var(--text-dark);">ফাতিমা বেগম</div>
+                                <div style="font-size:0.8125rem; color:var(--text-light);">বড় বাজার, রংপুর</div>
+                            </div>
+                        </div>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p class="review-text">"মাছ ও মাংসের কোয়ালিটি দারুণ। আমি প্রথমে ভয় পেয়েছিলাম অনলাইনে মাছ কিনতে, কিন্তু রংপুর সেবা আমার ভয় দূর করে দিয়েছে। প্রতিবার ফ্রেশ মাছ দেয়। হাইজিন প্যাকেজিং অসাধারণ।"</p>
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <span class="badge badge-primary"><i class="fas fa-calendar"></i> ২০ এপ্রিল ২০২৬</span>
+                            <span style="font-size:0.8125rem; color:var(--text-muted);"><i class="fas fa-check-circle" style="color:var(--primary);"></i> ভেরিফাইড</span>
+                        </div>
+                    </div>
+
+                    <!-- Review 4 -->
+                    <div class="review-card" data-rating="4" data-aos="fade-up" data-aos-delay="300">
+                        <div class="review-quote"><i class="fas fa-quote-right"></i></div>
+                        <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1rem;">
+                            <div class="review-avatar" style="background:linear-gradient(135deg,#DC2626,#EF4444);">র</div>
+                            <div>
+                                <div style="font-weight:600; color:var(--text-dark);">রাশেদুল ইসলাম</div>
+                                <div style="font-size:0.8125rem; color:var(--text-light);">সাতমাথা, রংপুর</div>
+                            </div>
+                        </div>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <p class="review-text">"ভালো সেবা। ডেলিভারি সময়মতো হয়। শুধু একটু সমস্যা হল কখনো কখনো অর্ডার দেরি হয় যখন অনেক ব্যস্ত থাকে। তবে মান অনেক ভালো। ক্যাশ অন ডেলিভারি অপশনটা খুব ভালো লাগে।"</p>
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <span class="badge badge-secondary"><i class="fas fa-calendar"></i> ১৮ এপ্রিল ২০২৬</span>
+                            <span style="font-size:0.8125rem; color:var(--text-muted);"><i class="fas fa-check-circle" style="color:var(--primary);"></i> ভেরিফাইড</span>
+                        </div>
+                    </div>
+
+                    <!-- Review 5 -->
+                    <div class="review-card" data-rating="5" data-aos="fade-up" data-aos-delay="400">
+                        <div class="review-quote"><i class="fas fa-quote-right"></i></div>
+                        <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1rem;">
+                            <div class="review-avatar" style="background:linear-gradient(135deg,#0284C7,#38BDF8);">শা</div>
+                            <div>
+                                <div style="font-weight:600; color:var(--text-dark);">শারমিন আক্তার</div>
+                                <div style="font-size:0.8125rem; color:var(--text-light);">লালবাগ, রংপুর</div>
+                            </div>
+                        </div>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p class="review-text">"আমার বাচ্চা ছোট, বাজারে যাওয়া সম্ভব হয় না। রংপুর সেবা আমার জন্য ভগবানের বর। ফোনে অর্ডার দিই, সব বাজার চলে আসে। দামও বাজারের চেয়ে বেশি না। সবার কাছে রেকমেন্ড করব।"</p>
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <span class="badge badge-primary"><i class="fas fa-calendar"></i> ১৫ এপ্রিল ২০২৬</span>
+                            <span style="font-size:0.8125rem; color:var(--text-muted);"><i class="fas fa-check-circle" style="color:var(--primary);"></i> ভেরিফাইড</span>
+                        </div>
+                    </div>
+
+                    <!-- Review 6 -->
+                    <div class="review-card" data-rating="4" data-aos="fade-up" data-aos-delay="500">
+                        <div class="review-quote"><i class="fas fa-quote-right"></i></div>
+                        <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1rem;">
+                            <div class="review-avatar" style="background:linear-gradient(135deg,#059669,#34D399);">আ</div>
+                            <div>
+                                <div style="font-weight:600; color:var(--text-dark);">আব্দুর রহিম</div>
+                                <div style="font-size:0.8125rem; color:var(--text-light);">শাপলা চত্বর, রংপুর</div>
+                            </div>
+                        </div>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p class="review-text">"গত ৩ মাস ধরে রংপুর সেবা থেকে নিয়মিত বাজার করছি। কোয়ালিটি এবং সার্ভিস দুই-ই ভালো। বিশেষ করে সবজি খুব ফ্রেশ থাকে। WhatsApp এ অর্ডার করা খুব সহজ। একটি উন্নতি চাই — আরও এলাকায় কভারেজ বাড়ান।"</p>
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <span class="badge badge-primary"><i class="fas fa-calendar"></i> ১২ এপ্রিল ২০২৬</span>
+                            <span style="font-size:0.8125rem; color:var(--text-muted);"><i class="fas fa-check-circle" style="color:var(--primary);"></i> ভেরিফাইড</span>
+                        </div>
+                    </div>
+
+                    <!-- Review 7 -->
+                    <div class="review-card" data-rating="5" data-aos="fade-up" data-aos-delay="600">
+                        <div class="review-quote"><i class="fas fa-quote-right"></i></div>
+                        <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1rem;">
+                            <div class="review-avatar" style="background:linear-gradient(135deg,#D97706,#F59E0B);">মু</div>
+                            <div>
+                                <div style="font-weight:600; color:var(--text-dark);">মুন্নী খাতুন</div>
+                                <div style="font-size:0.8125rem; color:var(--text-light);">কেল্লাবন্দ, রংপুর</div>
+                            </div>
+                        </div>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p class="review-text">"প্রথমবার অর্ডার করতে একটু ভয় ছিল। কিন্তু যখন পণ্য হাতে পেলাম সব ভয় দূর। মাংস ও মাছের প্যাকেজিং খুব ভালো। ফ্রিজার ব্যাগে করে দেয়, তাজা থাকে। আমি এখন রেগুলার কাস্টমার।"</p>
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <span class="badge badge-primary"><i class="fas fa-calendar"></i> ১০ এপ্রিল ২০২৬</span>
+                            <span style="font-size:0.8125rem; color:var(--text-muted);"><i class="fas fa-check-circle" style="color:var(--primary);"></i> ভেরিফাইড</span>
+                        </div>
+                    </div>
+
+                    <!-- Review 8 -->
+                    <div class="review-card" data-rating="3" data-aos="fade-up" data-aos-delay="700">
+                        <div class="review-quote"><i class="fas fa-quote-right"></i></div>
+                        <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1rem;">
+                            <div class="review-avatar" style="background:linear-gradient(135deg,#6B7280,#9CA3AF);">জা</div>
+                            <div>
+                                <div style="font-weight:600; color:var(--text-dark);">জামিল হোসেন</div>
+                                <div style="font-size:0.8125rem; color:var(--text-light);">বেগমগঞ্জ, রংপুর</div>
+                            </div>
+                        </div>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p class="review-text">"সেবা ভালো, কিন্তু ডেলিভারি চার্জ একটু বেশি মনে হয়। কখনো কখনো অর্ডার দিতে একটু সময় লাগে। তবে প্রোডাক্ট কোয়ালিটি ভালো। সব মিলিয়ে ভালো সার্ভিস। ডেলিভারি চার্জ কমানো গেলে আরও ভালো হতো।"</p>
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <span class="badge badge-secondary"><i class="fas fa-calendar"></i> ৮ এপ্রিল ২০২৬</span>
+                            <span style="font-size:0.8125rem; color:var(--text-muted);"><i class="fas fa-check-circle" style="color:var(--primary);"></i> ভেরিফাইড</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div style="text-align:center; margin-top:2.5rem;" data-aos="fade-up">
+                    <button class="btn btn-outline" onclick="this.style.display='none';document.getElementById('more-reviews').style.display='block';">
+                        <i class="fas fa-chevron-down"></i> আরও রিভিউ দেখুন
+                    </button>
+                </div>
+
+                <div id="more-reviews" style="display:none;">
+                    <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap:1.5rem; margin-top:1.5rem;">
+
+                        <!-- Review 9 -->
+                        <div class="review-card" data-rating="5">
+                            <div class="review-quote"><i class="fas fa-quote-right"></i></div>
+                            <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1rem;">
+                                <div class="review-avatar" style="background:linear-gradient(135deg,#BE123C,#E11D48);">সা</div>
+                                <div>
+                                    <div style="font-weight:600; color:var(--text-dark);">সাবিনা ইয়াসমিন</div>
+                                    <div style="font-size:0.8125rem; color:var(--text-light);">পীরগাছা, রংপুর</div>
+                                </div>
+                            </div>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <p class="review-text">"বাহিরে থাকি, মায়ের জন্য বাজার দিতে পারি রংপুর সেবার মাধ্যমে। খুব ভালো একটি উদ্যোগ। মা খুব খুশি। ধন্যবাদ রংপুর সেবা টিমকে এত ভালো সেবার জন্য।"</p>
+                            <div style="display:flex; justify-content:space-between; align-items:center;">
+                                <span class="badge badge-primary"><i class="fas fa-calendar"></i> ৫ এপ্রিল ২০২৬</span>
+                                <span style="font-size:0.8125rem; color:var(--text-muted);"><i class="fas fa-check-circle" style="color:var(--primary);"></i> ভেরিফাইড</span>
+                            </div>
+                        </div>
+
+                        <!-- Review 10 -->
+                        <div class="review-card" data-rating="5">
+                            <div class="review-quote"><i class="fas fa-quote-right"></i></div>
+                            <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1rem;">
+                                <div class="review-avatar" style="background:linear-gradient(135deg,#0D9488,#14B8A6);">টু</div>
+                                <div>
+                                    <div style="font-weight:600; color:var(--text-dark);">টুকুন মিয়া</div>
+                                    <div style="font-size:0.8125rem; color:var(--text-light);;">তারাগঞ্জ, রংপুর</div>
+                                </div>
+                            </div>
+                            <div class="review-stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <p class="review-text">"অসাধারণ সার্ভিস! আমি রেস্টুরেন্ট চালাই, প্রতিদিনের বাজার রংপুর সেবা দিয়ে করি। সময়মতো ডেলিভারি, ফ্রেশ প্রোডাক্ট, এবং দামও কম। এর চেয়ে ভালো কিছু চাওয়ার নেই।"</p>
+                            <div style="display:flex; justify-content:space-between; align-items:center;">
+                                <span class="badge badge-primary"><i class="fas fa-calendar"></i> ২ এপ্রিল ২০২৬</span>
+                                <span style="font-size:0.8125rem; color:var(--text-muted);"><i class="fas fa-check-circle" style="color:var(--primary);"></i> ভেরিফাইড</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== SUBMIT REVIEW ===== -->
+        <section class="section" style="background:var(--primary-bg);" id="submit-review">
+            <div class="container">
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:3rem; align-items:start;">
+                    <div data-aos="fade-right">
+                        <h2 style="font-size:2rem; font-weight:700; color:var(--text-dark); margin-bottom:1rem;">আপনার <span class="gradient-text">মতামত</span> দিন</h2>
+                        <p style="font-size:1rem; color:var(--text-light); line-height:1.7; margin-bottom:2rem;">আমাদের সেবা সম্পর্কে আপনার অভিজ্ঞতা জানান। আপনার প্রতিটি মতামত আমাদের আরও ভালো করতে সাহায্য করে।</p>
+                        <div style="display:flex; flex-direction:column; gap:1rem;">
+                            <div style="display:flex; align-items:center; gap:1rem; padding:1rem; background:var(--bg-white); border-radius:var(--radius-md); border:1px solid var(--border);">
+                                <div style="width:40px; height:40px; background:var(--primary-bg); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--primary);"><i class="fas fa-star"></i></div>
+                                <div style="font-size:0.9375rem; color:var(--text-body);">আপনার রেটিং আমাদের জন্য মূল্যবান</div>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:1rem; padding:1rem; background:var(--bg-white); border-radius:var(--radius-md); border:1px solid var(--border);">
+                                <div style="width:40px; height:40px; background:var(--primary-bg); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--primary);"><i class="fas fa-comment"></i></div>
+                                <div style="font-size:0.9375rem; color:var(--text-body);">আপনার মতামত অন্যদের সাহায্য করে</div>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:1rem; padding:1rem; background:var(--bg-white); border-radius:var(--radius-md); border:1px solid var(--border);">
+                                <div style="width:40px; height:40px; background:var(--primary-bg); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--primary);"><i class="fas fa-gift"></i></div>
+                                <div style="font-size:0.9375rem; color:var(--text-body);">প্রতি মাসে সেরা রিভিউর জন্য বিশেষ পুরস্কার</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="submit-review-form" data-aos="fade-left" data-aos-delay="200">
+                        <h3 style="font-size:1.25rem; font-weight:700; color:var(--text-dark); margin-bottom:1.5rem;">
+                            <i class="fas fa-pen" style="color:var(--primary);"></i> রিভিউ লিখুন
+                        </h3>
+                        <form id="reviewForm">
+                            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem;">
+                                <div class="form-group">
+                                    <label class="form-label">আপনার নাম *</label>
+                                    <input type="text" class="form-input" placeholder="আপনার নাম" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">এলাকা *</label>
+                                    <input type="text" class="form-input" placeholder="যেমন: স্টেশন রোড, রংপুর" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">আপনার রেটিং *</label>
+                                <div class="star-rating">
+                                    <input type="radio" name="rating" id="star5" value="5"><label for="star5" title="৫ স্টার"><i class="fas fa-star"></i></label>
+                                    <input type="radio" name="rating" id="star4" value="4"><label for="star4" title="৪ স্টার"><i class="fas fa-star"></i></label>
+                                    <input type="radio" name="rating" id="star3" value="3"><label for="star3" title="৩ স্টার"><i class="fas fa-star"></i></label>
+                                    <input type="radio" name="rating" id="star2" value="2"><label for="star2" title="২ স্টার"><i class="fas fa-star"></i></label>
+                                    <input type="radio" name="rating" id="star1" value="1"><label for="star1" title="১ স্টার"><i class="fas fa-star"></i></label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">আপনার রিভিউ *</label>
+                                <textarea class="form-input" rows="4" placeholder="আমাদের সেবা সম্পর্কে আপনার অভিজ্ঞতা লিখুন..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-lg btn-primary" style="width:100%;">
+                                <i class="fas fa-paper-plane"></i> রিভিউ জমা দিন
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== CTA ===== -->
+        <section class="section" data-aos="fade-up">
+            <div class="container">
+                <div class="cta-review">
+                    <div style="position:relative; z-index:1;">
+                        <div style="font-size:3rem; margin-bottom:1rem;">🛒</div>
+                        <h2 style="font-size:clamp(1.5rem,3vw,2.25rem); font-weight:700; margin-bottom:1rem;">আজই আপনার বাজারের লিস্ট পাঠান</h2>
+                        <p style="font-size:1rem; opacity:0.9; max-width:500px; margin:0 auto 1.5rem;">২৫০০+ সন্তুষ্ট গ্রাহকের দলে যোগ দিন। মাত্র একটি মেসেজ — আপনার পুরো বাজার ঘরে!</p>
+                        <div style="display:flex; flex-wrap:wrap; gap:1rem; justify-content:center;">
+                            <a href="https://wa.me/8801700000000" target="_blank" class="btn btn-white btn-lg">
+                                <i class="fab fa-whatsapp"></i> WhatsApp এ অর্ডার করুন
+                            </a>
+                            <a href="https://m.me/RangpurSeba" target="_blank" class="btn btn-lg" style="background:rgba(255,255,255,0.2); color:white; border:1px solid rgba(255,255,255,0.3);">
+                                <i class="fab fa-facebook-messenger"></i> Messenger
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Filter buttons
+            var filterBtns = document.querySelectorAll('.review-filter-btn');
+            var reviewCards = document.querySelectorAll('.review-card');
+
+            filterBtns.forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    filterBtns.forEach(function(b) { b.classList.remove('active'); });
+                    this.classList.add('active');
+                    var filter = this.getAttribute('data-filter');
+                    reviewCards.forEach(function(card) {
+                        if (filter === 'all' || card.getAttribute('data-rating') === filter) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // Review form submission
+            var reviewForm = document.getElementById('reviewForm');
+            if (reviewForm) {
+                reviewForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    var btn = this.querySelector('button[type="submit"]');
+                    var ratingSelected = this.querySelector('input[name="rating"]:checked');
+                    if (!ratingSelected) {
+                        alert('দয়া করে আপনার রেটিং নির্বাচন করুন');
+                        return;
+                    }
+                    if (btn) {
+                        var originalText = btn.innerHTML;
+                        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> জমা দেওয়া হচ্ছে...';
+                        btn.disabled = true;
+                        setTimeout(function() {
+                            btn.innerHTML = '<i class="fas fa-check-circle"></i> ধন্যবাদ! আপনার রিভিউ জমা হয়েছে';
+                            setTimeout(function() {
+                                btn.innerHTML = originalText;
+                                btn.disabled = false;
+                                reviewForm.reset();
+                            }, 2000);
+                        }, 1500);
+                    }
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>

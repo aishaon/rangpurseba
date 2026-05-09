@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>বাজার হিসাব — ডিজিটাল খাতা | রংপুর সেবা</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/svg+xml" href="icons/favicon.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body { background: var(--bg); }
+        .khata-section { padding: 2rem 0; }
+        .khata-header { margin-bottom: 2rem; }
+        .khata-header h1 { font-size: 1.5rem; font-weight: 700; color: var(--text-dark); display: flex; align-items: center; gap: 0.5rem; }
+
+        .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+        .summary-card { background: var(--bg-white); border-radius: var(--radius-xl); padding: 1.25rem; border: 1px solid var(--border); box-shadow: var(--shadow-sm); transition: var(--transition); }
+        .summary-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+        .summary-card .sc-icon { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.125rem; margin-bottom: 0.75rem; }
+        .summary-card .sc-label { font-size: 0.8125rem; color: var(--text-light); margin-bottom: 0.25rem; }
+        .summary-card .sc-value { font-size: 1.5rem; font-weight: 700; color: var(--text-dark); }
+        .summary-card .sc-sub { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.125rem; }
+
+        .section-card { background: var(--bg-white); border-radius: var(--radius-xl); border: 1px solid var(--border); box-shadow: var(--shadow-sm); padding: 1.5rem; margin-bottom: 1.5rem; }
+        .section-card h2 { font-size: 1.125rem; font-weight: 700; color: var(--text-dark); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+
+        .bar-chart { display: flex; align-items: flex-end; gap: 0.5rem; height: 180px; padding-top: 1rem; }
+        .bar-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.375rem; }
+        .bar { width: 100%; max-width: 48px; border-radius: 8px 8px 0 0; min-height: 4px; background: linear-gradient(180deg, var(--primary), var(--primary-light)); transition: height 0.6s ease; position: relative; }
+        .bar .bar-tooltip { position: absolute; top: -28px; left: 50%; transform: translateX(-50%); background: var(--text-dark); color: white; padding: 0.25rem 0.5rem; border-radius: 6px; font-size: 0.6875rem; white-space: nowrap; opacity: 0; transition: opacity 0.2s; }
+        .bar:hover .bar-tooltip { opacity: 1; }
+        .bar-label { font-size: 0.6875rem; color: var(--text-muted); text-align: center; }
+
+        .monthly-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+        .monthly-table th { padding: 0.625rem 0.75rem; text-align: left; font-size: 0.75rem; font-weight: 600; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 2px solid var(--border); background: var(--bg); }
+        .monthly-table td { padding: 0.625rem 0.75rem; border-bottom: 1px solid var(--border); color: var(--text-body); }
+        .monthly-table tr:hover td { background: var(--bg); }
+
+        .transaction-item { display: flex; align-items: center; gap: 1rem; padding: 0.875rem 0; border-bottom: 1px solid var(--border); }
+        .transaction-item:last-child { border-bottom: none; }
+        .trans-icon { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; background: var(--primary-bg); color: var(--primary); }
+        .trans-info { flex: 1; min-width: 0; }
+        .trans-date { font-size: 0.75rem; color: var(--text-light); }
+        .trans-summary { font-size: 0.875rem; color: var(--text-dark); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .trans-amount { font-weight: 700; color: var(--text-dark); font-size: 0.9375rem; text-align: right; }
+        .trans-status { font-size: 0.6875rem; }
+
+        .insight-card { background: linear-gradient(135deg, var(--primary-bg), #DCFCE7); border-radius: var(--radius-lg); padding: 1rem 1.25rem; display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; border: 1px solid rgba(22,163,74,0.12); }
+        .insight-card .insight-icon { width: 36px; height: 36px; border-radius: 50%; background: rgba(22,163,74,0.15); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1rem; flex-shrink: 0; }
+        .insight-card .insight-text { font-size: 0.875rem; color: var(--text-body); line-height: 1.5; }
+        .insight-card .insight-badge { display: inline-block; background: var(--primary); color: white; border-radius: var(--radius-full); padding: 0.125rem 0.5rem; font-size: 0.6875rem; font-weight: 600; margin-left: 0.375rem; }
+
+        .empty-state { text-align: center; padding: 3rem 1rem; color: var(--text-muted); }
+        .empty-state i { font-size: 3rem; margin-bottom: 1rem; }
+        .empty-state p { font-size: 0.9375rem; }
+
+        .status-badge { display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.2rem 0.5rem; border-radius: var(--radius-full); font-size: 0.6875rem; font-weight: 600; }
+        .status-badge.paid { background: #D1FAE5; color: #059669; }
+        .status-badge.pending { background: #FEF3C7; color: #D97706; }
+
+        @media (max-width: 640px) {
+            .summary-grid { grid-template-columns: repeat(2, 1fr); }
+            .bar-chart { height: 140px; }
+            .monthly-table { font-size: 0.8125rem; }
+            .monthly-table th:nth-child(3), .monthly-table td:nth-child(3) { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+    <div id="floating-buttons"></div>
+    <div id="sticky-mobile-cta"></div>
+
+    <main>
+        <section class="page-header" style="padding:6rem 0 2.5rem;">
+            <div class="page-header-content" data-aos="fade-up">
+                <h1 class="page-title">বাজার হিসাব — ডিজিটাল খাতা</h1>
+                <div class="page-breadcrumb">
+                    <a href="index.html">হোম</a>
+                    <span><i class="fas fa-chevron-right" style="font-size:0.625rem;"></i></span>
+                    <span>ডিজিটাল খাতা</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="khata-section">
+            <div class="container">
+                <div class="khata-header" data-aos="fade-up">
+                    <h1><i class="fas fa-book" style="color:var(--primary);"></i> বাজার হিসাব</h1>
+                </div>
+
+                <div class="summary-grid" id="summaryCards" data-aos="fade-up">
+                    <div class="summary-card">
+                        <div class="sc-icon" style="background:#FEF3C7;color:#D97706;"><i class="fas fa-wallet"></i></div>
+                        <div class="sc-label">মোট ব্যয় (এই মাসে)</div>
+                        <div class="sc-value" id="monthlyTotal">৳ ০</div>
+                        <div class="sc-sub">চলতি মাসের মোট ব্যয়</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="sc-icon" style="background:#FFE4E6;color:#E11D48;"><i class="fas fa-clock"></i></div>
+                        <div class="sc-label">বাকি আছে (Pending)</div>
+                        <div class="sc-value" id="pendingTotal">৳ ০</div>
+                        <div class="sc-sub">অপরিশোধিত অর্ডার</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="sc-icon" style="background:#D1FAE5;color:#059669;"><i class="fas fa-check-circle"></i></div>
+                        <div class="sc-label">পরিশোধিত</div>
+                        <div class="sc-value" id="paidTotal">৳ ০</div>
+                        <div class="sc-sub">সম্পন্ন অর্ডার</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="sc-icon" style="background:#DBEAFE;color:#2563EB;"><i class="fas fa-piggy-bank"></i></div>
+                        <div class="sc-label">সঞ্চয়</div>
+                        <div class="sc-value" id="savingsTotal">৳ ০</div>
+                        <div class="sc-sub">বাজার মূল্যের তুলনায়</div>
+                    </div>
+                </div>
+
+                <div class="section-card" data-aos="fade-up">
+                    <h2><i class="fas fa-chart-bar" style="color:var(--primary);"></i> গত ৭ দিনের ব্যয়</h2>
+                    <div class="bar-chart" id="barChart"></div>
+                </div>
+
+                <div class="section-card" data-aos="fade-up">
+                    <h2><i class="fas fa-calendar-alt" style="color:var(--primary);"></i> মাসিক খরচের বিবরণী</h2>
+                    <div style="overflow-x:auto;">
+                        <table class="monthly-table">
+                            <thead>
+                                <tr>
+                                    <th>মাস</th>
+                                    <th>মোট অর্ডার</th>
+                                    <th>মোট খরচ</th>
+                                    <th>গড়</th>
+                                    <th>স্ট্যাটাস</th>
+                                </tr>
+                            </thead>
+                            <tbody id="monthlyBody"></tbody>
+                        </table>
+                    </div>
+                    <div class="empty-state" id="monthlyEmpty" style="display:none;">
+                        <i class="fas fa-calendar"></i>
+                        <p>কোনো অর্ডার তথ্য নেই</p>
+                    </div>
+                </div>
+
+                <div class="section-card" data-aos="fade-up">
+                    <h2><i class="fas fa-list" style="color:var(--primary);"></i> সাম্প্রতিক লেনদেন</h2>
+                    <div id="recentTransactions"></div>
+                    <div class="empty-state" id="transEmpty" style="display:none;">
+                        <i class="fas fa-exchange-alt"></i>
+                        <p>কোনো লেনদেন পাওয়া যায়নি</p>
+                    </div>
+                </div>
+
+                <div class="section-card" data-aos="fade-up">
+                    <h2><i class="fas fa-lightbulb" style="color:var(--primary);"></i> খরচের অন্তর্দৃষ্টি</h2>
+                    <div id="insightsContainer"></div>
+                </div>
+
+                <div class="section-card" data-aos="fade-up">
+                    <h2><i class="fas fa-robot" style="color:var(--secondary);"></i> 📊 বাজার বুদ্ধি <span class="badge badge-secondary" style="font-size:0.75rem;">NEW</span></h2>
+                    <div id="intelContainer"></div>
+                </div>
+
+                <div style="text-align:center;" data-aos="fade-up">
+                    <button class="btn btn-lg btn-primary" onclick="exportStatement()">
+                        <i class="fas fa-file-export"></i> মাসিক বিবরণী ডাউনলোড
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+        function getOrders() {
+            return JSON.parse(localStorage.getItem('rangpurseba_orders')) || [];
+        }
+
+        function formatBDT(amount) {
+            return '৳ ' + Number(amount).toLocaleString('bn-BD');
+        }
+
+        function formatDate(iso) {
+            if (!iso) return '';
+            var d = new Date(iso);
+            return d.toLocaleDateString('bn-BD', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+        }
+
+        function getMonthName(m) {
+            var months = { '01': 'জানুয়ারি', '02': 'ফেব্রুয়ারি', '03': 'মার্চ', '04': 'এপ্রিল', '05': 'মে', '06': 'জুন', '07': 'জুলাই', '08': 'আগস্ট', '09': 'সেপ্টেম্বর', '10': 'অক্টোবর', '11': 'নভেম্বর', '12': 'ডিসেম্বর' };
+            var num = String(m).padStart(2, '0');
+            return months[num] || num;
+        }
+
+        function getShortMonth(m) {
+            var months = { '01': 'জানু', '02': 'ফেব্রু', '03': 'মার্চ', '04': 'এপ্রি', '05': 'মে', '06': 'জুন', '07': 'জুলা', '08': 'আগ', '09': 'সেপ্টে', '10': 'অক্টো', '11': 'নভে', '12': 'ডিসে' };
+            var num = String(m).padStart(2, '0');
+            return months[num] || num;
+        }
+
+        function renderDashboard() {
+            var orders = getOrders();
+            var now = new Date();
+            var currentMonth = String(now.getMonth() + 1).padStart(2, '0');
+            var currentYear = now.getFullYear();
+
+            var monthlyOrders = orders.filter(function(o) {
+                if (!o.createdAt) return false;
+                var d = new Date(o.createdAt);
+                return String(d.getMonth() + 1).padStart(2, '0') === currentMonth && d.getFullYear() === currentYear;
+            });
+
+            var monthlyTotal = 0;
+            var pendingTotal = 0;
+            var paidTotal = 0;
+            monthlyOrders.forEach(function(o) {
+                var amt = Number(o.total) || 0;
+                monthlyTotal += amt;
+                if (o.status === 'Completed') paidTotal += amt;
+                else if (o.status === 'Pending' || o.status === 'Processing') pendingTotal += amt;
+            });
+
+            var savings = Math.round(monthlyTotal * 0.12);
+
+            document.getElementById('monthlyTotal').textContent = formatBDT(monthlyTotal);
+            document.getElementById('pendingTotal').textContent = formatBDT(pendingTotal);
+            document.getElementById('paidTotal').textContent = formatBDT(paidTotal);
+            document.getElementById('savingsTotal').textContent = formatBDT(savings);
+
+            renderBarChart(orders);
+            renderMonthlyTable(orders);
+            renderRecentTransactions(orders);
+            renderInsights(orders);
+            renderMarketIntelligence();
+        }
+
+        function renderBarChart(orders) {
+            var container = document.getElementById('barChart');
+            var days = [];
+            for (var i = 6; i >= 0; i--) {
+                var d = new Date();
+                d.setDate(d.getDate() - i);
+                days.push({ date: d, label: d.toLocaleDateString('bn-BD', { weekday: 'short' }), full: d.toISOString().split('T')[0] });
+            }
+
+            var totals = [];
+            var maxVal = 0;
+            days.forEach(function(day) {
+                var total = 0;
+                orders.forEach(function(o) {
+                    if (o.createdAt) {
+                        var od = o.createdAt.split('T')[0];
+                        if (od === day.full) {
+                            total += Number(o.total) || 0;
+                        }
+                    }
+                });
+                totals.push(total);
+                if (total > maxVal) maxVal = total;
+            });
+
+            if (maxVal === 0) {
+                container.innerHTML = '<div class="empty-state"><i class="fas fa-chart-line"></i><p>গত ৭ দিনে কোনো ব্যয় নেই</p></div>';
+                return;
+            }
+
+            var html = '';
+            for (var j = 0; j < days.length; j++) {
+                var pct = maxVal > 0 ? (totals[j] / maxVal * 100) : 0;
+                html += '<div class="bar-item">';
+                html += '<div class="bar" style="height:' + Math.max(pct, 4) + '%;">';
+                html += '<span class="bar-tooltip">' + formatBDT(totals[j]) + '</span>';
+                html += '</div>';
+                html += '<div class="bar-label">' + days[j].label + '</div>';
+                html += '</div>';
+            }
+            container.innerHTML = html;
+        }
+
+        function renderMonthlyTable(orders) {
+            var tbody = document.getElementById('monthlyBody');
+            var empty = document.getElementById('monthlyEmpty');
+
+            if (orders.length === 0) {
+                tbody.innerHTML = '';
+                empty.style.display = 'block';
+                return;
+            }
+            empty.style.display = 'none';
+
+            var monthMap = {};
+            orders.forEach(function(o) {
+                if (!o.createdAt) return;
+                var d = new Date(o.createdAt);
+                var key = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
+                if (!monthMap[key]) {
+                    monthMap[key] = { year: d.getFullYear(), month: String(d.getMonth() + 1).padStart(2, '0'), count: 0, total: 0 };
+                }
+                monthMap[key].count++;
+                monthMap[key].total += Number(o.total) || 0;
+            });
+
+            var keys = Object.keys(monthMap).sort().reverse();
+            var html = '';
+            keys.forEach(function(key) {
+                var m = monthMap[key];
+                var avg = m.count > 0 ? Math.round(m.total / m.count) : 0;
+                var status = m.total > 5000 ? 'উচ্চ' : (m.total > 2000 ? 'মাঝারি' : 'নিম্ন');
+                var statusClass = m.total > 5000 ? 'paid' : 'pending';
+                html += '<tr>';
+                html += '<td style="font-weight:600;color:var(--text-dark);">' + getMonthName(m.month) + ' ' + m.year + '</td>';
+                html += '<td>' + m.count + ' টি</td>';
+                html += '<td>' + formatBDT(m.total) + '</td>';
+                html += '<td>' + formatBDT(avg) + '</td>';
+                html += '<td><span class="status-badge ' + statusClass + '">' + status + '</span></td>';
+                html += '</tr>';
+            });
+            tbody.innerHTML = html;
+        }
+
+        function renderRecentTransactions(orders) {
+            var container = document.getElementById('recentTransactions');
+            var empty = document.getElementById('transEmpty');
+
+            if (orders.length === 0) {
+                container.innerHTML = '';
+                empty.style.display = 'block';
+                return;
+            }
+            empty.style.display = 'none';
+
+            var sorted = orders.slice().sort(function(a, b) {
+                return new Date(b.createdAt) - new Date(a.createdAt);
+            }).slice(0, 10);
+
+            var html = '';
+            sorted.forEach(function(o) {
+                var itemsSummary = '';
+                if (o.items && o.items.length > 0) {
+                    itemsSummary = o.items.slice(0, 3).map(function(i) { return i.emoji + ' ' + i.name; }).join(', ');
+                    if (o.items.length > 3) itemsSummary += ' +' + (o.items.length - 3) + ' টি';
+                } else {
+                    itemsSummary = o.id;
+                }
+                var isPaid = o.status === 'Completed';
+                var statusBadge = isPaid ? 'paid' : 'pending';
+                var statusText = isPaid ? 'পরিশোধিত' : 'বাকি';
+                html += '<div class="transaction-item">';
+                html += '<div class="trans-icon" style="background:' + (isPaid ? '#D1FAE5' : '#FEF3C7') + ';color:' + (isPaid ? '#059669' : '#D97706') + ';"><i class="fas ' + (isPaid ? 'fa-check-circle' : 'fa-clock') + '"></i></div>';
+                html += '<div class="trans-info">';
+                html += '<div class="trans-date">' + formatDate(o.createdAt) + '</div>';
+                html += '<div class="trans-summary">' + itemsSummary + '</div>';
+                html += '</div>';
+                html += '<div style="text-align:right;">';
+                html += '<div class="trans-amount">' + formatBDT(o.total) + '</div>';
+                html += '<span class="status-badge ' + statusBadge + ' trans-status">' + statusText + '</span>';
+                html += '</div>';
+                html += '</div>';
+            });
+            container.innerHTML = html;
+        }
+
+        function renderInsights(orders) {
+            var container = document.getElementById('insightsContainer');
+
+            if (orders.length === 0) {
+                container.innerHTML = '<div class="empty-state"><i class="fas fa-lightbulb"></i><p>অন্তর্দৃষ্টি দেখতে অর্ডার তথ্য প্রয়োজন</p></div>';
+                return;
+            }
+
+            var now = new Date();
+            var currentMonth = String(now.getMonth() + 1).padStart(2, '0');
+            var currentYear = now.getFullYear();
+
+            var thisMonthOrders = orders.filter(function(o) {
+                if (!o.createdAt) return false;
+                var d = new Date(o.createdAt);
+                return String(d.getMonth() + 1).padStart(2, '0') === currentMonth && d.getFullYear() === currentYear;
+            });
+
+            var catSpending = {};
+            var totalSpend = 0;
+            thisMonthOrders.forEach(function(o) {
+                if (o.items) {
+                    o.items.forEach(function(item) {
+                        var cat = item.category || 'অন্যান্য';
+                        var amt = (Number(item.price) || 0) * (Number(item.qty) || 1);
+                        if (!catSpending[cat]) catSpending[cat] = 0;
+                        catSpending[cat] += amt;
+                        totalSpend += amt;
+                    });
+                }
+            });
+
+            var topCat = '';
+            var topCatAmt = 0;
+            for (var cat in catSpending) {
+                if (catSpending[cat] > topCatAmt) {
+                    topCatAmt = catSpending[cat];
+                    topCat = cat;
+                }
+            }
+
+            var lastMonth = now.getMonth() === 0 ? 11 : now.getMonth() - 1;
+            var lastMonthYear = now.getMonth() === 0 ? currentYear - 1 : currentYear;
+            var lastMonthStr = String(lastMonth + 1).padStart(2, '0');
+
+            var lastMonthOrders = orders.filter(function(o) {
+                if (!o.createdAt) return false;
+                var d = new Date(o.createdAt);
+                return String(d.getMonth() + 1).padStart(2, '0') === lastMonthStr && d.getFullYear() === lastMonthYear;
+            });
+
+            var lastTotal = 0;
+            lastMonthOrders.forEach(function(o) { lastTotal += Number(o.total) || 0; });
+
+            var changePct = 0;
+            if (lastTotal > 0) {
+                changePct = Math.round((totalSpend - lastTotal) / lastTotal * 100);
+            }
+
+            var html = '';
+            if (topCat) {
+                html += '<div class="insight-card"><div class="insight-icon"><i class="fas fa-tag"></i></div><div class="insight-text">এই মাসে আপনি <strong>' + topCat + '</strong>-এ সবচেয়ে বেশি খরচ করেছেন <span class="insight-badge">' + formatBDT(topCatAmt) + '</span></div></div>';
+            }
+            if (changePct < 0) {
+                html += '<div class="insight-card"><div class="insight-icon"><i class="fas fa-arrow-down" style="color:#059669;"></i></div><div class="insight-text">গত মাসের তুলনায় আপনার খরচ কমেছে <strong>' + Math.abs(changePct) + '%</strong> <span class="insight-badge" style="background:#059669;">সাশ্রয়</span></div></div>';
+            } else if (changePct > 0) {
+                html += '<div class="insight-card"><div class="insight-icon"><i class="fas fa-arrow-up" style="color:#D97706;"></i></div><div class="insight-text">গত মাসের তুলনায় আপনার খরচ বেড়েছে <strong>' + changePct + '%</strong></div></div>';
+            } else {
+                html += '<div class="insight-card"><div class="insight-icon"><i class="fas fa-minus"></i></div><div class="insight-text">গত মাসের তুলনায় আপনার খরচ অপরিবর্তিত রয়েছে</div></div>';
+            }
+
+            if (orders.length >= 5) {
+                html += '<div class="insight-card"><div class="insight-icon"><i class="fas fa-shopping-basket"></i></div><div class="insight-text">আপনি মোট <strong>' + orders.length + ' টি</strong> অর্ডার করেছেন, গড় অর্ডার মূল্য <strong>' + formatBDT(Math.round(totalSpend / (thisMonthOrders.length || 1))) + '</strong></div></div>';
+            }
+
+            container.innerHTML = html;
+        }
+
+        // ===== MARKET INTELLIGENCE =====
+        function renderMarketIntelligence() {
+            var container = document.getElementById('intelContainer');
+            var orders = getOrders();
+            if (orders.length < 2) {
+                container.innerHTML = '<div class="empty-state"><i class="fas fa-robot"></i><p>বাজার বুদ্ধি দেখতে আরও অর্ডার তথ্য প্রয়োজন</p></div>';
+                return;
+            }
+
+            var html = '';
+
+            // Seasonal alerts
+            var now = new Date();
+            var month = now.getMonth();
+            var seasonalTips = [
+                { m: [11,0,1], tip: '❄️ শীতকালীন সবজি — শাক, মুলা, গাজর, বাঁধাকপি এখন সস্তা!', emoji: '🥬' },
+                { m: [2,3,4], tip: '🌸 বসন্তে ইলিশের মৌসুম শুরু — ফ্রেশ ইলিশ এখন বাজারে!', emoji: '🐟' },
+                { m: [5,6,7], tip: '☔ বর্ষায় গরম ভাপা পিঠার উপকরণ এখন হাতে থাকুক!', emoji: '🍚' },
+                { m: [8,9,10], tip: '🍂 শরতে খেজুরের গুড় ও পিঠার মৌসুম — এখনই অর্ডার করুন!', emoji: '🌴' }
+            ];
+            var currentSeason = seasonalTips.find(function(s) { return s.m.indexOf(month) !== -1; });
+            if (currentSeason) {
+                html += '<div class="insight-card" style="background:linear-gradient(135deg,#FFF7ED,#FFEDD5);border-color:#FED7AA;"><div class="insight-icon" style="background:#FED7AA;color:#EA580C;">' + currentSeason.emoji + '</div><div class="insight-text" style="color:#9A3412;">' + currentSeason.tip + '</div></div>';
+            }
+
+            // Price trend simulation based on order history
+            var catData = {};
+            orders.forEach(function(o) {
+                if (!o.items) return;
+                o.items.forEach(function(item) {
+                    var cat = item.category || 'অন্যান্য';
+                    var name = item.name;
+                    var price = Number(item.price) || 0;
+                    var date = o.createdAt ? new Date(o.createdAt) : new Date();
+                    var monthKey = date.getFullYear() + '-' + String(date.getMonth()+1).padStart(2,'0');
+                    if (!catData[cat]) catData[cat] = {};
+                    if (!catData[cat][monthKey]) catData[cat][monthKey] = { total: 0, count: 0 };
+                    catData[cat][monthKey].total += price;
+                    catData[cat][monthKey].count++;
+                });
+            });
+
+            // Budget planning
+            var thisMonthOrders = orders.filter(function(o) {
+                if (!o.createdAt) return false;
+                var d = new Date(o.createdAt);
+                return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+            });
+            var monthlyTotal = thisMonthOrders.reduce(function(sum, o) { return sum + (Number(o.total) || 0); }, 0);
+            var dailyAvg = Math.round(monthlyTotal / (now.getDate() || 1));
+            var projectedMonthly = dailyAvg * new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+            var budgetLimit = 10000; // Suggested monthly budget
+
+            html += '<div class="insight-card" style="background:linear-gradient(135deg,#F0FDF4,#DCFCE7);border-color:#BBF7D0;">';
+            html += '<div class="insight-icon" style="background:#BBF7D0;color:#16A34A;"><i class="fas fa-chart-line"></i></div>';
+            html += '<div class="insight-text" style="color:#166534;">';
+            html += '📊 আপনার দৈনিক গড় ব্যয় <strong>' + formatBDT(dailyAvg) + '</strong> | ';
+            html += 'এই মাসে প্রক্ষেপিত ব্যয় <strong>' + formatBDT(projectedMonthly) + '</strong>';
+            if (projectedMonthly > budgetLimit) {
+                html += '<br>⚠️ আপনার প্রক্ষেপিত ব্যয় বাজেট <strong>' + formatBDT(budgetLimit) + '</strong> ছাড়িয়ে যাচ্ছে!';
+            } else {
+                html += '<br>✅ আপনি বাজেটের মধ্যে আছেন (বাজেট: ' + formatBDT(budgetLimit) + '/মাস)';
+            }
+            html += '</div></div>';
+
+            // Category spending breakdown with percentage
+            var catTotals = {};
+            var grandTotal = 0;
+            thisMonthOrders.forEach(function(o) {
+                if (!o.items) return;
+                o.items.forEach(function(item) {
+                    var cat = item.category || 'অন্যান্য';
+                    var amt = (Number(item.price) || 0) * (Number(item.qty) || 1);
+                    if (!catTotals[cat]) catTotals[cat] = 0;
+                    catTotals[cat] += amt;
+                    grandTotal += amt;
+                });
+            });
+
+            var sortedCats = Object.keys(catTotals).sort(function(a,b) { return catTotals[b] - catTotals[a]; });
+            if (sortedCats.length > 0) {
+                html += '<div class="insight-card" style="flex-direction:column;align-items:stretch;"><div style="font-weight:600;color:var(--text-dark);margin-bottom:0.75rem;">📋 ক্যাটাগরি অনুযায়ী ব্যয় বিভাজন</div>';
+                sortedCats.forEach(function(cat) {
+                    var pct = grandTotal > 0 ? Math.round(catTotals[cat] / grandTotal * 100) : 0;
+                    var catEmojis = { 'sabji':'🥬','mach':'🐟','mangsho':'🥩','mudi':'🛒','fol':'🍎','chal-tel':'🍚','snacks':'🍪','dairy':'🥛' };
+                    var emoji = catEmojis[cat] || '📦';
+                    html += '<div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.375rem;">';
+                    html += '<span style="font-size:1.125rem;">' + emoji + '</span>';
+                    html += '<div style="flex:1;"><div style="display:flex;justify-content:space-between;font-size:0.8125rem;color:var(--text-body);margin-bottom:0.125rem;"><span>' + cat + '</span><span>' + pct + '% | ' + formatBDT(catTotals[cat]) + '</span></div>';
+                    html += '<div style="height:6px;background:var(--bg);border-radius:3px;overflow:hidden;"><div style="height:100%;width:' + pct + '%;background:linear-gradient(90deg,var(--primary),var(--primary-light));border-radius:3px;transition:width 1s ease;"></div></div></div></div>';
+                });
+                html += '</div>';
+            }
+
+            container.innerHTML = html;
+        }
+
+        function exportStatement() {
+            var orders = getOrders();
+            if (orders.length === 0) {
+                alert('কোনো অর্ডার তথ্য নেই। প্রথমে অর্ডার করুন।');
+                return;
+            }
+
+            var now = new Date();
+            var currentMonth = String(now.getMonth() + 1).padStart(2, '0');
+            var currentYear = now.getFullYear();
+
+            var lines = [];
+            lines.push('========================================');
+            lines.push('        রংপুর সেবা - মাসিক বিবরণী');
+            lines.push('========================================');
+            lines.push('মাস: ' + getMonthName(currentMonth) + ' ' + currentYear);
+            lines.push('তারিখ: ' + now.toLocaleDateString('bn-BD'));
+            lines.push('----------------------------------------');
+            lines.push('');
+
+            var monthOrders = orders.filter(function(o) {
+                if (!o.createdAt) return false;
+                var d = new Date(o.createdAt);
+                return String(d.getMonth() + 1).padStart(2, '0') === currentMonth && d.getFullYear() === currentYear;
+            });
+
+            if (monthOrders.length === 0) {
+                lines.push('এই মাসে কোনো অর্ডার নেই।');
+            } else {
+                lines.push('অর্ডার তালিকা:');
+                lines.push('----------------------------------------');
+                var total = 0;
+                monthOrders.forEach(function(o) {
+                    var date = o.createdAt ? new Date(o.createdAt).toLocaleDateString('bn-BD') : '';
+                    var items = o.items ? o.items.map(function(i) { return i.name + ' (' + i.qty + ')'; }).join(', ') : '-';
+                    var status = o.status || 'Pending';
+                    lines.push(date + ' | ' + o.id + ' | ' + items + ' | ' + formatBDT(o.total) + ' | ' + status);
+                    total += Number(o.total) || 0;
+                });
+                lines.push('----------------------------------------');
+                lines.push('মোট অর্ডার: ' + monthOrders.length + ' টি');
+                lines.push('মোট খরচ: ' + formatBDT(total));
+                lines.push('গড় খরচ: ' + formatBDT(Math.round(total / monthOrders.length)));
+                lines.push('');
+                var pending = monthOrders.filter(function(o) { return o.status === 'Pending' || o.status === 'Processing'; }).length;
+                var completed = monthOrders.filter(function(o) { return o.status === 'Completed'; }).length;
+                lines.push('পরিশোধিত: ' + completed + ' টি');
+                lines.push('বাকি: ' + pending + ' টি');
+            }
+
+            lines.push('');
+            lines.push('----------------------------------------');
+            lines.push('রংপুর সেবা');
+            lines.push('ফোন: 01700-000000');
+            lines.push('WhatsApp: 8801700000000');
+            lines.push('========================================');
+
+            var text = lines.join('\n');
+            var blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = 'রংপুর-সেবা-বিবরণী-' + currentYear + '-' + currentMonth + '.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            renderDashboard();
+            if (typeof AOS !== 'undefined') setTimeout(function() { AOS.refresh(); }, 200);
+        });
+    </script>
+</body>
+</html>

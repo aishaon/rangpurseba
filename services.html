@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>আমাদের সেবাসমূহ | রংপুর সেবা - Rangpur Seba</title>
+    <meta name="description" content="রংপুর সেবার সকল সেবা — সবজি বাজার, মাছ বাজার, মাংস বাজার, মুদি বাজার, মাসিক বাজার ও জরুরি বাজার। বিস্তারিত জানুন ও অর্ডার করুন।">
+    <meta name="keywords" content="রংপুর সেবা, অনলাইন বাজার, সবজি বাজার, মাছ বাজার, মাংস বাজার, মুদি বাজার, মাসিক বাজার, জরুরি বাজার, Rangpur grocery">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="আমাদের সেবাসমূহ | রংপুর সেবা - Rangpur Seba">
+    <meta property="og:description" content="সবজি বাজার, মাছ বাজার, মাংস বাজার, মুদি বাজার, মাসিক বাজার ও জরুরি বাজার — রংপুর সেবায় সবকিছু।">
+    <meta property="og:image" content="https://rangpurseba.com/og-image.jpg">
+    <meta property="og:url" content="https://rangpurseba.comservices.html">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="bn_BD">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="আমাদের সেবাসমূহ | রংপুর সেবা">
+    <meta name="twitter:description" content="সবজি বাজার, মাছ বাজার, মাংস বাজার, মুদি বাজার, মাসিক বাজার ও জরুরি বাজার।">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="icons/favicon.svg">
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 2rem; }
+        .service-detail { background: var(--bg-white); border-radius: var(--radius-xl); overflow: hidden; border: 1px solid var(--border); transition: var(--transition); }
+        .service-detail:hover { box-shadow: var(--shadow-xl); transform: translateY(-6px); border-color: transparent; }
+        .service-detail-banner { height: 200px; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; color: white; position: relative; overflow: hidden; }
+        .service-detail-banner::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.15) 100%); }
+        .service-detail-banner .service-icon { position: relative; z-index: 1; }
+        .service-detail-body { padding: 2rem; }
+        .service-detail-title { font-size: 1.375rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.75rem; }
+        .service-detail-desc { font-size: 0.9375rem; color: var(--text-light); line-height: 1.7; margin-bottom: 1rem; }
+        .service-info { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.25rem; }
+        .service-info-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; color: var(--text-body); padding: 0.5rem 0.75rem; background: var(--bg); border-radius: var(--radius-sm); }
+        .service-info-item i { width: 18px; color: var(--primary); }
+        .service-info-item.orange i { color: var(--secondary); }
+        .service-order-steps { padding: 1rem 0; border-top: 1px solid var(--border); margin-top: 1rem; }
+        .service-order-step { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem; }
+        .service-order-step .step-num { width: 24px; height: 24px; border-radius: 50%; background: var(--primary-bg); color: var(--primary); font-size: 0.75rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+        .service-order-step span { font-size: 0.875rem; color: var(--text-body); }
+
+        .pricing-card { background: var(--bg-white); border-radius: var(--radius-xl); padding: 2.5rem 2rem; text-align: center; border: 2px solid var(--border); transition: var(--transition); position: relative; }
+        .pricing-card:hover { box-shadow: var(--shadow-xl); transform: translateY(-6px); border-color: var(--primary); }
+        .pricing-card.popular { border-color: var(--primary); }
+        .pricing-card.popular::before { content: 'সেরা পছন্দ'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; padding: 0.25rem 1.25rem; border-radius: var(--radius-full); font-size: 0.8125rem; font-weight: 600; }
+        .pricing-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+        .pricing-name { font-size: 1.25rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.5rem; }
+        .pricing-amount { font-size: 2.5rem; font-weight: 800; color: var(--primary); margin-bottom: 0.25rem; }
+        .pricing-amount small { font-size: 1rem; font-weight: 400; color: var(--text-light); }
+        .pricing-desc { font-size: 0.875rem; color: var(--text-light); margin-bottom: 1.5rem; }
+        .pricing-features { list-style: none; text-align: left; margin-bottom: 1.5rem; }
+        .pricing-features li { padding: 0.5rem 0; font-size: 0.875rem; color: var(--text-body); display: flex; align-items: center; gap: 0.5rem; border-bottom: 1px solid var(--border); }
+        .pricing-features li:last-child { border-bottom: none; }
+        .pricing-features li i { color: var(--primary); width: 18px; }
+
+        .bg-vegetable { background: linear-gradient(135deg, #16A34A, #22C55E); }
+        .bg-fish { background: linear-gradient(135deg, #2563EB, #3B82F6); }
+        .bg-meat { background: linear-gradient(135deg, #DC2626, #EF4444); }
+        .bg-grocery { background: linear-gradient(135deg, #D97706, #F59E0B); }
+        .bg-monthly { background: linear-gradient(135deg, #7C3AED, #8B5CF6); }
+        .bg-urgent { background: linear-gradient(135deg, #E11D48, #F43F5E); }
+
+        .service-faq-limit { max-width: 700px; margin: 0 auto; }
+
+        @media (max-width: 768px) {
+            .services-grid { grid-template-columns: 1fr; }
+            .service-info { grid-template-columns: 1fr; }
+            .pricing-card { padding: 1.5rem; }
+            .pricing-amount { font-size: 2rem; }
+        }
+        @media (max-width: 480px) {
+            .service-detail-banner { height: 160px; font-size: 2.5rem; }
+            .service-detail-body { padding: 1.25rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+    <div id="floating-buttons"></div>
+    <div id="sticky-mobile-cta"></div>
+
+    <main>
+
+        <!-- ===== PAGE HEADER ===== -->
+        <section class="page-header">
+            <div class="container">
+                <div class="page-header-content" data-aos="fade-up">
+                    <h1 class="page-title">আমাদের সেবাসমূহ</h1>
+                    <nav class="page-breadcrumb">
+                        <a href="index.html">হোম</a>
+                        <span>/</span>
+                        <span>সেবাসমূহ</span>
+                    </nav>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== SERVICE INTRO ===== -->
+        <section class="section" data-aos="fade-up">
+            <div class="container">
+                <h2 class="section-title">আমরা যা <span class="gradient-text">সরবরাহ করি</span></h2>
+                <p class="section-subtitle">প্রতিদিন সকালে তাজা পণ্য নিয়ে আমরা আপনার পাশে — আপনার চাহিদা অনুযায়ী সব ধরনের বাজার সেবা</p>
+            </div>
+        </section>
+
+        <!-- ===== SERVICE DETAILS ===== -->
+        <section class="section" style="padding-top: 0;">
+            <div class="container">
+                <div class="services-grid">
+
+                    <!-- সবজি বাজার -->
+                    <div class="service-detail" data-aos="fade-up" data-aos-delay="0">
+                        <div class="service-detail-banner bg-vegetable">
+                            <span class="service-icon">🥬</span>
+                        </div>
+                        <div class="service-detail-body">
+                            <h3 class="service-detail-title">সবজি বাজার</h3>
+                            <p class="service-detail-desc">প্রতিদিন সকালে কৃষকের কাছ থেকে তাজা সবজি সংগ্রহ করে আনা হয়। মৌসুমি ও দেশি সবজির পাশাপাশি বিদেশি সবজিও পাওয়া যায়। কোন প্রকার কেমিক্যাল ছাড়া প্রাকৃতিক সবজি নিশ্চিত করা হয়।</p>
+                            <div class="service-info">
+                                <div class="service-info-item"><i class="fas fa-clock"></i> প্রতিদিন সকাল ৭টা-রাত ৯টা</div>
+                                <div class="service-info-item orange"><i class="fas fa-truck"></i> ১-২ ঘন্টায় ডেলিভারি</div>
+                                <div class="service-info-item"><i class="fas fa-hand-holding-usd"></i> ন্যূনতম অর্ডার ২০০ টাকা</div>
+                                <div class="service-info-item orange"><i class="fas fa-check-circle"></i> ফ্রেশনেস গ্যারান্টি</div>
+                            </div>
+                            <div class="service-order-steps">
+                                <div class="service-order-step"><span class="step-num">১</span><span>আপনার প্রয়োজনীয় সবজির লিস্ট WhatsApp এ পাঠান</span></div>
+                                <div class="service-order-step"><span class="step-num">২</span><span>আমরা দাম ও ডেলিভারি সময় কনফার্ম করি</span></div>
+                                <div class="service-order-step"><span class="step-num">৩</span><span>তাজা সবজি আপনার দরজায় পৌঁছে যায়</span></div>
+                            </div>
+                            <a href="https://wa.me/8801700000000" target="_blank" class="btn btn-primary" style="width:100%; margin-top: 1rem;">
+                                <i class="fab fa-whatsapp"></i> এখনই অর্ডার করুন
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- মাছ বাজার -->
+                    <div class="service-detail" data-aos="fade-up" data-aos-delay="100">
+                        <div class="service-detail-banner bg-fish">
+                            <span class="service-icon">🐟</span>
+                        </div>
+                        <div class="service-detail-body">
+                            <h3 class="service-detail-title">মাছ বাজার</h3>
+                            <p class="service-detail-desc">রুই, কাতলা, তেলাপিয়া, পাঙ্গাস, ইলিশ, চিংড়ি সহ দেশি ও বিদেশি মাছের বিশাল কালেকশন। প্রতিদিন সকালে新鮮 মাছ সংগ্রহ করে হাইজিনিক প্যাকেজিংয়ে আপনার জন্য সংরক্ষণ করা হয়।</p>
+                            <div class="service-info">
+                                <div class="service-info-item"><i class="fas fa-clock"></i> প্রতিদিন সকাল ৭টা-রাত ৮টা</div>
+                                <div class="service-info-item orange"><i class="fas fa-truck"></i> ১-২ ঘন্টায় ডেলিভারি</div>
+                                <div class="service-info-item"><i class="fas fa-tshirt"></i> ফ্রি ক্লিনিং & কাটিং</div>
+                                <div class="service-info-item orange"><i class="fas fa-snowflake"></i> কোল্ড চেইন নিশ্চিত</div>
+                            </div>
+                            <div class="service-order-steps">
+                                <div class="service-order-step"><span class="step-num">১</span><span>কোন মাছ ও কত কেজি চান জানান</span></div>
+                                <div class="service-order-step"><span class="step-num">২</span><span>আমরা ক্লিন করে কেটে প্যাকেজ করি</span></div>
+                                <div class="service-order-step"><span class="step-num">৩</span><span>আইস প্যাক সহ নিরাপদে ডেলিভারি</span></div>
+                            </div>
+                            <a href="https://wa.me/8801700000000" target="_blank" class="btn btn-primary" style="width:100%; margin-top: 1rem;">
+                                <i class="fab fa-whatsapp"></i> এখনই অর্ডার করুন
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- মাংস বাজার -->
+                    <div class="service-detail" data-aos="fade-up" data-aos-delay="200">
+                        <div class="service-detail-banner bg-meat">
+                            <span class="service-icon">🥩</span>
+                        </div>
+                        <div class="service-detail-body">
+                            <h3 class="service-detail-title">মাংস বাজার</h3>
+                            <p class="service-detail-desc">গরু, খাসি ও মুরগির মাংস — সবই তাজা ও হাইজিনিকভাবে প্রসেস করা। প্রতিদিন সকালে বাজার থেকে সরাসরি সংগ্রহ করা হয়। ফ্রি বোনলেস অপশন available। ওজনে সম্পূর্ণ স্বচ্ছতা নিশ্চিত।</p>
+                            <div class="service-info">
+                                <div class="service-info-item"><i class="fas fa-clock"></i> প্রতিদিন সকাল ৭টা-রাত ৮টা</div>
+                                <div class="service-info-item orange"><i class="fas fa-truck"></i> ১-২ ঘন্টায় ডেলিভারি</div>
+                                <div class="service-info-item"><i class="fas fa-cut"></i> ফ্রি কাটিং & বোনলেস</div>
+                                <div class="service-info-item orange"><i class="fas fa-weight"></i> সঠিক ওজন নিশ্চিত</div>
+                            </div>
+                            <div class="service-order-steps">
+                                <div class="service-order-step"><span class="step-num">১</span><span>মাংসের ধরন ও পরিমাণ জানিয়ে দিন</span></div>
+                                <div class="service-order-step"><span class="step-num">২</span><span>আমরা আপনার পছন্দমতো কেটে দিই</span></div>
+                                <div class="service-order-step"><span class="step-num">৩</span><span>হাইজিনিক প্যাকেজিংয়ে ডেলিভারি</span></div>
+                            </div>
+                            <a href="https://wa.me/8801700000000" target="_blank" class="btn btn-primary" style="width:100%; margin-top: 1rem;">
+                                <i class="fab fa-whatsapp"></i> এখনই অর্ডার করুন
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- মুদি বাজার -->
+                    <div class="service-detail" data-aos="fade-up" data-aos-delay="300">
+                        <div class="service-detail-banner bg-grocery">
+                            <span class="service-icon">🛒</span>
+                        </div>
+                        <div class="service-detail-body">
+                            <h3 class="service-detail-title">মুদি বাজার</h3>
+                            <p class="service-detail-desc">চাল, ডাল, তেল, মসলা, লবণ, চিনি, আটা, ময়দা, সেমাই, বিস্কুট, ডিটারজেন্ট, সাবান — আপনার দৈনন্দিন দরকারি সব মুদি পণ্য। সব ব্র্যান্ডের পণ্য পাওয়া যায়। বাল্ক অর্ডারেও বিশেষ ছাড়।</p>
+                            <div class="service-info">
+                                <div class="service-info-item"><i class="fas fa-clock"></i> প্রতিদিন সকাল ৮টা-রাত ১০টা</div>
+                                <div class="service-info-item orange"><i class="fas fa-truck"></i> ২-৩ ঘন্টায় ডেলিভারি</div>
+                                <div class="service-info-item"><i class="fas fa-boxes"></i> সব ব্র্যান্ড পাওয়া যায়</div>
+                                <div class="service-info-item orange"><i class="fas fa-tag"></i> বাল্ক অর্ডারে ডিসকাউন্ট</div>
+                            </div>
+                            <div class="service-order-steps">
+                                <div class="service-order-step"><span class="step-num">১</span><span>প্রয়োজনীয় পণ্যের লিস্ট পাঠান</span></div>
+                                <div class="service-order-step"><span class="step-num">২</span><span>আমরা ব্র্যান্ড ও দাম কনফার্ম করি</span></div>
+                                <div class="service-order-step"><span class="step-num">৩</span><span>পণ্য প্যাকেট করে ডেলিভারি</span></div>
+                            </div>
+                            <a href="https://wa.me/8801700000000" target="_blank" class="btn btn-primary" style="width:100%; margin-top: 1rem;">
+                                <i class="fab fa-whatsapp"></i> এখনই অর্ডার করুন
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- মাসিক বাজার -->
+                    <div class="service-detail" data-aos="fade-up" data-aos-delay="400">
+                        <div class="service-detail-banner bg-monthly">
+                            <span class="service-icon">📦</span>
+                        </div>
+                        <div class="service-detail-body">
+                            <h3 class="service-detail-title">মাসিক বাজার</h3>
+                            <p class="service-detail-desc">পুরো মাসের বাজার একসাথে অর্ডার করুন এবং বিশেষ ডিসকাউন্ট উপভোগ করুন। চাল, ডাল, তেল, মসলা, মুদি পণ্য — সবকিছু একসাথে। ফ্রি ডেলিভারি ও এক্সট্রা ছাড়। পরিবার ও অফিসের জন্য আদর্শ।</p>
+                            <div class="service-info">
+                                <div class="service-info-item"><i class="fas fa-calendar-alt"></i> মাসে ১ বার অর্ডার</div>
+                                <div class="service-info-item orange"><i class="fas fa-truck"></i> ফ্রি ডেলিভারি</div>
+                                <div class="service-info-item"><i class="fas fa-percent"></i> ১০-১৫% ডিসকাউন্ট</div>
+                                <div class="service-info-item orange"><i class="fas fa-gift"></i> ফ্রি গিফট আইটেম</div>
+                            </div>
+                            <div class="service-order-steps">
+                                <div class="service-order-step"><span class="step-num">১</span><span>মাসিক বাজেট ও প্রয়োজন জানান</span></div>
+                                <div class="service-order-step"><span class="step-num">২</span><span>আমরা একটি কমপ্লিট লিস্ট তৈরি করি</span></div>
+                                <div class="service-order-step"><span class="step-num">৩</span><span>পুরো মাসের বাজার একসাথে ডেলিভারি</span></div>
+                            </div>
+                            <a href="https://wa.me/8801700000000" target="_blank" class="btn btn-primary" style="width:100%; margin-top: 1rem;">
+                                <i class="fab fa-whatsapp"></i> মাসিক বাজার অর্ডার করুন
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- জরুরি বাজার -->
+                    <div class="service-detail" data-aos="fade-up" data-aos-delay="500">
+                        <div class="service-detail-banner bg-urgent">
+                            <span class="service-icon">⚡</span>
+                        </div>
+                        <div class="service-detail-body">
+                            <h3 class="service-detail-title">জরুরি বাজার</h3>
+                            <p class="service-detail-desc">যেকোনো জরুরি প্রয়োজনে — হঠাৎ অতিথি এল, রান্নার মাঝে কিছু ফুরিয়ে গেল, অসুস্থ বলে বাজারে যেতে পারছেন না? আমাদের জরুরি ডেলিভারি সার্ভিস ৩০-৬০ মিনিটের মধ্যে আপনার প্রয়োজনীয় পণ্য পৌঁছে দেয়।</p>
+                            <div class="service-info">
+                                <div class="service-info-item"><i class="fas fa-bolt"></i> ৩০-৬০ মিনিটে ডেলিভারি</div>
+                                <div class="service-info-item orange"><i class="fas fa-clock"></i> ২৪/৭ সার্ভিস</div>
+                                <div class="service-info-item"><i class="fas fa-box-open"></i> যেকোনো পণ্য</div>
+                                <div class="service-info-item orange"><i class="fas fa-motorcycle"></i> এক্সপ্রেস ডেলিভারি</div>
+                            </div>
+                            <div class="service-order-steps">
+                                <div class="service-order-step"><span class="step-num">১</span><span>WhatsApp এ জরুরি অর্ডার জানান</span></div>
+                                <div class="service-order-step"><span class="step-num">২</span><span>আমরা সাথে সাথেই বাজার করে দিই</span></div>
+                                <div class="service-order-step"><span class="step-num">৩</span><span>এক্সপ্রেস ডেলিভারি — ৩০-৬০ মিনিট</span></div>
+                            </div>
+                            <a href="https://wa.me/8801700000000" target="_blank" class="btn btn-secondary" style="width:100%; margin-top: 1rem;">
+                                <i class="fab fa-whatsapp"></i> জরুরি অর্ডার করুন
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== PRICING ===== -->
+        <section class="section" style="background: var(--primary-bg);" data-aos="fade-up">
+            <div class="container">
+                <h2 class="section-title">ডেলিভারি <span class="gradient-text">চার্জ</span></h2>
+                <p class="section-subtitle">আপনার এলাকা ও অর্ডারের পরিমাণ অনুযায়ী খুবই সাশ্রয়ী ডেলিভারি চার্জ</p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 1000px; margin: 0 auto;">
+                    <div class="pricing-card" data-aos="fade-up" data-aos-delay="0">
+                        <div class="pricing-icon">🛵</div>
+                        <div class="pricing-name">স্ট্যান্ডার্ড</div>
+                        <div class="pricing-amount">৩০ <small>টাকা</small></div>
+                        <div class="pricing-desc">অর্ডার ৫০০ টাকার নিচে হলে</div>
+                        <ul class="pricing-features">
+                            <li><i class="fas fa-check"></i> ১-২ ঘন্টায় ডেলিভারি</li>
+                            <li><i class="fas fa-check"></i> ক্যাশ অন ডেলিভারি</li>
+                            <li><i class="fas fa-check"></i> হাইজিনিক প্যাকেজিং</li>
+                        </ul>
+                    </div>
+                    <div class="pricing-card popular" data-aos="fade-up" data-aos-delay="100">
+                        <div class="pricing-icon">🚚</div>
+                        <div class="pricing-name">ফ্রি ডেলিভারি</div>
+                        <div class="pricing-amount">০ <small>টাকা</small></div>
+                        <div class="pricing-desc">৫০০ টাকা বা তার বেশি অর্ডারে</div>
+                        <ul class="pricing-features">
+                            <li><i class="fas fa-check"></i> সম্পূর্ণ ফ্রি ডেলিভারি</li>
+                            <li><i class="fas fa-check"></i> ক্যাশ অন ডেলিভারি</li>
+                            <li><i class="fas fa-check"></i> ফ্রেশনেস গ্যারান্টি</li>
+                            <li><i class="fas fa-check"></i> ফ্রি ম্যাসেঞ্জার সাপোর্ট</li>
+                        </ul>
+                    </div>
+                    <div class="pricing-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="pricing-icon">⚡</div>
+                        <div class="pricing-name">জরুরি ডেলিভারি</div>
+                        <div class="pricing-amount">৫০ <small>টাকা</small></div>
+                        <div class="pricing-desc">অর্ডার ৫০০ টাকার নিচে হলে</div>
+                        <ul class="pricing-features">
+                            <li><i class="fas fa-check"></i> ৩০-৬০ মিনিটে ডেলিভারি</li>
+                            <li><i class="fas fa-check"></i> ক্যাশ অন ডেলিভারি</li>
+                            <li><i class="fas fa-check"></i> ২৪/৭ সাপোর্ট</li>
+                            <li><i class="fas fa-check"></i> এক্সপ্রেস সার্ভিস</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== FAQ ABOUT SERVICES ===== -->
+        <section class="section" data-aos="fade-up">
+            <div class="container">
+                <h2 class="section-title">সেবা সম্পর্কে <span class="gradient-text">সাধারণ প্রশ্ন</span></h2>
+                <p class="section-subtitle">আমাদের সেবা নিয়ে আপনার মনে কিছু প্রশ্ন থাকলে উত্তর নিচে দেওয়া আছে</p>
+                <div class="service-faq-limit">
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="0">
+                        <div class="faq-question">
+                            <span>নূন্যতম অর্ডার কত টাকা?</span>
+                            <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            আমাদের নূন্যতম অর্ডার ২০০ টাকা। তবে মুদি পণ্যের জন্য ৩০০ টাকা নূন্যতম অর্ডার প্রয়োজন। মাসিক বাজারের জন্য নূন্যতম অর্ডার ২০০০ টাকা এবং এতে ফ্রি ডেলিভারি ও বিশেষ ডিসকাউন্ট অন্তর্ভুক্ত।
+                        </div>
+                    </div>
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
+                        <div class="faq-question">
+                            <span>জরুরি অর্ডার কত সময়ে পৌঁছায়?</span>
+                            <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            জরুরি অর্ডার ৩০-৬০ মিনিটের মধ্যে আপনার ঠিকানায় পৌঁছে যায়। এটি শহর এলাকার জন্য প্রযোজ্য। জরুরি ডেলিভারি চার্জ ৫০ টাকা এবং এটি ২৪/৭ পাওয়া যায় — রাতের বেলাতেও।
+                        </div>
+                    </div>
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
+                        <div class="faq-question">
+                            <span>মাছ বা মাংস কেটে দেন কি?</span>
+                            <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            জি, আমরা মাছ ও মাংস সম্পূর্ণ ফ্রি কেটে দিই। আপনি চাইলে বোনলেসও নিতে পারেন। মাছ ক্লিনিং ও কাটিং একদম ফ্রি। প্যাকেজিং হাইজিনিক ফুড-গ্রেড ব্যাগে করা হয়।
+                        </div>
+                    </div>
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="300">
+                        <div class="faq-question">
+                            <span>মাসিক বাজারে কি কি সুবিধা আছে?</span>
+                            <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            মাসিক বাজারে আপনি ১০-১৫% ডিসকাউন্ট, ফ্রি ডেলিভারি ও একটি ফ্রি গিফট আইটেম পাবেন। আমরা আপনার জন্য একটি কমপ্লিট বাজারের লিস্ট তৈরি করে দিই — আপনি শুধু কনফার্ম করবেন। পরিবার ও অফিসের জন্য এটি সবচেয়ে সাশ্রয়ী অপশন।
+                        </div>
+                    </div>
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="400">
+                        <div class="faq-question">
+                            <span>পণ্য রিটার্ন বা পরিবর্তন করা যায়?</span>
+                            <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            যদি কোনো পণ্যে সমস্যা থাকে (পচা, নষ্ট বা ভুল পণ্য), তাহলে আমরা সাথে সাথেই তা পরিবর্তন বা রিফান্ড করে দিই। আমাদের কোয়ালিটি গ্যারান্টি আছে — আপনি যদি সন্তুষ্ট না হন, আমরা পণ্য পরিবর্তন করে দেব।
+                        </div>
+                    </div>
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="500">
+                        <div class="faq-question">
+                            <span>পেমেন্টের অপশন কি কি?</span>
+                            <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            বর্তমানে আমরা ক্যাশ অন ডেলিভারি (পণ্য হাতে পেয়ে টাকা দেওয়া) সেবা দিচ্ছি। খুব শীঘ্রই আমরা bKash, Nagad ও Rocket পেমেন্ট অপশন চালু করছি। ডিজিটাল পেমেন্টে অতিরিক্ত ডিসকাউন্ট মিলবে।
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== CTA ===== -->
+        <section class="section cta-about" data-aos="fade-up" style="background: linear-gradient(135deg, var(--primary), var(--primary-dark)); position: relative; overflow: hidden;">
+            <div class="container">
+                <div style="position: relative; z-index: 1; text-align: center; padding: 2rem 0; color: white;">
+                    <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 1rem;" data-aos="fade-up">যেকোনো সেবা আজই নিন</h2>
+                    <p style="font-size: 1.125rem; opacity: 0.9; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;" data-aos="fade-up" data-aos-delay="100">আপনার প্রয়োজনীয় বাজার নির্বাচন করুন এবং WhatsApp এ অর্ডার করুন। আমাদের টিম ১ ঘন্টার মধ্যে আপনার দরজায়।</p>
+                    <div data-aos="fade-up" data-aos-delay="200">
+                        <a href="https://wa.me/8801700000000" target="_blank" class="btn btn-lg btn-secondary" style="font-size: 1.125rem;">
+                            <i class="fab fa-whatsapp"></i> WhatsApp এ অর্ডার করুন
+                        </a>
+                        <a href="https://m.me/RangpurSeba" target="_blank" class="btn btn-lg btn-white" style="margin-left: 1rem;">
+                            <i class="fab fa-facebook-messenger"></i> Messenger
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/main.js"></script>
+
+</body>
+</html>

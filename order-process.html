@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>অর্ডার প্রক্রিয়া | রংপুর সেবা - Rangpur Seba</title>
+    <meta name="description" content="রংপুর সেবায় অর্ডার প্রক্রিয়া — মেসেঞ্জার/WhatsApp এ লিস্ট পাঠান, অ্যাডমিন কনফার্ম করেন, বাজার করা হয়, ডেলিভারি, ক্যাশ অন ডেলিভারি।">
+    <meta name="keywords" content="রংপুর সেবা অর্ডার প্রক্রিয়া, কিভাবে অর্ডার করবেন, অনলাইন বাজার অর্ডার, Rangpur order process">
+
+    <meta property="og:title" content="অর্ডার প্রক্রিয়া | রংপুর সেবা">
+    <meta property="og:description" content="৫টি সহজ ধাপে আপনার বাজার পৌঁছে যাচ্ছে আপনার দরজায়।">
+    <meta property="og:image" content="https://rangpurseba.com/og-image.jpg">
+    <meta property="og:url" content="https://rangpurseba.comorder-process.html">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="bn_BD">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="অর্ডার প্রক্রিয়া | রংপুর সেবা">
+    <meta name="twitter:description" content="৫টি সহজ ধাপে আপনার বাজার পৌঁছে যাচ্ছে আপনার দরজায়।">
+
+    <link rel="icon" type="image/svg+xml" href="icons/favicon.svg">
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .process-step-card { background: var(--bg-white); border-radius: var(--radius-xl); padding: 2rem; border: 1px solid var(--border); transition: var(--transition); position: relative; overflow: hidden; }
+        .process-step-card:hover { box-shadow: var(--shadow-xl); transform: translateY(-6px); border-color: transparent; }
+        .process-step-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--primary), var(--primary-light)); transform: scaleX(0); transition: var(--transition); }
+        .process-step-card:hover::before { transform: scaleX(1); }
+        .process-step-number { width: 48px; height: 48px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 1.25rem; flex-shrink: 0; box-shadow: 0 4px 12px rgba(22,163,74,0.3); }
+        .process-step-icon { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; }
+        .process-step-icon.step-1 { background: #E8F5E9; color: #25D366; }
+        .process-step-icon.step-2 { background: #E3F2FD; color: #0078FF; }
+        .process-step-icon.step-3 { background: #FFF3E0; color: var(--secondary); }
+        .process-step-icon.step-4 { background: #F3E5F5; color: #9C27B0; }
+        .process-step-icon.step-5 { background: #E8F5E9; color: var(--primary); }
+        .step-connector-vertical { display: flex; justify-content: center; padding: 0.25rem 0; }
+        .step-connector-vertical i { color: var(--primary); font-size: 1.5rem; opacity: 0.4; }
+        @media (min-width: 768px) { .step-connector-vertical { padding: 0.5rem 0; } }
+        .order-method-card { background: var(--bg-white); border-radius: var(--radius-xl); padding: 2rem; text-align: center; border: 1px solid var(--border); transition: var(--transition); }
+        .order-method-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-xl); border-color: transparent; }
+        .order-method-card .order-method-icon { width: 80px; height: 80px; margin: 0 auto 1.25rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.25rem; transition: var(--transition); }
+        .order-method-card:hover .order-method-icon { transform: scale(1.1); }
+        .order-method-card.whatsapp .order-method-icon { background: #E8F5E9; color: #25D366; }
+        .order-method-card.messenger .order-method-icon { background: #E3F2FD; color: #0078FF; }
+        .order-method-card.voice .order-method-icon { background: #FFF3E0; color: var(--secondary); }
+        .order-method-card.photo .order-method-icon { background: #F3E5F5; color: #9C27B0; }
+        .faq-mini .faq-item { background: var(--bg-white); border-radius: var(--radius-lg); border: 1px solid var(--border); margin-bottom: 0.75rem; overflow: hidden; transition: var(--transition); }
+        .faq-mini .faq-item:hover { border-color: var(--primary); }
+        .faq-mini .faq-question { padding: 1.125rem 1.5rem; display: flex; align-items: center; justify-content: space-between; cursor: pointer; font-weight: 600; color: var(--text-dark); font-size: 1rem; user-select: none; }
+        .faq-mini .faq-question:hover { color: var(--primary); }
+        .faq-mini .faq-icon { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: var(--primary-bg); border-radius: 50%; color: var(--primary); transition: var(--transition); flex-shrink: 0; }
+        .faq-mini .faq-item.active .faq-icon { transform: rotate(45deg); background: var(--primary); color: white; }
+        .faq-mini .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; padding: 0 1.5rem; color: var(--text-light); line-height: 1.7; font-size: 0.9375rem; }
+        .faq-mini .faq-item.active .faq-answer { max-height: 300px; padding: 0 1.5rem 1.25rem; }
+        .timeline-modern { position: relative; }
+        .timeline-modern::before { content: ''; position: absolute; left: 32px; top: 0; bottom: 0; width: 3px; background: linear-gradient(180deg, var(--primary), var(--primary-light), var(--secondary)); }
+        @media (min-width: 992px) { .timeline-modern::before { left: 50%; transform: translateX(-50%); } }
+        @media (max-width: 991px) { .timeline-modern .process-step-card { padding-left: 4.5rem; } }
+    </style>
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+    <div id="floating-buttons"></div>
+    <div id="sticky-mobile-cta"></div>
+
+    <main>
+        <!-- ===== PAGE HEADER ===== -->
+        <section class="page-header">
+            <div class="page-header-content" data-aos="fade-up">
+                <h1 class="page-title">অর্ডার প্রক্রিয়া</h1>
+                <div class="page-breadcrumb">
+                    <a href="index.html">হোম</a>
+                    <span><i class="fas fa-chevron-right" style="font-size:0.625rem;"></i></span>
+                    <span>অর্ডার প্রক্রিয়া</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== OVERVIEW ===== -->
+        <section class="section" style="padding-bottom: 0;">
+            <div class="container">
+                <div style="text-align:center;max-width:700px;margin:0 auto 3rem;" data-aos="fade-up">
+                    <h2 class="section-title">৫টি সহজ <span class="gradient-text">ধাপ</span></h2>
+                    <p class="section-subtitle" style="margin-bottom:0;">আপনার বাজার অর্ডার থেকে ডেলিভারি পর্যন্ত পুরো প্রক্রিয়াটি খুবই সহজ এবং স্বচ্ছ। নিচে每一步 বিস্তারিত দেওয়া হলো।</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== TIMELINE STEPS ===== -->
+        <section class="section" style="padding-top: 2rem;">
+            <div class="container">
+                <div class="timeline-modern">
+
+                    <!-- Step 1 -->
+                    <div class="process-step-card" style="margin-bottom:1.5rem;" data-aos="fade-up">
+                        <div style="display:flex;align-items:flex-start;gap:1.25rem;">
+                            <div class="process-step-number">১</div>
+                            <div style="flex:1;">
+                                <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.75rem;">
+                                    <div class="process-step-icon step-1"><i class="fab fa-whatsapp"></i></div>
+                                    <div>
+                                        <h3 style="font-size:1.25rem;font-weight:700;color:var(--text-dark);">গ্রাহক লিস্ট পাঠান</h3>
+                                        <span class="badge badge-primary"><i class="far fa-clock"></i> সময়: ২-৫ মিনিট</span>
+                                    </div>
+                                </div>
+                                <p style="color:var(--text-light);line-height:1.7;font-size:0.9375rem;">
+                                    আপনার বাজারের লিস্ট Facebook Messenger বা WhatsApp এ টেক্সট, ভয়েস নোট বা ছবি আকারে পাঠান। 
+                                    কী কী লাগবে, কত পরিমাণ — সব কিছু জানিয়ে দিন। আপনি যেভাবে স্বাচ্ছন্দ্য বোধ করেন সেভাবেই লিস্ট পাঠাতে পারেন।
+                                </p>
+                                <div style="margin-top:1rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
+                                    <a href="https://wa.me/8801700000000" target="_blank" class="btn btn-sm btn-primary">
+                                        <i class="fab fa-whatsapp"></i> WhatsApp
+                                    </a>
+                                    <a href="https://m.me/RangpurSeba" target="_blank" class="btn btn-sm btn-outline" style="border-color:#0078FF;color:#0078FF;">
+                                        <i class="fab fa-facebook-messenger"></i> Messenger
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-connector-vertical" data-aos="fade-up">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="process-step-card" style="margin-bottom:1.5rem;" data-aos="fade-up" data-aos-delay="100">
+                        <div style="display:flex;align-items:flex-start;gap:1.25rem;">
+                            <div class="process-step-number">২</div>
+                            <div style="flex:1;">
+                                <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.75rem;">
+                                    <div class="process-step-icon step-2"><i class="fas fa-check-double"></i></div>
+                                    <div>
+                                        <h3 style="font-size:1.25rem;font-weight:700;color:var(--text-dark);">অ্যাডমিন কনফার্ম করেন</h3>
+                                        <span class="badge badge-primary"><i class="far fa-clock"></i> সময়: ৫-১০ মিনিট</span>
+                                    </div>
+                                </div>
+                                <p style="color:var(--text-light);line-height:1.7;font-size:0.9375rem;">
+                                    আমাদের অ্যাডমিন টিম আপনার লিস্ট চেক করে প্রাপ্যতা ও দাম কনফার্ম করবেন। কোনো পণ্য না থাকলে 
+                                    বিকল্প সুপারিশ করা হবে। সর্বোত্তম কোয়ালিটি নিশ্চিত করে আপনাকে জানানো হবে মোট মূল্য ও ডেলিভারি সময়।
+                                </p>
+                                <div style="margin-top:1rem;">
+                                    <span class="badge badge-secondary"><i class="fas fa-check-circle"></i> কনফার্মেশন নিশ্চিত</span>
+                                    <span class="badge badge-secondary" style="margin-left:0.5rem;"><i class="fas fa-sync-alt"></i> বিকল্প সুপারিশ</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-connector-vertical" data-aos="fade-up" data-aos-delay="50">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="process-step-card" style="margin-bottom:1.5rem;" data-aos="fade-up" data-aos-delay="200">
+                        <div style="display:flex;align-items:flex-start;gap:1.25rem;">
+                            <div class="process-step-number">৩</div>
+                            <div style="flex:1;">
+                                <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.75rem;">
+                                    <div class="process-step-icon step-3"><i class="fas fa-shopping-basket"></i></div>
+                                    <div>
+                                        <h3 style="font-size:1.25rem;font-weight:700;color:var(--text-dark);">বাজার করা হয়</h3>
+                                        <span class="badge badge-primary"><i class="far fa-clock"></i> সময়: ৩০-৬০ মিনিট</span>
+                                    </div>
+                                </div>
+                                <p style="color:var(--text-light);line-height:1.7;font-size:0.9375rem;">
+                                    আমাদের এক্সপেরিয়েন্সড টিম আপনার লিস্ট অনুযায়ী রংপুরের সেরা বাজার থেকে তাজা ও মানসম্মত পণ্য সংগ্রহ করে। 
+                                    সবজি, মাছ, মাংস — প্রতিটি পণ্য আলাদাভাবে হাইজিনিক পদ্ধতিতে প্যাকেজ করা হয়। ফ্রেশনেস চেক অত্যাবশ্যক।
+                                </p>
+                                <div style="margin-top:1rem;">
+                                    <span class="badge badge-primary"><i class="fas fa-leaf"></i> তাজা পণ্য</span>
+                                    <span class="badge badge-primary" style="margin-left:0.5rem;"><i class="fas fa-box"></i> হাইজিনিক প্যাকেজিং</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-connector-vertical" data-aos="fade-up" data-aos-delay="100">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="process-step-card" style="margin-bottom:1.5rem;" data-aos="fade-up" data-aos-delay="300">
+                        <div style="display:flex;align-items:flex-start;gap:1.25rem;">
+                            <div class="process-step-number">৪</div>
+                            <div style="flex:1;">
+                                <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.75rem;">
+                                    <div class="process-step-icon step-4"><i class="fas fa-truck"></i></div>
+                                    <div>
+                                        <h3 style="font-size:1.25rem;font-weight:700;color:var(--text-dark);">ডেলিভারি ডিসপ্যাচ</h3>
+                                        <span class="badge badge-primary"><i class="far fa-clock"></i> সময়: ১৫-৩০ মিনিট</span>
+                                    </div>
+                                </div>
+                                <p style="color:var(--text-light);line-height:1.7;font-size:0.9375rem;">
+                                    বাজার শেষ হলে আমাদের ডেলিভারি রাইডার আপনার ঠিকানায় পণ্য পৌঁছে দেওয়ার জন্য বের হয়ে পড়েন। 
+                                    আপনি WhatsApp এ ট্র্যাকিং আপডেট পেতে থাকবেন। রাইডার আপনার সাথে কন্টাক্ট করবেন ডেলিভারির আগে।
+                                </p>
+                                <div style="margin-top:1rem;">
+                                    <span class="badge badge-secondary"><i class="fas fa-map-marker-alt"></i> ট্র্যাকিং আপডেট</span>
+                                    <span class="badge badge-secondary" style="margin-left:0.5rem;"><i class="fas fa-motorcycle"></i> ফাস্ট ডেলিভারি</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-connector-vertical" data-aos="fade-up" data-aos-delay="150">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+
+                    <!-- Step 5 -->
+                    <div class="process-step-card" data-aos="fade-up" data-aos-delay="400">
+                        <div style="display:flex;align-items:flex-start;gap:1.25rem;">
+                            <div class="process-step-number">৫</div>
+                            <div style="flex:1;">
+                                <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.75rem;">
+                                    <div class="process-step-icon step-5"><i class="fas fa-hand-holding-usd"></i></div>
+                                    <div>
+                                        <h3 style="font-size:1.25rem;font-weight:700;color:var(--text-dark);">ক্যাশ অন ডেলিভারি</h3>
+                                        <span class="badge badge-primary"><i class="far fa-clock"></i> সময়: ২ মিনিট</span>
+                                    </div>
+                                </div>
+                                <p style="color:var(--text-light);line-height:1.7;font-size:0.9375rem;">
+                                    পণ্য আপনার হাতে পৌঁছানোর পর পেমেন্ট করুন। ক্যাশ অন ডেলিভারি — সম্পূর্ণ নিরাপদ ও ঝামেলামুক্ত। 
+                                    আপনি পণ্য দেখে, চেক করে তবেই টাকা দিবেন। কোনো প্রকার প্রিপেমেন্টের প্রয়োজন নেই।
+                                </p>
+                                <div style="margin-top:1rem;">
+                                    <span class="badge badge-primary"><i class="fas fa-shield-alt"></i> নিরাপদ পেমেন্ট</span>
+                                    <span class="badge badge-primary" style="margin-left:0.5rem;"><i class="fas fa-smile"></i> ১০০% সন্তুষ্টি</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Timeline Summary -->
+                <div style="margin-top:3rem;background:var(--primary-bg);border-radius:var(--radius-xl);padding:1.75rem 2rem;text-align:center;" data-aos="fade-up">
+                    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:1.5rem 3rem;">
+                        <div>
+                            <div style="font-size:2rem;font-weight:700;color:var(--primary);">~১-২ ঘন্টা</div>
+                            <div style="font-size:0.875rem;color:var(--text-light);">মোট সময়</div>
+                        </div>
+                        <div>
+                            <div style="font-size:2rem;font-weight:700;color:var(--primary);">৫টি</div>
+                            <div style="font-size:0.875rem;color:var(--text-light);">সহজ ধাপ</div>
+                        </div>
+                        <div>
+                            <div style="font-size:2rem;font-weight:700;color:var(--primary);">১০০%</div>
+                            <div style="font-size:0.875rem;color:var(--text-light);">গ্রাহক সন্তুষ্টি</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== ORDER METHODS ===== -->
+        <section class="section" style="background: linear-gradient(180deg, var(--bg) 0%, #fff 100%);">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">যেভাবে <span class="gradient-text">অর্ডার করবেন</span></h2>
+                <p class="section-subtitle" data-aos="fade-up">আপনার পছন্দের মাধ্যম বেছে নিন — আমরা বাকিটা করব</p>
+
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem;">
+
+                    <div class="order-method-card whatsapp" data-aos="flip-up" data-aos-delay="0">
+                        <div class="order-method-icon"><i class="fab fa-whatsapp"></i></div>
+                        <h3 style="font-size:1.125rem;font-weight:600;color:var(--text-dark);margin-bottom:0.5rem;">WhatsApp</h3>
+                        <p style="font-size:0.9375rem;color:var(--text-light);line-height:1.6;margin-bottom:1.25rem;">WhatsApp এ টেক্সট করে আপনার বাজারের লিস্ট পাঠান। আমাদের টিম সাথে সাথেই কনফার্ম করবে।</p>
+                        <a href="https://wa.me/8801700000000" target="_blank" class="btn btn-sm btn-primary">
+                            <i class="fab fa-whatsapp"></i> WhatsApp এ অর্ডার করুন
+                        </a>
+                    </div>
+
+                    <div class="order-method-card messenger" data-aos="flip-up" data-aos-delay="100">
+                        <div class="order-method-icon"><i class="fab fa-facebook-messenger"></i></div>
+                        <h3 style="font-size:1.125rem;font-weight:600;color:var(--text-dark);margin-bottom:0.5rem;">Facebook Messenger</h3>
+                        <p style="font-size:0.9375rem;color:var(--text-light);line-height:1.6;margin-bottom:1.25rem;">আমাদের ফেসবুক পেজের মেসেঞ্জারে সরাসরি মেসেজ দিন। খুব সহজ ও পরিচিত মাধ্যম।</p>
+                        <a href="https://m.me/RangpurSeba" target="_blank" class="btn btn-sm btn-outline" style="border-color:#0078FF;color:#0078FF;">
+                            <i class="fab fa-facebook-messenger"></i> Messenger
+                        </a>
+                    </div>
+
+                    <div class="order-method-card voice" data-aos="flip-up" data-aos-delay="200">
+                        <div class="order-method-icon"><i class="fas fa-microphone"></i></div>
+                        <h3 style="font-size:1.125rem;font-weight:600;color:var(--text-dark);margin-bottom:0.5rem;">ভয়েস নোট</h3>
+                        <p style="font-size:0.9375rem;color:var(--text-light);line-height:1.6;margin-bottom:1.25rem;">যারা টাইপ করতে পারেন না, তারা ভয়েস নোট পাঠিয়ে অর্ডার করুন। আপনার ভাষায়, আপনার সুবিধায়।</p>
+                        <a href="https://wa.me/8801700000000" target="_blank" class="btn btn-sm btn-secondary">
+                            <i class="fas fa-microphone"></i> ভয়েস নোট পাঠান
+                        </a>
+                    </div>
+
+                    <div class="order-method-card photo" data-aos="flip-up" data-aos-delay="300">
+                        <div class="order-method-icon"><i class="fas fa-camera"></i></div>
+                        <h3 style="font-size:1.125rem;font-weight:600;color:var(--text-dark);margin-bottom:0.5rem;">ছবি পাঠিয়ে</h3>
+                        <p style="font-size:0.9375rem;color:var(--text-light);line-height:1.6;margin-bottom:1.25rem;">আপনার প্রয়োজনীয় পণ্যের ছবি তুলে পাঠান। আমরা দেখে বুঝে একই রকম পণ্য নিয়ে আসব।</p>
+                        <a href="https://wa.me/8801700000000" target="_blank" class="btn btn-sm btn-primary">
+                            <i class="fas fa-camera"></i> ছবি পাঠান
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== FAQ MINI SECTION ===== -->
+        <section class="section" style="background: var(--primary-bg);">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">সাধারণ <span class="gradient-text">প্রশ্ন</span></h2>
+                <p class="section-subtitle" data-aos="fade-up">অর্ডার প্রক্রিয়া নিয়ে কিছু সাধারণ জিজ্ঞাসা</p>
+
+                <div style="max-width:700px;margin:0 auto;" class="faq-mini">
+
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="0">
+                        <div class="faq-question">
+                            <span>কিভাবে অর্ডার করবো?</span>
+                            <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            আপনি আমাদের Facebook Messenger বা WhatsApp এ আপনার বাজারের লিস্ট টেক্সট, ভয়েস বা ছবি আকারে পাঠিয়ে দিন। আমরা অর্ডার কনফার্ম করে বাজার করে আপনার ঠিকানায় পৌঁছে দেব।
+                        </div>
+                    </div>
+
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
+                        <div class="faq-question">
+                            <span>অর্ডার কনফার্ম করতে কত সময় লাগে?</span>
+                            <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            সাধারণত ৫-১০ মিনিটের মধ্যে আমাদের অ্যাডমিন টিম আপনার অর্ডার কনফার্ম করে। ব্যস্ত সময়ে একটু বেশি সময় লাগতে পারে। আমরা সর্বোচ্চ ২০ মিনিটের মধ্যে কনফার্ম করার চেষ্টা করি।
+                        </div>
+                    </div>
+
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
+                        <div class="faq-question">
+                            <span>ডেলিভারি কত সময় নেয়?</span>
+                            <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            অর্ডার কনফার্মের পর সাধারণত ১-২ ঘন্টার মধ্যে ডেলিভারি পেয়ে যাবেন। জরুরি অর্ডারের ক্ষেত্রে আমরা এক্সপ্রেস ডেলিভারির ব্যবস্থা রাখি।
+                        </div>
+                    </div>
+
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="300">
+                        <div class="faq-question">
+                            <span>পণ্য ফেরত দেওয়া যাবে?</span>
+                            <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            যদি কোনো পণ্য নষ্ট বা খারাপ অবস্থায় পাওয়া যায়, আমরা তা সাথে সাথে বদলে দেব। আমাদের টিম ডেলিভারির সময় পণ্য চেক করে নেওয়ার সুযোগ দেয়।
+                        </div>
+                    </div>
+
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="400">
+                        <div class="faq-question">
+                            <span>ন্যূনতম অর্ডার কত?</span>
+                            <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            আমাদের কোনো ন্যূনতম অর্ডার নেই। আপনি ৫০ টাকার জিনিসও অর্ডার করতে পারেন। তবে ৫০০ টাকার বেশি অর্ডারে ফ্রি ডেলিভারি দেওয়া হয়।
+                        </div>
+                    </div>
+
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="500">
+                        <div class="faq-question">
+                            <span>ক্যাশ অন ডেলিভারি কীভাবে কাজ করে?</span>
+                            <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            পণ্য আপনার হাতে পৌঁছানোর পর আপনি টাকা দিবেন। আগে থেকে কোনো টাকা দিতে হবে না। এটি সম্পূর্ণ নিরাপদ ও বিশ্বস্ত একটি পদ্ধতি।
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== CTA SECTION ===== -->
+        <section class="section" style="background: linear-gradient(135deg, var(--primary), var(--primary-dark));position:relative;overflow:hidden;">
+            <div style="position:absolute;inset:0;background:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1440 320%22><path fill=%22rgba(255,255,255,0.05)%22 d=%22M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,208C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z%22></path></svg>') no-repeat bottom;background-size:cover;"></div>
+            <div class="container" style="position:relative;z-index:1;text-align:center;" data-aos="fade-up">
+                <h2 style="font-size:clamp(1.75rem,4vw,2.75rem);font-weight:700;color:white;margin-bottom:1rem;">আজই আপনার প্রথম অর্ডার দিন</h2>
+                <p style="font-size:1.125rem;color:rgba(255,255,255,0.85);max-width:500px;margin:0 auto 2rem;">মাত্র একটি মেসেজ — আপনার পুরো বাজার ঘরে! এখনই অর্ডার করুন এবং ফ্রি ডেলিভারি উপভোগ করুন।</p>
+                <div style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;">
+                    <a href="https://wa.me/8801700000000" target="_blank" class="btn btn-lg btn-secondary" style="font-size:1.125rem;padding:1rem 2.5rem;">
+                        <i class="fab fa-whatsapp"></i> WhatsApp এ অর্ডার করুন
+                    </a>
+                    <a href="https://m.me/RangpurSeba" target="_blank" class="btn btn-lg btn-white" style="font-size:1.125rem;padding:1rem 2.5rem;">
+                        <i class="fab fa-facebook-messenger"></i> Messenger এ অর্ডার করুন
+                    </a>
+                </div>
+                <div style="margin-top:2rem;display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;color:rgba(255,255,255,0.8);font-size:0.9375rem;">
+                    <span><i class="fas fa-check-circle" style="margin-right:0.375rem;"></i> নো প্রিপেমেন্ট</span>
+                    <span><i class="fas fa-check-circle" style="margin-right:0.375rem;"></i> ফ্রি ডেলিভারি (৫০০+ টাকায়)</span>
+                    <span><i class="fas fa-check-circle" style="margin-right:0.375rem;"></i> তাজা পণ্য গ্যারান্টি</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // FAQ accordion for this page
+            var faqItems = document.querySelectorAll('.faq-mini .faq-item');
+            faqItems.forEach(function(item) {
+                var question = item.querySelector('.faq-question');
+                if (!question) return;
+                question.addEventListener('click', function() {
+                    var isActive = item.classList.contains('active');
+                    faqItems.forEach(function(f) { f.classList.remove('active'); });
+                    if (!isActive) item.classList.add('active');
+                });
+            });
+            if (faqItems.length > 0) faqItems[0].classList.add('active');
+        });
+    </script>
+
+</body>
+</html>

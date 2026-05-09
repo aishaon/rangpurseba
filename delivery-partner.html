@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ডেলিভারি পার্টনার হউন | রংপুর সেবা</title>
+    <meta name="description" content="রংপুর সেবার ডেলিভারি পার্টনার হয়ে ন্যায্য আয় করুন। নিজের মোটরসাইকেল দিয়ে ফ্রি প্রশিক্ষণ ও নমনীয় সময়ে কাজ করুন।">
+    <meta name="keywords" content="ডেলিভারি পার্টনার, রংপুর, ডেলিভারি জব, রাইডার, রংপুর সেবা, Delivery partner Rangpur">
+
+    <meta property="og:title" content="ডেলিভারি পার্টনার হউন | রংপুর সেবা">
+    <meta property="og:description" content="রংপুর সেবার ডেলিভারি পার্টনার হয়ে ন্যায্য আয় করুন। ফ্রি প্রশিক্ষণ ও নমনীয় সময়।">
+    <meta property="og:image" content="https://rangpurseba.com/og-image.jpg">
+    <meta property="og:url" content="https://rangpurseba.comdelivery-partner.html">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="bn_BD">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ডেলিভারি পার্টনার হউন | রংপুর সেবা">
+    <meta name="twitter:description" content="রংপুর সেবার ডেলিভারি পার্টনার হয়ে ন্যায্য আয় করুন।">
+
+    <link rel="icon" type="image/svg+xml" href="icons/favicon.svg">
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .partner-hero {
+            position: relative;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            padding: 8rem 0 4rem;
+            overflow: hidden;
+        }
+        .partner-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 70% 50%, rgba(249,115,22,0.15), transparent 60%);
+        }
+        .partner-hero-content { position: relative; z-index: 1; }
+        .partner-hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; color: white; line-height: 1.2; margin-bottom: 1rem; }
+        .partner-hero p { font-size: 1.125rem; color: rgba(255,255,255,0.75); max-width: 540px; line-height: 1.7; margin-bottom: 2rem; }
+        .partner-rider-card {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            text-align: center;
+            color: white;
+        }
+        .partner-rider-card .rider-icon { font-size: 5rem; margin-bottom: 1rem; display: block; }
+        .partner-rider-card .rider-badge {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: rgba(255,255,255,0.15); padding: 0.5rem 1rem; border-radius: var(--radius-full);
+            font-size: 0.875rem; margin-top: 1rem;
+        }
+
+        .requirement-item {
+            display: flex; align-items: center; gap: 1rem;
+            background: var(--bg-white); border-radius: var(--radius-lg);
+            padding: 1.25rem 1.5rem; border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+        .requirement-item:hover { transform: translateX(6px); box-shadow: var(--shadow-md); border-color: var(--primary); }
+        .requirement-icon {
+            width: 48px; height: 48px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.25rem; flex-shrink: 0;
+            background: var(--primary-bg); color: var(--primary);
+        }
+        .requirement-text { font-weight: 600; color: var(--text-dark); font-size: 1rem; }
+        .requirement-desc { font-size: 0.8125rem; color: var(--text-light); }
+
+        .benefit-card-alt {
+            background: var(--bg-white); border-radius: var(--radius-xl);
+            padding: 2rem; text-align: center; border: 1px solid var(--border);
+            transition: var(--transition); position: relative; overflow: hidden;
+        }
+        .benefit-card-alt::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+            transform: scaleX(0); transition: var(--transition);
+        }
+        .benefit-card-alt:hover::before { transform: scaleX(1); }
+        .benefit-card-alt:hover { transform: translateY(-6px); box-shadow: var(--shadow-xl); border-color: transparent; }
+        .benefit-card-alt .benefit-icon {
+            width: 64px; height: 64px; margin: 0 auto 1.25rem;
+            background: linear-gradient(135deg, var(--primary-bg), #DCFCE7);
+            border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; color: var(--primary); transition: var(--transition);
+        }
+        .benefit-card-alt:hover .benefit-icon {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white; transform: scale(1.1) rotate(-5deg);
+        }
+
+        .earnings-calculator {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: var(--radius-xl); padding: 2.5rem; color: white;
+        }
+        .earnings-calculator input {
+            width: 100%; padding: 0.875rem 1.125rem; border: none;
+            border-radius: var(--radius-md); font-family: var(--font-bn);
+            font-size: 1rem; outline: none;
+        }
+        .earnings-calculator .result {
+            background: rgba(255,255,255,0.15); backdrop-filter: blur(10px);
+            border-radius: var(--radius-lg); padding: 1.5rem; text-align: center;
+        }
+
+        .application-form {
+            background: var(--bg-white); border-radius: var(--radius-xl);
+            padding: 2.5rem; border: 1px solid var(--border);
+            box-shadow: var(--shadow-lg);
+        }
+        .application-form .form-row {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+        }
+        @media (max-width: 640px) {
+            .application-form .form-row { grid-template-columns: 1fr; }
+        }
+
+        .rider-testimonial-card {
+            background: var(--bg-white); border-radius: var(--radius-xl);
+            padding: 2rem; border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+        .rider-testimonial-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+        .rider-testimonial-card .rider-avatar {
+            width: 64px; height: 64px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; font-weight: 700; color: white; flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+    <div id="floating-buttons"></div>
+    <div id="sticky-mobile-cta"></div>
+
+    <main>
+
+        <!-- ===== PAGE HEADER ===== -->
+        <section class="page-header">
+            <div class="container">
+                <div class="page-header-content" data-aos="fade-up">
+                    <h1 class="page-title">ডেলিভারি পার্টনার হউন</h1>
+                    <div class="page-breadcrumb">
+                        <a href="index.html">হোম</a>
+                        <span>/</span>
+                        <span>ডেলিভারি পার্টনার</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== PARTNER HERO ===== -->
+        <section class="partner-hero">
+            <div class="container">
+                <div class="row" style="display:grid; grid-template-columns: 1fr 1fr; gap:3rem; align-items:center;">
+                    <div class="partner-hero-content" data-aos="fade-right">
+                        <span class="badge badge-white" style="margin-bottom:1rem; display:inline-flex;">
+                            <i class="fas fa-motorcycle"></i> রাইডার প্রয়োজন
+                        </span>
+                        <h1>আপনার মোটরসাইকেল দিয়ে শুরু করুন <span style="color:var(--secondary);">উপার্জন</span></h1>
+                        <p>রংপুর সেবার ডেলিভারি পার্টনার হয়ে ন্যায্য আয় করুন। আপনার নিজস্ব মোটরসাইকেল দিয়ে নমনীয় সময়ে কাজ করার সুযোগ। ফ্রি প্রশিক্ষণ ও বোনাস সহ।</p>
+                        <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+                            <a href="#apply" class="btn btn-lg btn-secondary">
+                                <i class="fas fa-hand-paper"></i> এখনই আবেদন করুন
+                            </a>
+                            <a href="#benefits" class="btn btn-lg btn-white">
+                                <i class="fas fa-info-circle"></i> আরও জানুন
+                            </a>
+                        </div>
+                        <div style="display:flex; gap:2rem; margin-top:2rem; flex-wrap:wrap;">
+                            <div>
+                                <div style="font-size:1.75rem; font-weight:700; color:white;">২৫+</div>
+                                <div style="font-size:0.8125rem; color:rgba(255,255,255,0.6);">একটিভ রাইডার</div>
+                            </div>
+                            <div>
+                                <div style="font-size:1.75rem; font-weight:700; color:white;">৫২০০+</div>
+                                <div style="font-size:0.8125rem; color:rgba(255,255,255,0.6);">সফল ডেলিভারি</div>
+                            </div>
+                            <div>
+                                <div style="font-size:1.75rem; font-weight:700; color:white;">৯৮%</div>
+                                <div style="font-size:0.8125rem; color:rgba(255,255,255,0.6);">অন টাইম</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-aos="fade-left" data-aos-delay="200">
+                        <div class="partner-rider-card">
+                            <span class="rider-icon">🏍️</span>
+                            <div style="font-size:1.25rem; font-weight:600; margin-bottom:0.5rem;">রংপুর সেবা রাইডার</div>
+                            <p style="font-size:0.9375rem; opacity:0.7; margin-bottom:1rem;">প্রতিদিন ৫০০-১০০০ টাকা পর্যন্ত আয় করুন</p>
+                            <div style="display:flex; justify-content:center; gap:0.75rem; flex-wrap:wrap;">
+                                <span class="rider-badge"><i class="fas fa-check-circle" style="color:var(--secondary);"></i> ফ্রি প্রশিক্ষণ</span>
+                                <span class="rider-badge"><i class="fas fa-check-circle" style="color:var(--secondary);"></i> নমনীয় সময়</span>
+                            </div>
+                            <div style="margin-top:1.5rem; display:flex; gap:0.75rem; justify-content:center; font-size:1.25rem;">
+                                <span>🛵</span> <span>📍</span> <span>📱</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== REQUIREMENTS ===== -->
+        <section class="section" id="requirements" style="background:var(--primary-bg);">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">আবেদনের <span class="gradient-text">শর্তসমূহ</span></h2>
+                <p class="section-subtitle" data-aos="fade-up">ডেলিভারি পার্টনার হওয়ার জন্য নিচের শর্তগুলো পূরণ করতে হবে</p>
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:1rem; max-width:900px; margin:0 auto;">
+                    <div class="requirement-item" data-aos="fade-up" data-aos-delay="0">
+                        <div class="requirement-icon" style="background:var(--secondary-bg); color:var(--secondary);"><i class="fas fa-calendar-check"></i></div>
+                        <div>
+                            <div class="requirement-text">বয়স ১৮+</div>
+                            <div class="requirement-desc">আবেদনের জন্য ন্যূনতম বয়স ১৮ বছর হতে হবে</div>
+                        </div>
+                    </div>
+                    <div class="requirement-item" data-aos="fade-up" data-aos-delay="100">
+                        <div class="requirement-icon" style="background:#E8F5E9; color:#2E7D32;"><i class="fas fa-motorcycle"></i></div>
+                        <div>
+                            <div class="requirement-text">নিজস্ব মোটরসাইকেল</div>
+                            <div class="requirement-desc">আপনার নিজের একটি মোটরসাইকেল থাকতে হবে (ভালো অবস্থায়)</div>
+                        </div>
+                    </div>
+                    <div class="requirement-item" data-aos="fade-up" data-aos-delay="200">
+                        <div class="requirement-icon" style="background:#E3F2FD; color:#1565C0;"><i class="fas fa-mobile-alt"></i></div>
+                        <div>
+                            <div class="requirement-text">স্মার্টফোন</div>
+                            <div class="requirement-desc">ইন্টারনেট সংযোগসহ একটি স্মার্টফোন থাকতে হবে</div>
+                        </div>
+                    </div>
+                    <div class="requirement-item" data-aos="fade-up" data-aos-delay="300">
+                        <div class="requirement-icon" style="background:#FFF3E0; color:#E65100;"><i class="fas fa-map-marker-alt"></i></div>
+                        <div>
+                            <div class="requirement-text">রংপুর এলাকায় থাকতে হবে</div>
+                            <div class="requirement-desc">রংপুর সদর ও আশেপাশের এলাকায় বসবাস করতে হবে</div>
+                        </div>
+                    </div>
+                    <div class="requirement-item" data-aos="fade-up" data-aos-delay="400">
+                        <div class="requirement-icon" style="background:#FCE4EC; color:#C62828;"><i class="fas fa-id-card"></i></div>
+                        <div>
+                            <div class="requirement-text">ন্যাশনাল আইডি কার্ড</div>
+                            <div class="requirement-desc">বৈধ এনআইডি ও ড্রাইভিং লাইসেন্স থাকতে হবে</div>
+                        </div>
+                    </div>
+                    <div class="requirement-item" data-aos="fade-up" data-aos-delay="500">
+                        <div class="requirement-icon" style="background:#F3E5F5; color:#6A1B9A;"><i class="fas fa-smile"></i></div>
+                        <div>
+                            <div class="requirement-text">ভালো ব্যবহার</div>
+                            <div class="requirement-desc">গ্রাহকদের সাথে ভালো ব্যবহার ও প্রফেশনাল আচরণ</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== BENEFITS ===== -->
+        <section class="section" id="benefits">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">পার্টনার <span class="gradient-text">সুবিধাসমূহ</span></h2>
+                <p class="section-subtitle" data-aos="fade-up">আমাদের ডেলিভারি পার্টনাররা যেসব সুবিধা পান</p>
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:1.5rem;">
+                    <div class="benefit-card-alt" data-aos="flip-up" data-aos-delay="0">
+                        <div class="benefit-icon"><i class="fas fa-money-bill-wave"></i></div>
+                        <h3 style="font-size:1.125rem; font-weight:600; color:var(--text-dark); margin-bottom:0.5rem;">ন্যায্য আয়</h3>
+                        <p style="font-size:0.9375rem; color:var(--text-light); line-height:1.6;">প্রতি ডেলিভারির জন্য ন্যায্য কমিশন। মাসিক ১৫,০০০ - ২৫,০০০ টাকা পর্যন্ত আয়ের সুযোগ। সাপ্তাহিক পেমেন্ট।</p>
+                    </div>
+                    <div class="benefit-card-alt" data-aos="flip-up" data-aos-delay="100">
+                        <div class="benefit-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <h3 style="font-size:1.125rem; font-weight:600; color:var(--text-dark); margin-bottom:0.5rem;">ফ্রি প্রশিক্ষণ</h3>
+                        <p style="font-size:0.9375rem; color:var(--text-light); line-height:1.6;">জয়েন করার পর সম্পূর্ণ ফ্রি প্রশিক্ষণ। ডেলিভারি প্রক্রিয়া, গ্রাহক সেবা ও রুট প্ল্যানিং শেখানো হয়।</p>
+                    </div>
+                    <div class="benefit-card-alt" data-aos="flip-up" data-aos-delay="200">
+                        <div class="benefit-icon"><i class="fas fa-clock"></i></div>
+                        <h3 style="font-size:1.125rem; font-weight:600; color:var(--text-dark); margin-bottom:0.5rem;">নমনীয় সময়</h3>
+                        <p style="font-size:0.9375rem; color:var(--text-light); line-height:1.6;">আপনার সুবিধামত সময়ে কাজ করুন। সকাল, বিকাল বা সন্ধ্যা — যে সময় খুশি ডেলিভারি দিন। পূর্ণকালীন বা খণ্ডকালীন।</p>
+                    </div>
+                    <div class="benefit-card-alt" data-aos="flip-up" data-aos-delay="300">
+                        <div class="benefit-icon"><i class="fas fa-gift"></i></div>
+                        <h3 style="font-size:1.125rem; font-weight:600; color:var(--text-dark); margin-bottom:0.5rem;">বোনাস ও ইনসেনটিভ</h3>
+                        <p style="font-size:0.9375rem; color:var(--text-light); line-height:1.6;">নিয়মিত বোনাস, সেরা রাইডার পুরস্কার, রেফারেল বোনাস ও ঈদ বোনাস। পরিশ্রমের সঠিক মূল্যায়ন।</p>
+                    </div>
+                    <div class="benefit-card-alt" data-aos="flip-up" data-aos-delay="400">
+                        <div class="benefit-icon"><i class="fas fa-shield-alt"></i></div>
+                        <h3 style="font-size:1.125rem; font-weight:600; color:var(--text-dark); margin-bottom:0.5rem;">নিরাপত্তা কিট</h3>
+                        <p style="font-size:0.9375rem; color:var(--text-light); line-height:1.6;">ফ্রি হেলমেট, মাস্ক, গ্লাভস ও রিফ্লেক্টিভ জ্যাকেট। আপনার নিরাপত্তা আমাদের প্রথম অগ্রাধিকার।</p>
+                    </div>
+                    <div class="benefit-card-alt" data-aos="flip-up" data-aos-delay="500">
+                        <div class="benefit-icon"><i class="fas fa-chart-line"></i></div>
+                        <h3 style="font-size:1.125rem; font-weight:600; color:var(--text-dark); margin-bottom:0.5rem;">ক্যারিয়ার গ্রোথ</h3>
+                        <p style="font-size:0.9375rem; color:var(--text-light); line-height:1.6;">পারফর্মেন্স অনুযায়ী টিম লিডার, এরিয়া ম্যানেজার হওয়ার সুযোগ। ক্যারিয়ার গ্রোথ নিশ্চিত।</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== EARNINGS OVERVIEW ===== -->
+        <section class="section" style="background:var(--primary-bg);" id="earnings">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">আয়ের <span class="gradient-text">হিসাব</span></h2>
+                <p class="section-subtitle" data-aos="fade-up">প্রতিদিন কত ডেলিভারি করবেন তার উপর ভিত্তি করে আয় দেখুন</p>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:2rem; align-items:start;">
+                    <div class="earnings-calculator" data-aos="fade-right">
+                        <h3 style="font-size:1.375rem; font-weight:700; margin-bottom:1rem;">আয় ক্যালকুলেটর</h3>
+                        <p style="opacity:0.8; margin-bottom:1.5rem;">প্রতিদিন কত ডেলিভারি করবেন তা নির্বাচন করুন</p>
+                        <div style="margin-bottom:1.5rem;">
+                            <label style="display:block; font-weight:600; margin-bottom:0.5rem;">প্রতিদিন ডেলিভারি সংখ্যা</label>
+                            <input type="range" id="deliverySlider" min="5" max="30" value="15" style="width:100%; accent-color:white;">
+                            <div style="display:flex; justify-content:space-between; font-size:0.8125rem; opacity:0.7; margin-top:0.25rem;">
+                                <span>৫</span>
+                                <span id="deliveryCount">১৫</span>
+                                <span>৩০</span>
+                            </div>
+                        </div>
+                        <div class="result">
+                            <div style="font-size:0.875rem; opacity:0.8; margin-bottom:0.5rem;">আপনার সম্ভাব্য আয়</div>
+                            <div style="font-size:2.5rem; font-weight:700;" id="earningResult">৳ ৪৫০</div>
+                            <div style="font-size:0.8125rem; opacity:0.7;">প্রতিদিন (প্রতি ডেলিভারি ৩০ টাকা)</div>
+                        </div>
+                        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:1rem; margin-top:1.5rem;">
+                            <div style="background:rgba(255,255,255,0.1); border-radius:var(--radius-md); padding:1rem; text-align:center;">
+                                <div style="font-size:1.25rem; font-weight:700;">৳ ১৩,৫০০</div>
+                                <div style="font-size:0.75rem; opacity:0.7;">মাসিক (৩০ দিন)</div>
+                            </div>
+                            <div style="background:rgba(255,255,255,0.1); border-radius:var(--radius-md); padding:1rem; text-align:center;">
+                                <div style="font-size:1.25rem; font-weight:700;">৳ ৩,১৫০</div>
+                                <div style="font-size:0.75rem; opacity:0.7;">সাপ্তাহিক (৭ দিন)</div>
+                            </div>
+                            <div style="background:rgba(255,255,255,0.1); border-radius:var(--radius-md); padding:1rem; text-align:center;">
+                                <div style="font-size:1.25rem; font-weight:700;">৳ ৪৫০</div>
+                                <div style="font-size:0.75rem; opacity:0.7;">প্রতিদিন</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-aos="fade-left" data-aos-delay="200">
+                        <div style="background:var(--bg-white); border-radius:var(--radius-xl); padding:2rem; border:1px solid var(--border);">
+                            <h3 style="font-size:1.25rem; font-weight:600; color:var(--text-dark); margin-bottom:1rem;">আয়ের অন্যান্য উৎস</h3>
+                            <div style="display:flex; flex-direction:column; gap:1rem;">
+                                <div style="display:flex; align-items:center; gap:1rem; padding:1rem; background:var(--bg); border-radius:var(--radius-md);">
+                                    <div style="width:44px; height:44px; background:var(--secondary-bg); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--secondary); font-size:1.125rem;">
+                                        <i class="fas fa-trophy"></i>
+                                    </div>
+                                    <div>
+                                        <div style="font-weight:600; color:var(--text-dark);">পারফরম্যান্স বোনাস</div>
+                                        <div style="font-size:0.8125rem; color:var(--text-light);">মাসিক সেরা রাইডারদের জন্য বিশেষ বোনাস</div>
+                                    </div>
+                                    <div style="margin-left:auto; font-weight:700; color:var(--primary);">+৳ ২,০০০</div>
+                                </div>
+                                <div style="display:flex; align-items:center; gap:1rem; padding:1rem; background:var(--bg); border-radius:var(--radius-md);">
+                                    <div style="width:44px; height:44px; background:#E3F2FD; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#1565C0; font-size:1.125rem;">
+                                        <i class="fas fa-user-plus"></i>
+                                    </div>
+                                    <div>
+                                        <div style="font-weight:600; color:var(--text-dark);">রেফারেল বোনাস</div>
+                                        <div style="font-size:0.8125rem; color:var(--text-light);">নতুন রাইডার রেফার করলে বোনাস</div>
+                                    </div>
+                                    <div style="margin-left:auto; font-weight:700; color:var(--primary);">+৳ ৫০০</div>
+                                </div>
+                                <div style="display:flex; align-items:center; gap:1rem; padding:1rem; background:var(--bg); border-radius:var(--radius-md);">
+                                    <div style="width:44px; height:44px; background:#FFF3E0; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#E65100; font-size:1.125rem;">
+                                        <i class="fas fa-clock"></i>
+                                    </div>
+                                    <div>
+                                        <div style="font-weight:600; color:var(--text-dark);">পিক আওয়ার বোনাস</div>
+                                        <div style="font-size:0.8125rem; color:var(--text-light);">ব্যস্ত সময়ে ডেলিভারির জন্য অতিরিক্ত</div>
+                                    </div>
+                                    <div style="margin-left:auto; font-weight:700; color:var(--primary);">+৳ ১০/ডেলিভারি</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== RIDER TESTIMONIALS ===== -->
+        <section class="section" id="testimonials">
+            <div class="container">
+                <h2 class="section-title" data-aos="fade-up">রাইডারদের <span class="gradient-text">মতামত</span></h2>
+                <p class="section-subtitle" data-aos="fade-up">আমাদের ডেলিভারি পার্টনারদের অভিজ্ঞতা</p>
+                <div class="swiper partner-testimonial-slider" data-aos="fade-up">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="rider-testimonial-card">
+                                <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1.25rem;">
+                                    <div class="rider-avatar" style="background:linear-gradient(135deg,#16A34A,#22C55E);">র</div>
+                                    <div>
+                                        <div style="font-weight:600; color:var(--text-dark);">রাকিব হাসান</div>
+                                        <div style="font-size:0.8125rem; color:var(--text-light);">৬ মাস ধরে রাইডার</div>
+                                    </div>
+                                    <div style="margin-left:auto; display:flex; gap:0.125rem; color:#FBBF24;">
+                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                                <p style="font-size:0.9375rem; color:var(--text-body); line-height:1.7; font-style:italic;">"রংপুর সেবায় জয়েন করার পর আমার জীবন বদলে গেছে। আগে অনিয়মিত আয় ছিল, এখন মাসে ২০-২২ হাজার টাকা নিয়মিত আয় হয়। টিমও খুব সাপোর্টিভ।"</p>
+                                <div style="margin-top:1rem; display:flex; gap:0.5rem;">
+                                    <span class="badge badge-primary"><i class="fas fa-check"></i> মাসিক ২২,০০০ টাকা</span>
+                                    <span class="badge badge-primary"><i class="fas fa-truck"></i> ৪৫০+ ডেলিভারি</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="rider-testimonial-card">
+                                <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1.25rem;">
+                                    <div class="rider-avatar" style="background:linear-gradient(135deg,#F97316,#FB923C);">স</div>
+                                    <div>
+                                        <div style="font-weight:600; color:var(--text-dark);">সজীব মিয়া</div>
+                                        <div style="font-size:0.8125rem; color:var(--text-light);">১ বছর ধরে রাইডার</div>
+                                    </div>
+                                    <div style="margin-left:auto; display:flex; gap:0.125rem; color:#FBBF24;">
+                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                                <p style="font-size:0.9375rem; color:var(--text-body); line-height:1.7; font-style:italic;">"ছাত্র অবস্থায় পার্টটাইম ডেলিভারি পার্টনার হিসেবে জয়েন করি। এখন পড়ার পাশাপাশি নিজের খরচ নিজেই চালাই। সময় নমনীয় হওয়ায় পড়ালেখায় সমস্যা হয় না।"</p>
+                                <div style="margin-top:1rem; display:flex; gap:0.5rem;">
+                                    <span class="badge badge-primary"><i class="fas fa-check"></i> মাসিক ১৫,০০০ টাকা</span>
+                                    <span class="badge badge-primary"><i class="fas fa-graduation-cap"></i> পার্টটাইম</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="rider-testimonial-card">
+                                <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1.25rem;">
+                                    <div class="rider-avatar" style="background:linear-gradient(135deg,#7C3AED,#8B5CF6);">ক</div>
+                                    <div>
+                                        <div style="font-weight:600; color:var(--text-dark);">করিম হোসেন</div>
+                                        <div style="font-size:0.8125rem; color:var(--text-light);;">৮ মাস ধরে রাইডার</div>
+                                    </div>
+                                    <div style="margin-left:auto; display:flex; gap:0.125rem; color:#FBBF24;">
+                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                                <p style="font-size:0.9375rem; color:var(--text-body); line-height:1.7; font-style:italic;">"আগে অন্য কোম্পানিতে ডেলিভারি করতাম, কিন্তু রংপুর সেবার পার্টনারশিপ মডেল অনেক ভালো। কমিশন বেশি, সময় নমনীয় এবং বোনাস প্যাকেজ চমৎকার। সবার জন্য রেকমেন্ড করব।"</p>
+                                <div style="margin-top:1rem; display:flex; gap:0.5rem;">
+                                    <span class="badge badge-primary"><i class="fas fa-check"></i> মাসিক ২৫,০০০ টাকা</span>
+                                    <span class="badge badge-primary"><i class="fas fa-trophy"></i> সেরা রাইডার</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="rider-testimonial-card">
+                                <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1.25rem;">
+                                    <div class="rider-avatar" style="background:linear-gradient(135deg,#DC2626,#EF4444);">ম</div>
+                                    <div>
+                                        <div style="font-weight:600; color:var(--text-dark);">মাহফুজ আলম</div>
+                                        <div style="font-size:0.8125rem; color:var(--text-light);">১০ মাস ধরে রাইডার</div>
+                                    </div>
+                                    <div style="margin-left:auto; display:flex; gap:0.125rem; color:#FBBF24;">
+                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                                <p style="font-size:0.9375rem; color:var(--text-body); line-height:1.7; font-style:italic;">"পরিবারের একমাত্র উপার্জনকারী আমি। রংপুর সেবায় জয়েন করে পরিবারকে সময় দিতে পারছি এবং আয়ও ভালো হচ্ছে। ফ্রি প্রশিক্ষণ ও নিরাপত্তা কিট দিয়েছে, খুবই পেশাদার একটি প্ল্যাটফর্ম।"</p>
+                                <div style="margin-top:1rem; display:flex; gap:0.5rem;">
+                                    <span class="badge badge-primary"><i class="fas fa-check"></i> মাসিক ২০,০০০ টাকা</span>
+                                    <span class="badge badge-primary"><i class="fas fa-heart"></i> পরিবারের সাথে</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination" style="position:relative; margin-top:2rem;"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== APPLICATION FORM ===== -->
+        <section class="section" style="background:var(--secondary-bg);" id="apply">
+            <div class="container">
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:3rem; align-items:start;">
+                    <div data-aos="fade-right">
+                        <h2 style="font-size:2rem; font-weight:700; color:var(--text-dark); margin-bottom:1rem;">আজই <span class="gradient-text-orange">আবেদন করুন</span></h2>
+                        <p style="font-size:1rem; color:var(--text-light); line-height:1.7; margin-bottom:2rem;">আপনার তথ্য দিন। আমরা ২৪ ঘন্টার মধ্যে যোগাযোগ করব। সম্পূর্ণ প্রক্রিয়া ফ্রি।</p>
+                        <div style="display:flex; flex-direction:column; gap:1rem;">
+                            <div style="display:flex; align-items:center; gap:1rem; padding:1rem; background:var(--bg-white); border-radius:var(--radius-md); border:1px solid var(--border);">
+                                <div style="width:40px; height:40px; background:var(--primary-bg); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--primary);"><i class="fas fa-check"></i></div>
+                                <div style="font-size:0.9375rem; color:var(--text-body);">আবেদন সম্পূর্ণ ফ্রি — কোনো ফি নেই</div>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:1rem; padding:1rem; background:var(--bg-white); border-radius:var(--radius-md); border:1px solid var(--border);">
+                                <div style="width:40px; height:40px; background:var(--primary-bg); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--primary);"><i class="fas fa-check"></i></div>
+                                <div style="font-size:0.9375rem; color:var(--text-body);">২৪ ঘন্টার মধ্যে কনফার্মেশন কল</div>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:1rem; padding:1rem; background:var(--bg-white); border-radius:var(--radius-md); border:1px solid var(--border);">
+                                <div style="width:40px; height:40px; background:var(--primary-bg); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--primary);"><i class="fas fa-check"></i></div>
+                                <div style="font-size:0.9375rem; color:var(--text-body);">ফ্রি প্রশিক্ষণ ও হেলমেট প্রদান</div>
+                            </div>
+                        </div>
+                        <div style="margin-top:2rem; padding:1.5rem; background:var(--bg-white); border-radius:var(--radius-lg); border:1px solid var(--border);">
+                            <h4 style="font-weight:600; color:var(--text-dark); margin-bottom:0.75rem;">সরাসরি যোগাযোগ</h4>
+                            <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+                                <a href="https://wa.me/8801700000000" target="_blank" class="btn btn-sm btn-primary">
+                                    <i class="fab fa-whatsapp"></i> WhatsApp
+                                </a>
+                                <a href="https://m.me/RangpurSeba" target="_blank" class="btn btn-sm btn-outline" style="border-color:#0078FF; color:#0078FF;">
+                                    <i class="fab fa-facebook-messenger"></i> Messenger
+                                </a>
+                                <a href="tel:01700000000" class="btn btn-sm btn-secondary">
+                                    <i class="fas fa-phone-alt"></i> কল করুন
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="application-form" data-aos="fade-left" data-aos-delay="200">
+                        <h3 style="font-size:1.375rem; font-weight:700; color:var(--text-dark); margin-bottom:1.5rem;">
+                            <i class="fas fa-hand-paper" style="color:var(--primary);"></i> ডেলিভারি পার্টনার ফর্ম
+                        </h3>
+                        <form id="partnerForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">আপনার নাম *</label>
+                                    <input type="text" class="form-input" placeholder="আপনার পুরো নাম" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">মোবাইল নম্বর *</label>
+                                    <input type="tel" class="form-input" placeholder="০১৭০০-০০০০০০" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">ঠিকানা *</label>
+                                <input type="text" class="form-input" placeholder="আপনার সম্পূর্ণ ঠিকানা (রংপুর)" required>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">বয়স *</label>
+                                    <select class="form-input" required>
+                                        <option value="">আপনার বয়স নির্বাচন করুন</option>
+                                        <option value="18-20">১৮-২০ বছর</option>
+                                        <option value="21-25">২১-২৫ বছর</option>
+                                        <option value="26-30">২৬-৩০ বছর</option>
+                                        <option value="31-35">৩১-৩৫ বছর</option>
+                                        <option value="36+">৩৬+ বছর</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">বাইকের অবস্থা *</label>
+                                    <select class="form-input" required>
+                                        <option value="">বাইকের অবস্থা নির্বাচন করুন</option>
+                                        <option value="excellent">চমৎকার</option>
+                                        <option value="good">ভালো</option>
+                                        <option value="average">গড়</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">পূর্ব অভিজ্ঞতা</label>
+                                    <select class="form-input">
+                                        <option value="no">নেই</option>
+                                        <option value="less-1">১ বছরের কম</option>
+                                        <option value="1-2">১-২ বছর</option>
+                                        <option value="2+">২+ বছর</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">কাজের ধরন</label>
+                                    <select class="form-input">
+                                        <option value="full">পূর্ণকালীন</option>
+                                        <option value="part">খণ্ডকালীন</option>
+                                        <option value="any">যেকোনো</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">অতিরিক্ত তথ্য</label>
+                                <textarea class="form-input" rows="3" placeholder="আপনার কোনো বিশেষ যোগ্যতা বা মন্তব্য থাকলে লিখুন"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-lg btn-secondary" style="width:100%;">
+                                <i class="fas fa-paper-plane"></i> আবেদন জমা দিন
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== CTA ===== -->
+        <section class="section" style="background:linear-gradient(135deg,var(--primary),var(--primary-dark)); position:relative; overflow:hidden;">
+            <div style="position:absolute; inset:0; background: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1440 320%22><path fill=%22rgba(255,255,255,0.05)%22 d=%22M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,208C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z%22></path></svg>') no-repeat bottom; background-size:cover;"></div>
+            <div class="container" style="position:relative; z-index:1; text-align:center;" data-aos="fade-up">
+                <h2 style="font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; color:white; margin-bottom:1rem;">আজই ডেলিভারি পার্টনার হউন</h2>
+                <p style="font-size:1.125rem; color:rgba(255,255,255,0.85); max-width:500px; margin:0 auto 2rem;">আপনার মোটরসাইকেল দিয়ে শুরু করুন উপার্জন। ফ্রি প্রশিক্ষণ ও নমনীয় সময়।</p>
+                <a href="#apply" class="btn btn-lg btn-secondary" style="font-size:1.125rem; padding:1rem 2.5rem;">
+                    <i class="fas fa-hand-paper"></i> এখনই আবেদন করুন
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Earnings calculator
+            var slider = document.getElementById('deliverySlider');
+            var countDisplay = document.getElementById('deliveryCount');
+            var resultDisplay = document.getElementById('earningResult');
+
+            function updateEarnings() {
+                var count = parseInt(slider.value);
+                var earning = count * 30;
+                countDisplay.textContent = count;
+                resultDisplay.textContent = '৳ ' + earning.toLocaleString('bn');
+            }
+
+            if (slider) {
+                slider.addEventListener('input', updateEarnings);
+                updateEarnings();
+            }
+
+            // Form submission
+            var partnerForm = document.getElementById('partnerForm');
+            if (partnerForm) {
+                partnerForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    var btn = this.querySelector('button[type="submit"]');
+                    if (btn) {
+                        var originalText = btn.innerHTML;
+                        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> জমা দেওয়া হচ্ছে...';
+                        btn.disabled = true;
+                        setTimeout(function() {
+                            btn.innerHTML = '<i class="fas fa-check-circle"></i> সফলভাবে জমা হয়েছে!';
+                            setTimeout(function() {
+                                btn.innerHTML = originalText;
+                                btn.disabled = false;
+                                partnerForm.reset();
+                            }, 2000);
+                        }, 1500);
+                    }
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>

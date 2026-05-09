@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>যোগাযোগ | রংপুর সেবা - Rangpur Seba</title>
+    <meta name="description" content="রংপুর সেবার সাথে যোগাযোগ করুন। ফোন, ইমেইল, WhatsApp বা Facebook Messenger এ আমাদের সাথে কথা বলুন।">
+    <meta name="keywords" content="রংপুর সেবা যোগাযোগ, রংপুর অনলাইন বাজার ফোন নম্বর, Rangpur Seba contact">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="যোগাযোগ | রংপুর সেবা - Rangpur Seba">
+    <meta property="og:description" content="আমাদের সাথে যেকোনো সময় যোগাযোগ করুন। ফোন, ইমেইল, WhatsApp ও Facebook Messenger।">
+    <meta property="og:image" content="https://rangpurseba.com/og-image.jpg">
+    <meta property="og:url" content="https://rangpurseba.com/pages/contact.html">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="bn_BD">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="যোগাযোগ | রংপুর সেবা">
+    <meta name="twitter:description" content="আমাদের সাথে যেকোনো সময় যোগাযোগ করুন।">
+
+    <link rel="icon" type="image/svg+xml" href="icons/favicon.svg">
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 2.5rem;
+            align-items: start;
+        }
+
+        .contact-info-card {
+            background: var(--bg-white);
+            border-radius: var(--radius-xl);
+            padding: 1.75rem;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            display: flex;
+            align-items: flex-start;
+            gap: 1.25rem;
+        }
+
+        .contact-info-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+            border-color: transparent;
+        }
+
+        .contact-info-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            transition: var(--transition);
+        }
+
+        .contact-info-card:hover .contact-info-icon {
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        .contact-info-icon.phone {
+            background: #F0FDF4;
+            color: var(--primary);
+        }
+
+        .contact-info-icon.email {
+            background: #EFF6FF;
+            color: #3B82F6;
+        }
+
+        .contact-info-icon.whatsapp {
+            background: #F0FDF4;
+            color: #25D366;
+        }
+
+        .contact-info-icon.messenger {
+            background: #EEF2FF;
+            color: #0078FF;
+        }
+
+        .contact-info-icon.clock {
+            background: #FFF7ED;
+            color: var(--secondary);
+        }
+
+        .contact-info-label {
+            font-size: 0.8125rem;
+            color: var(--text-light);
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-info-value {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .contact-info-value a {
+            color: var(--text-dark);
+        }
+
+        .contact-info-value a:hover {
+            color: var(--primary);
+        }
+
+        .map-placeholder {
+            width: 100%;
+            min-height: 320px;
+            background: linear-gradient(135deg, #F0FDF4, #DCFCE7);
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .map-placeholder:hover {
+            box-shadow: var(--shadow-lg);
+        }
+
+        .map-placeholder iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .contact-methods-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+        }
+
+        .business-hours-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.625rem 0;
+            border-bottom: 1px dashed var(--border);
+        }
+
+        .business-hours-item:last-child {
+            border-bottom: none;
+        }
+
+        .business-hours-day {
+            font-weight: 500;
+            color: var(--text-body);
+        }
+
+        .business-hours-time {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .business-hours-time.closed {
+            color: #DC2626;
+        }
+
+        .social-link-item {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            transition: var(--transition);
+            border: 2px solid var(--border);
+            color: var(--text-light);
+        }
+
+        .social-link-item:hover {
+            transform: translateY(-4px);
+            color: white;
+            border-color: transparent;
+        }
+
+        .social-link-item.facebook:hover {
+            background: #1877F2;
+            box-shadow: 0 4px 15px rgba(24, 119, 242, 0.3);
+        }
+
+        .social-link-item.whatsapp:hover {
+            background: #25D366;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .social-link-item.messenger:hover {
+            background: #0078FF;
+            box-shadow: 0 4px 15px rgba(0, 120, 255, 0.3);
+        }
+
+        .social-link-item.instagram:hover {
+            background: #E4405F;
+            box-shadow: 0 4px 15px rgba(228, 64, 95, 0.3);
+        }
+
+        .social-link-item.youtube:hover {
+            background: #FF0000;
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+        }
+
+        .cta-whatsapp-section {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            border-radius: var(--radius-xl);
+            padding: 2.5rem;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-whatsapp-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.05)" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,208C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+            background-size: cover;
+        }
+
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            .contact-methods-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+    <div id="floating-buttons"></div>
+    <div id="sticky-mobile-cta"></div>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <div class="page-header-content" data-aos="fade-up">
+                    <h1 class="page-title">যোগাযোগ</h1>
+                    <div class="page-breadcrumb">
+                        <a href="index.html">হোম</a>
+                        <span>/</span>
+                        <span>যোগাযোগ</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="contact-grid">
+                    <div data-aos="fade-right">
+                        <h2 style="font-size:1.5rem; font-weight:700; color:var(--text-dark); margin-bottom:0.5rem;">আমাদের একটি <span class="gradient-text">বার্তা</span> পাঠান</h2>
+                        <p style="font-size:0.9375rem; color:var(--text-light); margin-bottom:2rem; line-height:1.6;">আপনার যেকোনো প্রশ্ন, মতামত বা অর্ডার সংক্রান্ত তথ্যের জন্য নিচের ফর্মটি পূরণ করুন। আমরা দ্রুত উত্তর দেওয়ার চেষ্টা করব।</p>
+
+                        <form class="contact-form glass-card" style="padding:2rem;" onsubmit="return false;">
+                            <div class="form-group">
+                                <label class="form-label" for="name">আপনার নাম <span style="color:#DC2626;">*</span></label>
+                                <input type="text" id="name" class="form-input" placeholder="আপনার নাম লিখুন" required>
+                            </div>
+                            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+                                <div class="form-group">
+                                    <label class="form-label" for="phone">মোবাইল নম্বর <span style="color:#DC2626;">*</span></label>
+                                    <input type="tel" id="phone" class="form-input" placeholder="০১৭XXXXXXXX" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="email">ইমেইল (ঐচ্ছিক)</label>
+                                    <input type="email" id="email" class="form-input" placeholder="your@email.com">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="subject">বিষয় <span style="color:#DC2626;">*</span></label>
+                                <input type="text" id="subject" class="form-input" placeholder="আপনার বার্তার বিষয় লিখুন" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="message">বার্তা <span style="color:#DC2626;">*</span></label>
+                                <textarea id="message" class="form-textarea" placeholder="আপনার বার্তা বিস্তারিত লিখুন..." required style="min-height:140px;"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="width:100%;">
+                                <i class="fas fa-paper-plane"></i> বার্তা পাঠান
+                            </button>
+                        </form>
+                    </div>
+
+                    <div data-aos="fade-left" data-aos-delay="100">
+                        <div style="display:flex; flex-direction:column; gap:1.25rem;">
+                            <div class="contact-info-card" data-aos="fade-up" data-aos-delay="0">
+                                <div class="contact-info-icon phone"><i class="fas fa-phone-alt"></i></div>
+                                <div>
+                                    <div class="contact-info-label">ফোন</div>
+                                    <div class="contact-info-value"><a href="tel:01700000000">০১৭০০-০০০০০০</a></div>
+                                    <div style="font-size:0.8125rem; color:var(--text-light); margin-top:0.25rem;">সকাল ৮টা - রাত ১০টা (শুক্রবার বন্ধ)</div>
+                                </div>
+                            </div>
+
+                            <div class="contact-info-card" data-aos="fade-up" data-aos-delay="50">
+                                <div class="contact-info-icon email"><i class="fas fa-envelope"></i></div>
+                                <div>
+                                    <div class="contact-info-label">ইমেইল</div>
+                                    <div class="contact-info-value"><a href="mailto:info@rangpurseba.com">info@rangpurseba.com</a></div>
+                                    <div style="font-size:0.8125rem; color:var(--text-light); margin-top:0.25rem;">২৪ ঘন্টার মধ্যে উত্তর দেওয়া হয়</div>
+                                </div>
+                            </div>
+
+                            <div class="contact-info-card" data-aos="fade-up" data-aos-delay="100">
+                                <div class="contact-info-icon whatsapp"><i class="fab fa-whatsapp"></i></div>
+                                <div>
+                                    <div class="contact-info-label">WhatsApp</div>
+                                    <div class="contact-info-value"><a href="https://wa.me/8801700000000" target="_blank">০১৭০০-০০০০০০</a></div>
+                                    <div style="font-size:0.8125rem; color:var(--text-light); margin-top:0.25rem;">সর্বোচ্চ অগ্রাধিকার</div>
+                                </div>
+                            </div>
+
+                            <div class="contact-info-card" data-aos="fade-up" data-aos-delay="150">
+                                <div class="contact-info-icon messenger"><i class="fab fa-facebook-messenger"></i></div>
+                                <div>
+                                    <div class="contact-info-label">Facebook Messenger</div>
+                                    <div class="contact-info-value"><a href="https://m.me/RangpurSeba" target="_blank">RangpurSeba</a></div>
+                                    <div style="font-size:0.8125rem; color:var(--text-light); margin-top:0.25rem;">মেসেঞ্জারে সাথে সাথেই রিপ্লাই</div>
+                                </div>
+                            </div>
+
+                            <div class="contact-info-card" data-aos="fade-up" data-aos-delay="200">
+                                <div class="contact-info-icon clock"><i class="fas fa-clock"></i></div>
+                                <div style="flex:1;">
+                                    <div class="contact-info-label">ব্যবসার সময়</div>
+                                    <div style="margin-top:0.75rem;">
+                                        <div class="business-hours-item">
+                                            <span class="business-hours-day">শনি - বৃহস্পতি</span>
+                                            <span class="business-hours-time">সকাল ৮টা - রাত ১০টা</span>
+                                        </div>
+                                        <div class="business-hours-item">
+                                            <span class="business-hours-day">শুক্রবার</span>
+                                            <span class="business-hours-time closed">বন্ধ</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="padding-top:0;">
+            <div class="container">
+                <div class="map-placeholder" data-aos="fade-up">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115085.49340780275!2d89.20529486457497!3d25.746021215669356!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e32de6f5a7d4b7%3A0xec7c566a6733999d!2sRangpur!5e0!3m2!1sbn!2sbd!4v1" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <div style="position:relative; z-index:1; background:rgba(255,255,255,0.85); backdrop-filter:blur(12px); padding:1rem 2rem; border-radius:var(--radius-full); box-shadow:var(--shadow-lg); display:inline-flex; align-items:center; gap:0.75rem; pointer-events:none;">
+                        <i class="fas fa-map-marker-alt" style="color:var(--primary); font-size:1.5rem;"></i>
+                        <span style="font-weight:600; color:var(--text-dark); font-size:1rem;">রংপুর, বাংলাদেশ</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="padding-top:0;">
+            <div class="container">
+                <div data-aos="fade-up">
+                    <h2 style="font-size:1.5rem; font-weight:700; color:var(--text-dark); margin-bottom:1rem; text-align:center;">আমাদের সাথে <span class="gradient-text">সোশ্যাল মিডিয়ায়</span> যুক্ত হোন</h2>
+                    <p style="font-size:0.9375rem; color:var(--text-light); text-align:center; max-width:500px; margin:0 auto 2rem; line-height:1.6;">আমাদের সোশ্যাল মিডিয়া চ্যানেলগুলোতে ফলো করে সব আপডেট ও অফার সম্পর্কে জানুন</p>
+                    <div style="display:flex; justify-content:center; gap:1rem;" data-aos="zoom-in" data-aos-delay="100">
+                        <a href="https://facebook.com/RangpurSeba" target="_blank" class="social-link-item facebook" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://wa.me/8801700000000" target="_blank" class="social-link-item whatsapp" aria-label="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://m.me/RangpurSeba" target="_blank" class="social-link-item messenger" aria-label="Messenger">
+                            <i class="fab fa-facebook-messenger"></i>
+                        </a>
+                        <a href="https://instagram.com/rangpurseba" target="_blank" class="social-link-item instagram" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://youtube.com/@rangpurseba" target="_blank" class="social-link-item youtube" aria-label="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="padding-top:0;">
+            <div class="container">
+                <div class="cta-whatsapp-section" data-aos="zoom-in">
+                    <div style="position:relative; z-index:1;">
+                        <div style="font-size:3rem; margin-bottom:1rem;">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <h3 style="font-size:1.75rem; font-weight:700; margin-bottom:0.75rem;">সরাসরি WhatsApp এ অর্ডার করুন</h3>
+                        <p style="font-size:1rem; opacity:0.9; margin-bottom:1.5rem; max-width:500px; margin-left:auto; margin-right:auto;">আপনার বাজারের লিস্ট WhatsApp এ পাঠিয়ে দিন। আমরা সাথে সাথেই কনফার্ম করব এবং ডেলিভারি করে দেব।</p>
+                        <a href="https://wa.me/8801700000000" target="_blank" class="btn btn-white btn-lg">
+                            <i class="fab fa-whatsapp"></i> এখনই অর্ডার করুন
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

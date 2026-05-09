@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>রংপুর সেবা | Rangpur Seba - আপনার বাজার, এখন ঘরে বসেই</title>
+    <meta name="description" content="রংপুর সেবা - আপনার বিশ্বস্ত অনলাইন বাজার। ফেসবুক বা হোয়াটসঅ্যাপে লিস্ট পাঠান, আমরা বাজার করে পৌঁছে দিচ্ছি আপনার দরজায়। ক্যাশ অন ডেলিভারি।">
+    <meta name="keywords" content="রংপুর অনলাইন বাজার, রংপুর বাজার ডেলিভারি, অনলাইন কাঁচা বাজার, রংপুর মুদি বাজার, Rangpur grocery delivery, Rangpur online bazar">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="রংপুর সেবা | Rangpur Seba - আপনার বাজার, এখন ঘরে বসেই">
+    <meta property="og:description" content="ফেসবুক বা হোয়াটসঅ্যাপে লিস্ট পাঠান — আমরা বাজার করে পৌঁছে দিব আপনার দরজায়।">
+    <meta property="og:image" content="https://rangpurseba.com/og-image.jpg">
+    <meta property="og:url" content="https://rangpurseba.com">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="bn_BD">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="রংপুর সেবা | Rangpur Seba">
+    <meta name="twitter:description" content="আপনার বাজার, এখন ঘরে বসেই। ফেসবুক বা হোয়াটসঅ্যাপে লিস্ট পাঠান।">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="icons/favicon.svg">
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Schema.org Local Business -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "রংপুর সেবা - Rangpur Seba",
+        "alternateName": "Rangpur Seba",
+        "url": "https://rangpurseba.com",
+        "logo": "https://rangpurseba.com/logo.png",
+        "image": "https://rangpurseba.com/og-image.jpg",
+        "description": "রংপুরের বিশ্বস্ত অনলাইন বাজার এবং grocery delivery platform।",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Rangpur",
+            "addressRegion": "Rangpur",
+            "addressCountry": "BD"
+        },
+        "contactPoint": [
+            {
+                "@type": "ContactPoint",
+                "telephone": "+8801700000000",
+                "contactType": "customer service",
+                "availableLanguage": ["bn", "en"]
+            }
+        ],
+        "sameAs": [
+            "https://facebook.com/RangpurSeba",
+            "https://wa.me/8801700000000"
+        ],
+        "areaServed": "Rangpur, Bangladesh",
+        "priceRange": "৳"
+    }
+    </script>
+
+    <style>
+        .hero-mockup-chat { display: flex; flex-direction: column; gap: 0.75rem; padding: 0 0.5rem; }
+        .chat-bubble { padding: 0.625rem 1rem; border-radius: 16px; max-width: 80%; font-size: 0.8125rem; line-height: 1.5; }
+        .chat-bubble.incoming { background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.9); align-self: flex-start; border-bottom-left-radius: 4px; }
+        .chat-bubble.outgoing { background: #25D366; color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
+        .chat-avatar { width: 32px; height: 32px; border-radius: 50%; background: #25D366; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.875rem; flex-shrink: 0; }
+        .chat-message { display: flex; align-items: flex-end; gap: 0.5rem; }
+    </style>
+</head>
+<body>
+
+    <!-- Components Loader -->
+    <div id="header-placeholder"></div>
+    <div id="floating-buttons"></div>
+    <div id="sticky-mobile-cta"></div>
+
+    <main>
+        <!-- ===== HERO SECTION ===== -->
+        <section class="hero" id="home">
+            <div class="hero-bg"></div>
+            <div class="hero-overlay"></div>
+            <div class="hero-particles">
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+            </div>
+
+            <div class="container" style="position:relative; z-index:2;">
+                <div class="row" style="display:grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items:center;">
+                    <div class="hero-content" data-aos="fade-right">
+                        <div class="hero-badge">
+                            <i class="fas fa-check-circle"></i>
+                            রংপুরের বিশ্বস্ত অনলাইন বাজার
+                        </div>
+                        <h1 class="hero-title">আপনার বাজার,<br>এখন ঘরে বসেই</h1>
+                        <p class="hero-subtitle">ফেসবুক বা হোয়াটসঅ্যাপে লিস্ট পাঠান — আমরা বাজার করে পৌঁছে দিব আপনার দরজায়। ক্যাশ অন ডেলিভারি।</p>
+                        <div class="hero-actions">
+                            <a href="https://wa.me/8801700000000" target="_blank" class="btn btn-lg btn-secondary">
+                                <i class="fab fa-whatsapp"></i> WhatsApp এ অর্ডার করুন
+                            </a>
+                            <a href="https://m.me/RangpurSeba" target="_blank" class="btn btn-lg btn-white">
+                                <i class="fab fa-facebook-messenger"></i> Messenger
+                            </a>
+                        </div>
+                        <div class="hero-trust">
+                            <span class="hero-trust-item">
+                                <i class="fas fa-hand-holding-usd"></i> ক্যাশ অন ডেলিভারি
+                            </span>
+                            <span class="hero-trust-item">
+                                <i class="fas fa-truck"></i> ফাস্ট ডেলিভারি
+                            </span>
+                            <span class="hero-trust-item">
+                                <i class="fas fa-shield-alt"></i> হাইজিন নিশ্চিত
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="hero-visual" data-aos="fade-left" data-aos-delay="200">
+                        <div style="position:relative;">
+                            <div class="hero-mockup">
+                                <div class="hero-mockup-screen">
+                                    <div class="hero-mockup-header">
+                                        <div style="display:flex; align-items:center; gap:0.5rem;">
+                                            <div class="chat-avatar"><i class="fab fa-whatsapp"></i></div>
+                                            <div>
+                                                <div style="font-size:0.8125rem; font-weight:600; color:white;">রংপুর সেবা</div>
+                                                <div style="font-size:0.6875rem; color:rgba(255,255,255,0.6);">অনলাইন</div>
+                                            </div>
+                                        </div>
+                                        <i class="fas fa-ellipsis-v" style="color:rgba(255,255,255,0.6);"></i>
+                                    </div>
+                                    <div class="hero-mockup-chat">
+                                        <div class="chat-message">
+                                            <div class="chat-avatar" style="width:28px;height:28px;font-size:0.75rem;"><i class="fas fa-user"></i></div>
+                                            <div class="chat-bubble incoming">আসসালামু আলাইকুম! আজকের বাজারের লিস্ট পাঠাচ্ছি।</div>
+                                        </div>
+                                        <div class="chat-bubble outgoing">ওয়ালাইকুম আসসালাম! বলুন আপনার কী কী লাগবে। 🛒</div>
+                                        <div class="chat-message">
+                                            <div class="chat-avatar" style="width:28px;height:28px;font-size:0.75rem;"><i class="fas fa-user"></i></div>
+                                            <div class="chat-bubble incoming">আলু ২ কেজি, পেয়াজ ১ কেজি, রুই মাছ ১ কেজি, গরুর মাংস ২ কেজি</div>
+                                        </div>
+                                        <div class="chat-bubble outgoing">বুঝলাম! ১ ঘন্টার মধ্যে ডেলিভারি দিয়ে দিচ্ছি। ঠিকানা জানান। 🚚</div>
+                                        <div class="chat-message">
+                                            <div class="chat-avatar" style="width:28px;height:28px;font-size:0.75rem;"><i class="fas fa-user"></i></div>
+                                            <div class="chat-bubble incoming">স্টেশন রোড, রংপুর।</div>
+                                        </div>
+                                        <div class="chat-bubble outgoing">ইনশাআল্লাহ! টাকা হবে ১,২৫০ টাকা। ক্যাশ অন ডেলিভারি। ✅</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Floating elements -->
+                            <div class="float-element float-element-delay-1" style="position:absolute; top:-20px; right:-30px; width:64px; height:64px; background:rgba(255,255,255,0.2); backdrop-filter:blur(10px); border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:2rem; border:1px solid rgba(255,255,255,0.3);">
+                                🥬
+                            </div>
+                            <div class="float-element float-element-delay-2" style="position:absolute; bottom:40px; left:-40px; width:56px; height:56px; background:rgba(255,255,255,0.2); backdrop-filter:blur(10px); border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:1.75rem; border:1px solid rgba(255,255,255,0.3);">
+                                🐟
+                            </div>
+                            <div class="float-element" style="position:absolute; top:40%; right:-50px; width:48px; height:48px; background:rgba(255,255,255,0.2); backdrop-filter:blur(10px); border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:1.5rem; border:1px solid rgba(255,255,255,0.3);">
+                                🥩
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== QUICK SERVICE CATEGORIES ===== -->
+        <section class="section" id="categories" data-aos="fade-up">
+            <div class="container">
+                <h2 class="section-title">আমাদের <span class="gradient-text">সেবাসমূহ</span></h2>
+                <p class="section-subtitle">আমরা যা যা সরবরাহ করি — প্রতিদিন সকালে তাজা পণ্য নিয়ে আমরা আপনার পাশে</p>
+                <div class="category-grid">
+                    <div class="category-card" data-aos="zoom-in" data-aos-delay="0">
+                        <div class="category-icon">🥬</div>
+                        <h3 class="category-title">সবজি</h3>
+                        <p class="category-desc">তাজা ও শীতল সবজি</p>
+                    </div>
+                    <div class="category-card" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="category-icon">🐟</div>
+                        <h3 class="category-title">মাছ</h3>
+                        <p class="category-desc">তাজা মাছের বাজার</p>
+                    </div>
+                    <div class="category-card" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="category-icon">🥩</div>
+                        <h3 class="category-title">মাংস</h3>
+                        <p class="category-desc">গরু, খাসি ও মুরগি</p>
+                    </div>
+                    <div class="category-card" data-aos="zoom-in" data-aos-delay="300">
+                        <div class="category-icon">🛒</div>
+                        <h3 class="category-title">মুদি বাজার</h3>
+                        <p class="category-desc">চাল, ডাল, তেল, মসলা</p>
+                    </div>
+                    <div class="category-card" data-aos="zoom-in" data-aos-delay="400">
+                        <div class="category-icon">🍎</div>
+                        <h3 class="category-title">ফলমূল</h3>
+                        <p class="category-desc">দেশি ও বিদেশি ফল</p>
+                    </div>
+                    <div class="category-card" data-aos="zoom-in" data-aos-delay="500">
+                        <div class="category-icon">📦</div>
+                        <h3 class="category-title">নিত্যপ্রয়োজনীয়</h3>
+                        <p class="category-desc">প্রতিদিনের চাহিদা</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== HOW IT WORKS ===== -->
+        <section class="section" style="background: var(--primary-bg);" id="how-it-works">
+            <div class="container">
+                <h2 class="section-title">কিভাবে <span class="gradient-text">অর্ডার করবেন</span></h2>
+                <p class="section-subtitle">মাত্র ৩টি সহজ ধাপে আপনার বাজার পৌঁছে যাচ্ছে আপনার দরজায়</p>
+                <div class="steps-grid">
+                    <div class="step-card" data-aos="fade-up" data-aos-delay="0">
+                        <div class="step-number">১</div>
+                        <div class="step-icon"><i class="fab fa-whatsapp"></i></div>
+                        <h3 class="step-title">লিস্ট পাঠান</h3>
+                        <p class="step-desc">আপনার বাজারের লিস্ট ফেসবুক মেসেঞ্জার বা WhatsApp এ পাঠিয়ে দিন। লেখা, ভয়েস বা ছবি — যেকোনোভাবে পারেন।</p>
+                        <div style="margin-top:1rem;">
+                            <span class="badge badge-primary"><i class="fab fa-whatsapp"></i> WhatsApp</span>
+                            <span class="badge badge-primary" style="margin-left:0.5rem;"><i class="fab fa-facebook-messenger"></i> Messenger</span>
+                        </div>
+                    </div>
+                    <div class="step-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="step-number">২</div>
+                        <div class="step-icon"><i class="fas fa-shopping-basket"></i></div>
+                        <h3 class="step-title">আমরা বাজার করি</h3>
+                        <p class="step-desc">আমাদের টিম আপনার লিস্ট অনুযায়ী তাজা ও মানসম্মত পণ্য বাজার করে নিয়ে আসে। কোয়ালিটি নিশ্চিত করাই আমাদের প্রথম কাজ।</p>
+                        <div style="margin-top:1rem;">
+                            <span class="badge badge-secondary"><i class="fas fa-check-circle"></i> কোয়ালিটি চেক</span>
+                        </div>
+                    </div>
+                    <div class="step-card" data-aos="fade-up" data-aos-delay="400">
+                        <div class="step-number">৩</div>
+                        <div class="step-icon"><i class="fas fa-truck"></i></div>
+                        <h3 class="step-title">বাড়িতে ডেলিভারি</h3>
+                        <p class="step-desc">আপনার বাজার নিরাপদে প্যাকেজ করে আপনার ঠিকানায় পৌঁছে দেওয়া হয়। পেমেন্ট ক্যাশ অন ডেলিভারি।</p>
+                        <div style="margin-top:1rem;">
+                            <span class="badge badge-primary"><i class="fas fa-hand-holding-usd"></i> ক্যাশ অন ডেলিভারি</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== WHY CHOOSE US ===== -->
+        <section class="section" id="why-us">
+            <div class="container">
+                <h2 class="section-title">কেন <span class="gradient-text">রংপুর সেবা</span></h2>
+                <p class="section-subtitle">আমরা শুধু বাজার নই, আমরা আপনার বিশ্বস্ত পার্টনার</p>
+                <div class="features-grid">
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="0">
+                        <div class="feature-icon"><i class="fas fa-leaf"></i></div>
+                        <h3 class="feature-title">তাজা পণ্য</h3>
+                        <p class="feature-desc">প্রতিদিন সকালে বাজার থেকে তাজা পণ্য সংগ্রহ করা হয়। ফ্রেশনেস গ্যারান্টি।</p>
+                    </div>
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="feature-icon"><i class="fas fa-handshake"></i></div>
+                        <h3 class="feature-title">বিশ্বস্ত সেবা</h3>
+                        <p class="feature-desc">আমরা আপনার বিশ্বাসকে গুরুত্ব দিই। প্রতিটি অর্ডার যত্ন সহকারে হ্যান্ডেল করি।</p>
+                    </div>
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="feature-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        <h3 class="feature-title">দ্রুত ডেলিভারি</h3>
+                        <p class="feature-desc">অর্ডার কনফার্মের ১-২ ঘন্টার মধ্যে ডেলিভারি। জরুরি অর্ডারও নেওয়া হয়।</p>
+                    </div>
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="feature-icon"><i class="fas fa-hand-holding-usd"></i></div>
+                        <h3 class="feature-title">ক্যাশ অন ডেলিভারি</h3>
+                        <p class="feature-desc">প্রোডাক্ট হাতে পেয়ে তারপর পেমেন্ট করুন। সম্পূর্ণ নিরাপদ লেনদেন।</p>
+                    </div>
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+                        <div class="feature-icon"><i class="fas fa-tag"></i></div>
+                        <h3 class="feature-title">সাশ্রয়ী ডেলিভারি চার্জ</h3>
+                        <p class="feature-desc">আপনার এলাকা অনুযায়ী খুবই কম ডেলিভারি চার্জ। নির্দিষ্ট অর্ডারে ফ্রি ডেলিভারি।</p>
+                    </div>
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
+                        <div class="feature-icon"><i class="fas fa-users"></i></div>
+                        <h3 class="feature-title">স্থানীয় ব্যবসা</h3>
+                        <p class="feature-desc">আমরা স্থানীয় উদ্যোক্তা। আপনার পাশের মানুষ। স্থানীয় অর্থনীতিতে অবদান রাখি।</p>
+                    </div>
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="600">
+                        <div class="feature-icon"><i class="fas fa-box"></i></div>
+                        <h3 class="feature-title">নিরাপদ প্যাকেজিং</h3>
+                        <p class="feature-desc">মাছ, মাংস ও সবজির জন্য আলাদা হাইজিনিক প্যাকেজিং। তাজা ও নিরাপদ।</p>
+                    </div>
+                    <div class="feature-card" data-aos="fade-up" data-aos-delay="700">
+                        <div class="feature-icon"><i class="fas fa-smile"></i></div>
+                        <h3 class="feature-title">২৪/৭ সাপোর্ট</h3>
+                        <p class="feature-desc">যেকোনো সময় অর্ডার দিন। আমাদের সাপোর্ট টিম সবসময় আপনার জন্য।</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== ORDERING METHODS ===== -->
+        <section class="section" style="background: linear-gradient(180deg, var(--bg) 0%, #fff 100%);" id="order-methods">
+            <div class="container">
+                <h2 class="section-title">যেভাবে <span class="gradient-text">অর্ডার করবেন</span></h2>
+                <p class="section-subtitle">আপনার পছন্দের মাধ্যম বেছে নিন — আমরা বাকিটা দেখব</p>
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:1.5rem;">
+                    <div class="order-method" data-aos="flip-up" data-aos-delay="0">
+                        <div class="order-method-icon whatsapp"><i class="fab fa-whatsapp"></i></div>
+                        <h3 style="font-size:1.125rem; font-weight:600; color:var(--text-dark); margin-bottom:0.5rem;">WhatsApp</h3>
+                        <p style="font-size:0.9375rem; color:var(--text-light); line-height:1.6; margin-bottom:1.25rem;">WhatsApp এ টেক্সট করে আপনার বাজারের লিস্ট পাঠান। আমাদের টিম সাথে সাথেই কনফার্ম করবে।</p>
+                        <a href="https://wa.me/8801700000000" target="_blank" class="btn btn-sm btn-primary">
+                            <i class="fab fa-whatsapp"></i> WhatsApp এ অর্ডার করুন
+                        </a>
+                    </div>
+
+                    <div class="order-method" data-aos="flip-up" data-aos-delay="100">
+                        <div class="order-method-icon facebook"><i class="fab fa-facebook-messenger"></i></div>
+                        <h3 style="font-size:1.125rem; font-weight:600; color:var(--text-dark); margin-bottom:0.5rem;">Facebook Messenger</h3>
+                        <p style="font-size:0.9375rem; color:var(--text-light); line-height:1.6; margin-bottom:1.25rem;">আমাদের ফেসবুক পেজের মেসেঞ্জারে সরাসরি মেসেজ দিন। খুব সহজ ও পরিচিত মাধ্যম।</p>
+                        <a href="https://m.me/RangpurSeba" target="_blank" class="btn btn-sm btn-outline" style="border-color:#0078FF; color:#0078FF;">
+                            <i class="fab fa-facebook-messenger"></i> Messenger
+                        </a>
+                    </div>
+
+                    <div class="order-method" data-aos="flip-up" data-aos-delay="200">
+                        <div class="order-method-icon voice"><i class="fas fa-microphone"></i></div>
+                        <h3 style="font-size:1.125rem; font-weight:600; color:var(--text-dark); margin-bottom:0.5rem;">ভয়েস নোট</h3>
+                        <p style="font-size:0.9375rem; color:var(--text-light); line-height:1.6; margin-bottom:1.25rem;">যারা টাইপ করতে পারেন না, তারা ভয়েস নোট পাঠিয়ে অর্ডার করুন। আপনার ভাষায়।</p>
+                        <a href="https://wa.me/8801700000000" target="_blank" class="btn btn-sm btn-secondary">
+                            <i class="fas fa-microphone"></i> ভয়েস নোট পাঠান
+                        </a>
+                    </div>
+
+                    <div class="order-method" data-aos="flip-up" data-aos-delay="300">
+                        <div class="order-method-icon photo"><i class="fas fa-camera"></i></div>
+                        <h3 style="font-size:1.125rem; font-weight:600; color:var(--text-dark); margin-bottom:0.5rem;">ছবি পাঠিয়ে</h3>
+                        <p style="font-size:0.9375rem; color:var(--text-light); line-height:1.6; margin-bottom:1.25rem;">আপনার প্রয়োজনীয় পণ্যের ছবি তুলে পাঠান। আমরা দেখে বুঝে নিয়ে আসব।</p>
+                        <a href="https://wa.me/8801700000000" target="_blank" class="btn btn-sm btn-primary">
+                            <i class="fas fa-camera"></i> ছবি পাঠান
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== DELIVERY COVERAGE ===== -->
+        <section class="section" id="coverage" data-aos="fade-up">
+            <div class="container">
+                <h2 class="section-title">আমাদের <span class="gradient-text">ডেলিভারি এলাকা</span></h2>
+                <p class="section-subtitle">রংপুর জেলার বিভিন্ন এলাকায় আমরা আমাদের সেবা পৌঁছে দিচ্ছি</p>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:2rem; align-items:center;">
+                    <div>
+                        <div class="coverage-grid">
+                            <div class="coverage-item" data-aos="fade-up" data-aos-delay="0">
+                                <div class="coverage-icon">📍</div>
+                                <div class="coverage-name">রংপুর সদর</div>
+                                <div style="font-size:0.75rem; color:var(--text-muted);">১-২ ঘন্টা</div>
+                            </div>
+                            <div class="coverage-item" data-aos="fade-up" data-aos-delay="100">
+                                <div class="coverage-icon">📍</div>
+                                <div class="coverage-name">হাজিরহাট</div>
+                                <div style="font-size:0.75rem; color:var(--text-muted);">২-৩ ঘন্টা</div>
+                            </div>
+                            <div class="coverage-item" data-aos="fade-up" data-aos-delay="200">
+                                <div class="coverage-icon">📍</div>
+                                <div class="coverage-name">বেগমগঞ্জ</div>
+                                <div style="font-size:0.75rem; color:var(--text-muted);">২-৩ ঘন্টা</div>
+                            </div>
+                            <div class="coverage-item" data-aos="fade-up" data-aos-delay="300">
+                                <div class="coverage-icon">📍</div>
+                                <div class="coverage-name">মধুপুর</div>
+                                <div style="font-size:0.75rem; color:var(--text-muted);">২-৩ ঘন্টা</div>
+                            </div>
+                            <div class="coverage-item" data-aos="fade-up" data-aos-delay="400">
+                                <div class="coverage-icon">📍</div>
+                                <div class="coverage-name">পীরগাছা</div>
+                                <div style="font-size:0.75rem; color:var(--text-muted);">৩-৪ ঘন্টা</div>
+                            </div>
+                            <div class="coverage-item" data-aos="fade-up" data-aos-delay="500">
+                                <div class="coverage-icon">📍</div>
+                                <div class="coverage-name">কাউনিয়া</div>
+                                <div style="font-size:0.75rem; color:var(--text-muted);">৩-৪ ঘন্টা</div>
+                            </div>
+                            <div class="coverage-item" data-aos="fade-up" data-aos-delay="600">
+                                <div class="coverage-icon">📍</div>
+                                <div class="coverage-name">বদরগঞ্জ</div>
+                                <div style="font-size:0.75rem; color:var(--text-muted);">৩-৪ ঘন্টা</div>
+                            </div>
+                            <div class="coverage-item" data-aos="fade-up" data-aos-delay="700">
+                                <div class="coverage-icon">📍</div>
+                                <div class="coverage-name">মিঠাপুকুর</div>
+                                <div style="font-size:0.75rem; color:var(--text-muted);">আগামী সপ্তাহে</div>
+                            </div>
+                        </div>
+                        <div style="margin-top:1.5rem; padding:1rem; background:var(--primary-bg); border-radius:var(--radius-md); display:flex; align-items:center; gap:0.75rem;">
+                            <i class="fas fa-expand-arrows-alt" style="color:var(--primary); font-size:1.25rem;"></i>
+                            <span style="font-size:0.9375rem; color:var(--text-body);">শীঘ্রই আরও এলাকায় আমাদের সেবা চালু হচ্ছে!</span>
+                        </div>
+                    </div>
+                    <div style="background:var(--bg-white); border-radius:var(--radius-xl); overflow:hidden; border:1px solid var(--border); box-shadow:var(--shadow-md);" data-aos="fade-left">
+                        <div style="padding:2rem; text-align:center;">
+                            <div style="font-size:3rem; margin-bottom:1rem;">🗺️</div>
+                            <h3 style="font-size:1.25rem; font-weight:600; color:var(--text-dark); margin-bottom:0.75rem;">রংপুর সিটি ম্যাপ</h3>
+                            <p style="font-size:0.9375rem; color:var(--text-light); margin-bottom:1.5rem;">আমাদের কভারেজ এলাকা দেখুন</p>
+                            <div style="background:var(--bg); border-radius:var(--radius-lg); padding:1.5rem; font-size:0.875rem; color:var(--text-light);">
+                                <i class="fas fa-map-marked-alt" style="color:var(--primary); font-size:2rem; margin-bottom:0.75rem; display:block;"></i>
+                                <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem; text-align:left;">
+                                    <span><i class="fas fa-circle" style="color:var(--primary); font-size:0.5rem; margin-right:0.5rem;"></i>স্টেশন রোড</span>
+                                    <span><i class="fas fa-circle" style="color:var(--primary); font-size:0.5rem; margin-right:0.5rem;"></i>সাতমাথা</span>
+                                    <span><i class="fas fa-circle" style="color:var(--primary); font-size:0.5rem; margin-right:0.5rem;"></i>বড় বাজার</span>
+                                    <span><i class="fas fa-circle" style="color:var(--primary); font-size:0.5rem; margin-right:0.5rem;"></i>লালবাগ</span>
+                                    <span><i class="fas fa-circle" style="color:var(--primary); font-size:0.5rem; margin-right:0.5rem;"></i>শাপলা চত্বর</span>
+                                    <span><i class="fas fa-circle" style="color:var(--primary); font-size:0.5rem; margin-right:0.5rem;"></i>কেল্লাবন্দ</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== LIVE STATISTICS ===== -->
+        <section class="stats-section" id="stats">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-item" data-aos="zoom-in" data-aos-delay="0">
+                        <div class="stat-icon"><i class="fas fa-clipboard-list"></i></div>
+                        <div class="stat-number" data-target="150">০</div>
+                        <div class="stat-label">আজকের অর্ডার</div>
+                    </div>
+                    <div class="stat-item" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="stat-icon"><i class="fas fa-heart"></i></div>
+                        <div class="stat-number" data-target="2500">০</div>
+                        <div class="stat-label">সন্তুষ্ট গ্রাহক</div>
+                    </div>
+                    <div class="stat-item" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="stat-icon"><i class="fas fa-truck"></i></div>
+                        <div class="stat-number" data-target="5200">০</div>
+                        <div class="stat-label">সফল ডেলিভারি</div>
+                    </div>
+                    <div class="stat-item" data-aos="zoom-in" data-aos-delay="300">
+                        <div class="stat-icon"><i class="fas fa-motorcycle"></i></div>
+                        <div class="stat-number" data-target="25">০</div>
+                        <div class="stat-label">ডেলিভারি রাইডার</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== SPECIAL OFFERS ===== -->
+        <section class="section" id="offers">
+            <div class="container">
+                <h2 class="section-title">সপ্তাহের <span class="gradient-text-orange">স্পেশাল অফার</span></h2>
+                <p class="section-subtitle">সীমিত সময়ের জন্য বিশেষ ডিসকাউন্ট ও অফার</p>
+                <div class="swiper offer-slider">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="offer-card" data-aos="fade-up">
+                                <div class="offer-bg"></div>
+                                <div class="offer-content">
+                                    <span class="offer-badge"><i class="fas fa-tag"></i> ২০% ডিসকাউন্ট</span>
+                                    <h3 class="offer-title">তাজা সবজির উপর বিশেষ ছাড়</h3>
+                                    <p class="offer-desc">সপ্তাহের প্রতিটি অর্ডারে তাজা সবজিতে ২০% পর্যন্ত ছাড়! আজই অর্ডার করুন।</p>
+                                    <div id="countdown1"></div>
+                                    <a href="https://wa.me/8801700000000" target="_blank" class="btn btn-white">
+                                        <i class="fab fa-whatsapp"></i> এখনই অর্ডার করুন
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="offer-card" data-aos="fade-up" data-aos-delay="100">
+                                <div class="offer-bg offer-bg-2"></div>
+                                <div class="offer-content">
+                                    <span class="offer-badge"><i class="fas fa-gift"></i> ফ্রি ডেলিভারি</span>
+                                    <h3 class="offer-title">৫০০ টাকার অর্ডারে ফ্রি ডেলিভারি</h3>
+                                    <p class="offer-desc">৫০০ টাকা বা তার বেশি অর্ডারে ফ্রি হোম ডেলিভারি। সীমিত সময়ের অফার।</p>
+                                    <div id="countdown2"></div>
+                                    <a href="https://wa.me/8801700000000" target="_blank" class="btn btn-white">
+                                        <i class="fab fa-whatsapp"></i> এখনই অর্ডার করুন
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination" style="position:relative; margin-top:2rem;"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== SAFETY & HYGIENE ===== -->
+        <section class="section" style="background: var(--secondary-bg);" id="safety">
+            <div class="container">
+                <h2 class="section-title">নিরাপত্তা ও <span class="gradient-text">হাইজিন</span></h2>
+                <p class="section-subtitle">আমরা আপনার স্বাস্থ্যকে সর্বোচ্চ গুরুত্ব দিই</p>
+                <div class="safety-grid">
+                    <div class="safety-card" data-aos="fade-up" data-aos-delay="0">
+                        <div class="safety-icon"><i class="fas fa-hand-sparkles"></i></div>
+                        <div>
+                            <h4 class="safety-title">তাজা পণ্য হ্যান্ডলিং</h4>
+                            <p class="safety-desc">প্রতিটি পণ্য অত্যন্ত যত্ন সহকারে হ্যান্ডল করা হয়। তাজা ও পরিষ্কার পণ্য নিশ্চিত করা হয়।</p>
+                        </div>
+                    </div>
+                    <div class="safety-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="safety-icon"><i class="fas fa-temperature-high"></i></div>
+                        <div>
+                            <h4 class="safety-title">হাইজিন প্রক্রিয়া</h4>
+                            <p class="safety-desc">মাছ ও মাংস আলাদাভাবে হাইজিনিক পদ্ধতিতে প্যাকেজ করা হয়। তাপমাত্রা নিয়ন্ত্রণ করা হয়।</p>
+                        </div>
+                    </div>
+                    <div class="safety-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="safety-icon"><i class="fas fa-box-open"></i></div>
+                        <div>
+                            <h4 class="safety-title">নিরাপদ প্যাকেজিং</h4>
+                            <p class="safety-desc">প্রতিটি পণ্য ফুড-গ্রেড প্যাকেজিং ম্যাটেরিয়ালে প্যাকেজ করা হয়। সিল করা ও নিরাপদ।</p>
+                        </div>
+                    </div>
+                    <div class="safety-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="safety-icon"><i class="fas fa-user-check"></i></div>
+                        <div>
+                            <h4 class="safety-title">বিশ্বস্ত ডেলিভারি</h4>
+                            <p class="safety-desc">আমাদের ডেলিভারি পার্টনাররা হাইজিন মাস্ক ও গ্লাভস ব্যবহার করেন। কন্টাক্টলেস ডেলিভারি।</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== CUSTOMER REVIEWS ===== -->
+        <section class="section" id="reviews">
+            <div class="container">
+                <h2 class="section-title">গ্রাহকদের <span class="gradient-text">মতামত</span></h2>
+                <p class="section-subtitle">আমাদের সেবায় খুশি হাজারো গ্রাহক</p>
+                <div class="swiper testimonial-slider">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="testimonial-card" data-aos="fade-up">
+                                <div class="testimonial-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <p class="testimonial-text">"রংপুর সেবা সত্যিই অসাধারণ! আমি প্রতিদিন অর্ডার করি। সবজি খুব ফ্রেশ থাকে এবং ডেলিভারি সময়মতো হয়। আমার পরিবারের সবাই খুব খুশি।"</p>
+                                <div class="testimonial-author">
+                                    <div class="testimonial-avatar">ন</div>
+                                    <div>
+                                        <div class="testimonial-name">নাসরিন আক্তার</div>
+                                        <div class="testimonial-area">স্টেশন রোড, রংপুর</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
+                                <div class="testimonial-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <p class="testimonial-text">"আমি কাজের মানুষ, বাজারে যাওয়ার সময় হয় না। রংপুর সেবা আমার জীবন বদলে দিয়েছে। WhatsApp এ মেসেজ দিলেই সব বাজার চলে আসে।"</p>
+                                <div class="testimonial-author">
+                                    <div class="testimonial-avatar">ক</div>
+                                    <div>
+                                        <div class="testimonial-name">করিম হোসেন</div>
+                                        <div class="testimonial-area">হাজিরহাট, রংপুর</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
+                                <div class="testimonial-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <p class="testimonial-text">"মাছ ও মাংসের কোয়ালিটি দারুণ। আমি প্রথমে ভয় পেয়েছিলাম অনলাইনে মাছ কিনতে, কিন্তু রংপুর সেবা আমার ভয় দূর করে দিয়েছে।"</p>
+                                <div class="testimonial-author">
+                                    <div class="testimonial-avatar">ফ</div>
+                                    <div>
+                                        <div class="testimonial-name">ফাতিমা বেগম</div>
+                                        <div class="testimonial-area">বড় বাজার, রংপুর</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="testimonial-card" data-aos="fade-up" data-aos-delay="300">
+                                <div class="testimonial-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <p class="testimonial-text">"ক্যাশ অন ডেলিভারি অপশনটা খুব ভালো। হাতে পেয়ে টাকা দিচ্ছি, কোনো টেনশন নেই। আমার বাসার সবাই এখন রংপুর সেবা থেকে অর্ডার করে।"</p>
+                                <div class="testimonial-author">
+                                    <div class="testimonial-avatar">র</div>
+                                    <div>
+                                        <div class="testimonial-name">রাশেদুল ইসলাম</div>
+                                        <div class="testimonial-area">সাতমাথা, রংপুর</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination" style="position:relative; margin-top:2rem;"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== FAQ SECTION ===== -->
+        <section class="section" style="background: var(--primary-bg);" id="faq">
+            <div class="container">
+                <h2 class="section-title">সাধারণ <span class="gradient-text">প্রশ্ন</span></h2>
+                <p class="section-subtitle">আপনার মনে প্রশ্ন? উত্তর নিচে দেওয়া আছে</p>
+                <div style="max-width:700px; margin:0 auto;">
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="0">
+                        <div class="faq-question">
+                            <span>কিভাবে অর্ডার করবো?</span>
+                            <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            আপনি আমাদের Facebook Messenger বা WhatsApp এ আপনার বাজারের লিস্ট পাঠিয়ে দিন। আমরা অর্ডার কনফার্ম করে বাজার করে আপনার ঠিকানায় পৌঁছে দেব।
+                        </div>
+                    </div>
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
+                        <div class="faq-question">
+                            <span>ডেলিভারি চার্জ কত?</span>
+                            <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            রংপুর সিটির মধ্যে ডেলিভারি চার্জ মাত্র ৩০-৫০ টাকা। ৫০০ টাকার বেশি অর্ডারে ফ্রি ডেলিভারি। অন্যান্য এলাকার জন্য চার্জ ভিন্ন হতে পারে।
+                        </div>
+                    </div>
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
+                        <div class="faq-question">
+                            <span>ক্যাশ অন ডেলিভারি (COD) আছে?</span>
+                            <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            হ্যাঁ, আমরা ক্যাশ অন ডেলিভারি সেবা দিই। আপনি প্রোডাক্ট হাতে পাওয়ার পর পেমেন্ট করুন। এটি সম্পূর্ণ নিরাপদ ও বিশ্বস্ত।
+                        </div>
+                    </div>
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="300">
+                        <div class="faq-question">
+                            <span>কত সময়ে ডেলিভারি পাবো?</span>
+                            <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            সাধারণত অর্ডার কনফার্মের ১-২ ঘন্টার মধ্যে ডেলিভারি দেওয়া হয়। জরুরি অর্ডারের ক্ষেত্রে সময় কমও হতে পারে। ব্যস্ত সময়ে সময় বেশি লাগতে পারে।
+                        </div>
+                    </div>
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="400">
+                        <div class="faq-question">
+                            <span>ফেসবুকে অর্ডার করা যাবে?</span>
+                            <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            অবশ্যই! আমাদের Facebook Page এ মেসenger এ মেসেজ দিয়েই অর্ডার করতে পারেন। আমরা সাথে সাথে রিপ্লাই দিই।
+                        </div>
+                    </div>
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="500">
+                        <div class="faq-question">
+                            <span>WhatsApp এ ছবি পাঠানো যাবে?</span>
+                            <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            হ্যাঁ, আপনি আপনার প্রয়োজনীয় পণ্যের ছবি WhatsApp এ পাঠিয়ে দিতে পারেন। আমরা ছবি দেখে বুঝে একই রকম পণ্য সরবরাহ করব।
+                        </div>
+                    </div>
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="600">
+                        <div class="faq-question">
+                            <span>মাছ/মাংস ফ্রেশ থাকবে?</span>
+                            <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            অবশ্যই। আমরা প্রতিদিন সকালে তাজা মাছ ও মাংস সংগ্রহ করি। হাইজিনিক প্যাকেজিংয়ে সংরক্ষণ করে ডেলিভারি করা হয়। ফ্রেশনেস নিয়ে আমরা গ্যারান্টি দিই।
+                        </div>
+                    </div>
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="700">
+                        <div class="faq-question">
+                            <span>রাতেও ডেলিভারি হয়?</span>
+                            <span class="faq-icon"><i class="fas fa-plus"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            হ্যাঁ, আমরা সকাল ৮টা থেকে রাত ১০টা পর্যন্ত ডেলিভারি দিই। জরুরি প্রয়োজনে রাতেও বিশেষ ডেলিভারির ব্যবস্থা আছে।
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== APP COMING SOON ===== -->
+        <section class="section app-promo" id="app">
+            <div class="container" style="position:relative; z-index:1;">
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:3rem; align-items:center;">
+                    <div data-aos="fade-right">
+                        <span class="badge badge-white" style="margin-bottom:1rem; display:inline-flex;">
+                            <i class="fas fa-rocket"></i> শীঘ্রই আসছে
+                        </span>
+                        <h2 style="font-size:2.25rem; font-weight:700; color:white; line-height:1.3; margin-bottom:1rem;">
+                            আমাদের <span style="color:var(--primary-light);">মোবাইল অ্যাপ</span> আসছে!
+                        </h2>
+                        <p style="font-size:1rem; color:rgba(255,255,255,0.7); line-height:1.7; margin-bottom:2rem;">
+                            অ্যান্ড্রয়েড ও আইওএস অ্যাপ নিয়ে খুব শীঘ্রই আমরা আসছি। অ্যাপের মাধ্যমে আরও সহজে অর্ডার করুন, ট্র্যাক করুন এবং বিশেষ অফার পান।
+                        </p>
+                        <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:2rem;">
+                            <div style="display:flex; align-items:center; gap:0.75rem; background:rgba(255,255,255,0.1); padding:0.75rem 1.25rem; border-radius:var(--radius-md);">
+                                <i class="fab fa-google-play" style="font-size:1.5rem; color:var(--primary-light);"></i>
+                                <div>
+                                    <div style="font-size:0.75rem; color:rgba(255,255,255,0.5);">Google Play</div>
+                                    <div style="font-size:1rem; font-weight:600; color:white;">শীঘ্রই</div>
+                                </div>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:0.75rem; background:rgba(255,255,255,0.1); padding:0.75rem 1.25rem; border-radius:var(--radius-md);">
+                                <i class="fab fa-apple" style="font-size:1.5rem; color:var(--primary-light);"></i>
+                                <div>
+                                    <div style="font-size:0.75rem; color:rgba(255,255,255,0.5);">App Store</div>
+                                    <div style="font-size:1rem; font-weight:600; color:white;">শীঘ্রই</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="background:rgba(255,255,255,0.08); border-radius:var(--radius-lg); padding:1.5rem;">
+                            <p style="font-size:0.9375rem; color:rgba(255,255,255,0.6); margin-bottom:1rem;">অ্যাপ লঞ্চের সময় জানতে সাবস্ক্রাইব করুন</p>
+                            <div style="display:flex; gap:0.75rem;">
+                                <input type="email" placeholder="আপনার ইমেইল দিন" style="flex:1; padding:0.75rem 1rem; border:none; border-radius:var(--radius-full); font-family:var(--font-bn); outline:none; font-size:0.9375rem;">
+                                <button class="btn btn-secondary" style="flex-shrink:0;">
+                                    <i class="fas fa-bell"></i> নোটিফাই করুন
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display:flex; justify-content:center; gap:1.5rem;" data-aos="fade-left" data-aos-delay="200">
+                        <div style="width:200px; height:400px; background:linear-gradient(180deg, #1a1a2e, #16213e); border-radius:30px; border:3px solid rgba(255,255,255,0.2); padding:1.5rem 1rem; display:flex; flex-direction:column; align-items:center; gap:0.75rem;">
+                            <div style="width:40px; height:40px; background:var(--primary); border-radius:12px; display:flex; align-items:center; justify-content:center; color:white;">
+                                <i class="fas fa-shopping-basket"></i>
+                            </div>
+                            <div style="width:100%; height:8px; background:rgba(255,255,255,0.1); border-radius:4px;"></div>
+                            <div style="width:80%; height:8px; background:rgba(255,255,255,0.1); border-radius:4px;"></div>
+                            <div style="width:100%; height:120px; background:rgba(255,255,255,0.05); border-radius:16px; margin:0.5rem 0;"></div>
+                            <div style="width:100%; height:8px; background:rgba(255,255,255,0.1); border-radius:4px;"></div>
+                            <div style="width:70%; height:8px; background:rgba(255,255,255,0.1); border-radius:4px;"></div>
+                            <div style="width:100%; height:8px; background:rgba(255,255,255,0.1); border-radius:4px;"></div>
+                            <div style="margin-top:auto; width:100%; height:44px; background:var(--primary); border-radius:22px;"></div>
+                        </div>
+                        <div style="width:200px; height:400px; background:linear-gradient(180deg, #1a1a2e, #16213e); border-radius:30px; border:3px solid rgba(255,255,255,0.2); padding:1.5rem 1rem; display:flex; flex-direction:column; align-items:center; gap:0.75rem; transform:translateY(30px);">
+                            <div style="width:40px; height:40px; background:var(--secondary); border-radius:12px; display:flex; align-items:center; justify-content:center; color:white;">
+                                <i class="fas fa-truck"></i>
+                            </div>
+                            <div style="width:100%; height:8px; background:rgba(255,255,255,0.1); border-radius:4px;"></div>
+                            <div style="width:80%; height:8px; background:rgba(255,255,255,0.1); border-radius:4px;"></div>
+                            <div style="width:100%; height:120px; background:rgba(255,255,255,0.05); border-radius:16px; margin:0.5rem 0;"></div>
+                            <div style="width:100%; height:8px; background:rgba(255,255,255,0.1); border-radius:4px;"></div>
+                            <div style="width:70%; height:8px; background:rgba(255,255,255,0.1); border-radius:4px;"></div>
+                            <div style="width:100%; height:8px; background:rgba(255,255,255,0.1); border-radius:4px;"></div>
+                            <div style="margin-top:auto; width:100%; height:44px; background:var(--secondary); border-radius:22px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== FINAL CTA ===== -->
+        <section class="section" style="background: linear-gradient(135deg, var(--primary), var(--primary-dark)); position:relative; overflow:hidden;">
+            <div style="position:absolute; inset:0; background: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1440 320%22><path fill=%22rgba(255,255,255,0.05)%22 d=%22M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,208C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z%22></path></svg>') no-repeat bottom; background-size:cover;"></div>
+            <div class="container" style="position:relative; z-index:1; text-align:center;" data-aos="fade-up">
+                <h2 style="font-size:clamp(1.75rem, 4vw, 2.75rem); font-weight:700; color:white; margin-bottom:1rem;">আজই আপনার বাজারের লিস্ট পাঠান</h2>
+                <p style="font-size:1.125rem; color:rgba(255,255,255,0.85); max-width:500px; margin:0 auto 2rem;">মাত্র একটি মেসেজ — আপনার পুরো বাজার ঘরে!</p>
+                <div style="display:flex; flex-wrap:wrap; gap:1rem; justify-content:center;">
+                    <a href="https://wa.me/8801700000000" target="_blank" class="btn btn-lg btn-secondary" style="font-size:1.125rem; padding:1rem 2.5rem;">
+                        <i class="fab fa-whatsapp"></i> WhatsApp Now
+                    </a>
+                    <a href="https://m.me/RangpurSeba" target="_blank" class="btn btn-lg btn-white" style="font-size:1.125rem; padding:1rem 2.5rem;">
+                        <i class="fab fa-facebook-messenger"></i> Messenger Order
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+        // Initialize countdown timers
+        document.addEventListener('DOMContentLoaded', function() {
+            var futureDate = new Date();
+            futureDate.setDate(futureDate.getDate() + 7);
+            if (typeof initCountdown === 'function') {
+                initCountdown('countdown1', futureDate.toISOString());
+                initCountdown('countdown2', futureDate.toISOString());
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>অর্ডার ব্যবস্থাপনা | রংপুর সেবা</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/svg+xml" href="icons/favicon.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body { background: var(--bg); }
+        .admin-section { padding: 2rem 0; }
+        .admin-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; }
+        .admin-header h1 { font-size: 1.5rem; font-weight: 700; color: var(--text-dark); display: flex; align-items: center; gap: 0.5rem; }
+        .admin-header .stats { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .stat-chip { background: var(--bg-white); border: 1px solid var(--border); border-radius: var(--radius-full); padding: 0.375rem 0.875rem; font-size: 0.8125rem; font-weight: 500; color: var(--text-body); display: flex; align-items: center; gap: 0.375rem; }
+        .stat-chip strong { color: var(--text-dark); }
+
+        .status-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
+        .status-tab { padding: 0.5rem 1.125rem; border-radius: var(--radius-full); border: 1px solid var(--border); background: var(--bg-white); font-family: var(--font-bn); font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: var(--transition); color: var(--text-body); }
+        .status-tab:hover { border-color: var(--primary); color: var(--primary); }
+        .status-tab.active { background: var(--primary); color: white; border-color: var(--primary); }
+        .status-tab .count { background: rgba(0,0,0,0.08); border-radius: var(--radius-full); padding: 0.125rem 0.5rem; font-size: 0.75rem; margin-left: 0.375rem; }
+        .status-tab.active .count { background: rgba(255,255,255,0.25); }
+
+        .orders-table-wrap { overflow-x: auto; background: var(--bg-white); border-radius: var(--radius-xl); border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+        .orders-table { width: 100%; border-collapse: collapse; min-width: 800px; }
+        .orders-table th { padding: 0.875rem 1rem; text-align: left; font-size: 0.8125rem; font-weight: 600; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 2px solid var(--border); background: var(--bg); }
+        .orders-table td { padding: 0.875rem 1rem; font-size: 0.9375rem; color: var(--text-body); border-bottom: 1px solid var(--border); vertical-align: middle; }
+        .orders-table tr:hover td { background: var(--bg); }
+        .orders-table .order-id { font-weight: 700; color: var(--primary); font-size: 0.8125rem; }
+        .orders-table .customer-info { display: flex; flex-direction: column; }
+        .orders-table .customer-name { font-weight: 600; color: var(--text-dark); }
+        .orders-table .customer-mobile { font-size: 0.8125rem; color: var(--text-light); }
+        .orders-table .items-preview { font-size: 0.8125rem; color: var(--text-light); max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .orders-table .amount { font-weight: 700; color: var(--text-dark); }
+        .orders-table .date { font-size: 0.8125rem; color: var(--text-light); white-space: nowrap; }
+
+        .status-badge { display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.25rem 0.75rem; border-radius: var(--radius-full); font-size: 0.8125rem; font-weight: 600; border: none; cursor: pointer; font-family: var(--font-bn); }
+        .status-badge.pending { background: #FEF3C7; color: #D97706; }
+        .status-badge.processing { background: #DBEAFE; color: #2563EB; }
+        .status-badge.completed { background: #D1FAE5; color: #059669; }
+        .status-badge.cancelled { background: #FEE2E2; color: #DC2626; }
+        .status-badge .arrow { font-size: 0.625rem; margin-left: 0.25rem; }
+
+        .status-menu { position: relative; display: inline-block; }
+        .status-dropdown { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); margin-top: 4px; background: white; border-radius: var(--radius-md); box-shadow: 0 8px 24px rgba(0,0,0,0.15); border: 1px solid var(--border); z-index: 100; min-width: 160px; display: none; overflow: hidden; }
+        .status-dropdown.show { display: block; }
+        .status-dropdown button { display: block; width: 100%; padding: 0.625rem 1rem; border: none; background: none; text-align: left; font-family: var(--font-bn); font-size: 0.875rem; cursor: pointer; color: var(--text-body); transition: var(--transition); }
+        .status-dropdown button:hover { background: var(--bg); }
+        .status-dropdown button i { width: 18px; margin-right: 0.5rem; }
+
+        .action-btn { width: 32px; height: 32px; border: none; border-radius: var(--radius-md); background: transparent; cursor: pointer; color: var(--text-muted); transition: var(--transition); font-size: 0.875rem; }
+        .action-btn:hover { background: var(--bg); color: var(--text-dark); }
+        .action-btn.danger:hover { background: #FEE2E2; color: #DC2626; }
+        .action-btn.view:hover { background: #DBEAFE; color: #2563EB; }
+
+        .no-orders { text-align: center; padding: 4rem 2rem; color: var(--text-muted); }
+        .no-orders i { font-size: 3rem; margin-bottom: 1rem; }
+        .no-orders p { font-size: 1rem; }
+
+        /* Order Detail Modal */
+        .detail-overlay, .detail-modal { position: fixed; z-index: 3000; opacity: 0; pointer-events: none; transition: all 0.3s ease; }
+        .detail-overlay { inset: 0; background: rgba(0,0,0,0.5); }
+        .detail-modal { top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.9); width: 520px; max-width: calc(100vw - 2rem); max-height: 85vh; overflow-y: auto; background: var(--bg-white); border-radius: var(--radius-xl); padding: 2rem; box-shadow: 0 25px 60px rgba(0,0,0,0.2); }
+        .detail-overlay.active, .detail-modal.active { opacity: 1; pointer-events: all; }
+        .detail-modal.active { transform: translate(-50%, -50%) scale(1); }
+        .detail-modal .close-btn { position: absolute; top: 1rem; right: 1rem; width: 36px; height: 36px; border: none; background: var(--bg); border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-body); transition: var(--transition); }
+        .detail-modal .close-btn:hover { background: #FEE2E2; color: #DC2626; }
+        .detail-section { margin-bottom: 1.25rem; }
+        .detail-section h3 { font-size: 0.875rem; font-weight: 600; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+        .detail-section .value { font-size: 1rem; color: var(--text-dark); }
+        .detail-item { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid var(--border); font-size: 0.9375rem; }
+        .detail-total { display: flex; justify-content: space-between; padding-top: 0.75rem; font-weight: 700; font-size: 1.125rem; color: var(--text-dark); border-top: 2px solid var(--border); margin-top: 0.5rem; }
+        .detail-total .amount { color: var(--primary); }
+        .detail-actions { display: flex; gap: 0.75rem; margin-top: 1.5rem; }
+        .detail-actions select, .detail-actions button { padding: 0.625rem 1rem; border-radius: var(--radius-md); font-family: var(--font-bn); font-size: 0.9375rem; font-weight: 600; border: 1px solid var(--border); cursor: pointer; transition: var(--transition); background: var(--bg-white); }
+        .detail-actions select:focus { border-color: var(--primary); outline: none; }
+        .detail-actions .btn-save-status { background: var(--primary); color: white; border-color: var(--primary); flex: 1; }
+        .detail-actions .btn-save-status:hover { background: var(--primary-dark); }
+
+        @media (max-width: 768px) {
+            .admin-header { flex-direction: column; align-items: flex-start; }
+            .orders-table th:nth-child(4), .orders-table td:nth-child(4) { display: none; }
+            .orders-table th:nth-child(7), .orders-table td:nth-child(7) { display: none; }
+        }
+        @media (max-width: 480px) {
+            .orders-table th:nth-child(5), .orders-table td:nth-child(5) { display: none; }
+            .detail-modal { padding: 1.25rem; }
+        }
+
+        /* Order Timeline */
+        .timeline-wrap { margin: 1.25rem 0; padding: 0.5rem 0; overflow-x:auto; }
+        .timeline { display: flex; align-items: flex-start; justify-content: space-between; position: relative; min-width:480px; }
+        .timeline::before { content: ''; position: absolute; top: 19px; left: 30px; right: 30px; height: 3px; background: #E5E7EB; z-index: 0; }
+        .timeline-step { display: flex; flex-direction: column; align-items: center; position: relative; z-index: 1; flex: 1; }
+        .timeline-icon { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; border: 3px solid #E5E7EB; background: white; transition: all 0.3s ease; flex-shrink:0; }
+        .timeline-icon.completed { background: var(--primary); border-color: var(--primary); color: white; }
+        .timeline-icon.current { background: #F97316; border-color: #F97316; color: white; box-shadow: 0 0 0 4px rgba(249,115,22,0.2); }
+        .timeline-icon.upcoming { background: white; border-color: #E5E7EB; color: #9CA3AF; }
+        .timeline-label { margin-top: 0.5rem; font-size: 0.6875rem; color: #9CA3AF; text-align: center; font-weight: 500; max-width: 80px; line-height: 1.3; }
+        .timeline-label.completed { color: var(--primary); }
+        .timeline-label.current { color: #F97316; font-weight: 700; }
+        .progress-step { display:inline-flex;align-items:center;gap:0.25rem;padding:0.25rem 0.625rem;border-radius:9999px;background:var(--primary-bg);color:var(--primary);font-size:0.8125rem;font-weight:600; }
+    </style>
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+
+    <main>
+        <section class="page-header" style="padding:6rem 0 2.5rem;">
+            <div class="page-header-content" data-aos="fade-up">
+                <h1 class="page-title">অর্ডার ব্যবস্থাপনা</h1>
+                <div class="page-breadcrumb">
+                    <a href="index.html">হোম</a>
+                    <span><i class="fas fa-chevron-right" style="font-size:0.625rem;"></i></span>
+                    <span>অর্ডার</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="admin-section">
+            <div class="container">
+                <div class="admin-header" data-aos="fade-up">
+                    <h1><i class="fas fa-clipboard-list" style="color:var(--primary);"></i> সকল অর্ডার</h1>
+                    <div class="stats" id="statsContainer"></div>
+                </div>
+
+                <div class="status-tabs" id="statusTabs" data-aos="fade-up">
+                    <button class="status-tab active" data-status="all">সব <span class="count" id="countAll">0</span></button>
+                    <button class="status-tab" data-status="Pending">⏳ পেন্ডিং <span class="count" id="countPending">0</span></button>
+                    <button class="status-tab" data-status="Processing">🔄 প্রসেসিং <span class="count" id="countProcessing">0</span></button>
+                    <button class="status-tab" data-status="Completed">✅ সম্পন্ন <span class="count" id="countCompleted">0</span></button>
+                    <button class="status-tab" data-status="Cancelled">❌ বাতিল <span class="count" id="countCancelled">0</span></button>
+                </div>
+
+                <div class="orders-table-wrap" data-aos="fade-up">
+                    <table class="orders-table">
+                        <thead>
+                            <tr>
+                                <th>অর্ডার আইডি</th>
+                                <th>গ্রাহক</th>
+                                <th>পণ্য</th>
+                                <th>মোট</th>
+                                <th>তারিখ</th>
+                                <th>স্ট্যাটাস</th>
+                                <th style="text-align:center;">প্রগতি</th>
+                                <th style="text-align:center;">অ্যাকশন</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersBody"></tbody>
+                    </table>
+                    <div class="no-orders" id="noOrders" style="display:none;">
+                        <i class="fas fa-inbox"></i>
+                        <p>কোনো অর্ডার পাওয়া যায়নি</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== ORDER DETAIL MODAL ===== -->
+    <div class="detail-overlay" id="detailOverlay"></div>
+    <div class="detail-modal" id="detailModal">
+        <button class="close-btn" onclick="closeDetail()"><i class="fas fa-times"></i></button>
+        <div id="detailContent"></div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/loyalty.js"></script>
+
+    <script>
+        var currentFilter = 'all';
+
+        function getOrders() {
+            var orders = JSON.parse(localStorage.getItem('rangpurseba_orders')) || [];
+            orders.forEach(function(o) {
+                if (o.progress === undefined) {
+                    o.progress = statusToProgress(o.status);
+                }
+            });
+            return orders;
+        }
+
+        function saveOrders(orders) {
+            localStorage.setItem('rangpurseba_orders', JSON.stringify(orders));
+        }
+
+        function formatBDT(amount) {
+            return '৳ ' + Number(amount).toLocaleString('bn-BD');
+        }
+
+        function formatDate(iso) {
+            if (!iso) return '';
+            var d = new Date(iso);
+            return d.toLocaleDateString('bn-BD', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+        }
+
+        function getStatusIcon(status) {
+            switch(status) {
+                case 'Pending': return '⏳';
+                case 'Processing': return '🔄';
+                case 'Completed': return '✅';
+                case 'Cancelled': return '❌';
+                default: return '📋';
+            }
+        }
+
+        function statusColor(status) {
+            switch(status) {
+                case 'Pending': return 'pending';
+                case 'Processing': return 'processing';
+                case 'Completed': return 'completed';
+                case 'Cancelled': return 'cancelled';
+                default: return '';
+            }
+        }
+
+        function nextStatuses(current) {
+            switch(current) {
+                case 'Pending': return ['Processing', 'Cancelled'];
+                case 'Processing': return ['Completed', 'Cancelled'];
+                case 'Completed': return ['Pending'];
+                case 'Cancelled': return ['Pending'];
+                default: return ['Pending', 'Processing', 'Completed', 'Cancelled'];
+            }
+        }
+
+        function renderOrders() {
+            var orders = getOrders();
+            var filtered = currentFilter === 'all' ? orders : orders.filter(function(o) { return o.status === currentFilter; });
+            var tbody = document.getElementById('ordersBody');
+            var noOrders = document.getElementById('noOrders');
+
+            // Stats
+            var counts = { all: orders.length, Pending: 0, Processing: 0, Completed: 0, Cancelled: 0 };
+            orders.forEach(function(o) { if (counts.hasOwnProperty(o.status)) counts[o.status]++; });
+            document.getElementById('countAll').textContent = counts.all;
+            document.getElementById('countPending').textContent = counts.Pending;
+            document.getElementById('countProcessing').textContent = counts.Processing;
+            document.getElementById('countCompleted').textContent = counts.Completed;
+            document.getElementById('countCancelled').textContent = counts.Cancelled;
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = '';
+                noOrders.style.display = 'block';
+                return;
+            }
+            noOrders.style.display = 'none';
+
+            var html = '';
+            filtered.forEach(function(order) {
+                var itemPreview = order.items.map(function(i) { return i.emoji + ' ' + i.name + ' (' + i.qty + ')'; }).join(', ');
+                var next = nextStatuses(order.status);
+                html += '<tr>';
+                html += '<td><span class="order-id">' + order.id + '</span></td>';
+                html += '<td><div class="customer-info"><span class="customer-name">' + order.customerName + '</span><span class="customer-mobile">' + order.mobile + '</span></div></td>';
+                html += '<td><div class="items-preview" title="' + itemPreview.replace(/"/g, '&quot;') + '">' + itemPreview + '</div></td>';
+                html += '<td><span class="amount">' + formatBDT(order.total) + '</span></td>';
+                html += '<td><span class="date">' + formatDate(order.createdAt) + '</span></td>';
+                html += '<td><div class="status-menu">';
+                html += '<button class="status-badge ' + statusColor(order.status) + '" onclick="toggleStatusMenu(\'' + order.id + '\')">' + getStatusIcon(order.status) + ' ' + order.status + ' <i class="fas fa-chevron-down arrow"></i></button>';
+                html += '<div class="status-dropdown" id="statusMenu_' + order.id + '">';
+                next.forEach(function(s) {
+                    html += '<button onclick="changeStatus(\'' + order.id + '\', \'' + s + '\')">' + getStatusIcon(s) + ' ' + s + '</button>';
+                });
+                html += '</div></div></td>';
+                html += '<td style="text-align:center;"><span class="progress-step">' + (order.progress + 1) + '/5</span></td>';
+                html += '<td style="text-align:center;white-space:nowrap;">';
+                html += '<button class="action-btn view" onclick="viewOrder(\'' + order.id + '\')" title="বিস্তারিত"><i class="fas fa-eye"></i></button>';
+                html += '<button class="action-btn danger" onclick="deleteOrder(\'' + order.id + '\')" title="মুছুন"><i class="fas fa-trash-alt"></i></button>';
+                html += '</td></tr>';
+            });
+            tbody.innerHTML = html;
+        }
+
+        function toggleStatusMenu(id) {
+            var menu = document.getElementById('statusMenu_' + id);
+            var isOpen = menu.classList.contains('show');
+            document.querySelectorAll('.status-dropdown').forEach(function(m) { m.classList.remove('show'); });
+            if (!isOpen) menu.classList.add('show');
+        }
+
+        function changeStatus(id, newStatus) {
+            var orders = getOrders();
+            var order = orders.find(function(o) { return o.id === id; });
+            if (order) {
+                order.status = newStatus;
+                order.progress = statusToProgress(newStatus);
+                order.updatedAt = new Date().toISOString();
+                saveOrders(orders);
+                renderOrders();
+            }
+            document.querySelectorAll('.status-dropdown').forEach(function(m) { m.classList.remove('show'); });
+        }
+
+        function deleteOrder(id) {
+            if (!confirm('এই অর্ডারটি মুছতে চান?')) return;
+            var orders = getOrders().filter(function(o) { return o.id !== id; });
+            saveOrders(orders);
+            renderOrders();
+        }
+
+        function viewOrder(id) {
+            var orders = getOrders();
+            var order = orders.find(function(o) { return o.id === id; });
+            if (!order) return;
+
+            var p = order.progress;
+            var steps = [
+                { icon: '📝', label: 'অর্ডার গৃহীত' },
+                { icon: '🛒', label: 'বাজার করা হচ্ছে' },
+                { icon: '📦', label: 'প্যাকেজিং' },
+                { icon: '🚚', label: 'ডেলিভারিতে' },
+                { icon: '✅', label: 'ডেলিভারি সম্পন্ন' }
+            ];
+
+            var html = '<h2 style="font-size:1.25rem;font-weight:700;color:var(--text-dark);margin-bottom:1.25rem;display:flex;align-items:center;gap:0.5rem;"><i class="fas fa-file-invoice" style="color:var(--primary);"></i> অর্ডার বিবরণ</h2>';
+
+            html += '<div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:1rem;">';
+            html += '<span class="status-badge ' + statusColor(order.status) + '" style="font-size:0.9375rem;padding:0.375rem 1rem;">' + getStatusIcon(order.status) + ' ' + order.status + '</span>';
+            html += '<span style="background:var(--bg);border-radius:var(--radius-full);padding:0.375rem 1rem;font-size:0.875rem;color:var(--text-light);"><i class="far fa-clock"></i> ' + formatDate(order.createdAt) + '</span>';
+            html += '</div>';
+
+            // Timeline
+            html += '<div class="timeline-wrap"><div class="timeline">';
+            steps.forEach(function(step, i) {
+                var cls = i < p ? 'completed' : (i === p ? 'current' : 'upcoming');
+                html += '<div class="timeline-step">';
+                html += '<div class="timeline-icon ' + cls + '">' + step.icon + '</div>';
+                html += '<div class="timeline-label ' + cls + '">' + step.label + '</div>';
+                html += '</div>';
+            });
+            html += '</div></div>';
+
+            html += '<div class="detail-section"><h3>গ্রাহকের তথ্য</h3>';
+            html += '<div class="value"><i class="fas fa-user"></i> ' + order.customerName + '</div>';
+            html += '<div class="value"><i class="fas fa-phone"></i> ' + order.mobile + '</div>';
+            html += '<div class="value"><i class="fas fa-map-marker-alt"></i> ' + order.address + '</div>';
+            if (order.note) html += '<div class="value"><i class="fas fa-sticky-note"></i> ' + order.note + '</div>';
+            html += '</div>';
+
+            html += '<div class="detail-section"><h3>পণ্যের তালিকা</h3>';
+            order.items.forEach(function(item) {
+                html += '<div class="detail-item"><span>' + item.emoji + ' ' + item.name + ' (' + item.qty + ' × ' + item.unit + ')</span><span>' + formatBDT(item.price * item.qty) + '</span></div>';
+            });
+            html += '<div class="detail-total"><span>মোট</span><span class="amount">' + formatBDT(order.total) + '</span></div>';
+            html += '</div>';
+
+            html += '<div class="detail-section"><h3>স্ট্যাটাস আপডেট</h3>';
+            html += '<div class="detail-actions" style="flex-wrap:wrap;">';
+            html += '<select id="detailStatusSelect" style="flex:1;min-width:120px;">';
+            ['Pending', 'Processing', 'Completed', 'Cancelled'].forEach(function(s) {
+                html += '<option value="' + s + '" ' + (order.status === s ? 'selected' : '') + '>' + getStatusIcon(s) + ' ' + s + '</option>';
+            });
+            html += '</select>';
+            html += '<button class="btn-save-status" onclick="updateDetailStatus(\'' + order.id + '\')"><i class="fas fa-save"></i> সেভ করুন</button>';
+            if (p < 4) {
+                html += '<button class="btn-save-status" onclick="advanceProgress(\'' + order.id + '\')" style="background:#F97316;border-color:#F97316;"><i class="fas fa-forward"></i> পরবর্তী ধাপ</button>';
+            }
+            html += '</div></div>';
+
+            document.getElementById('detailContent').innerHTML = html;
+            document.getElementById('detailModal').classList.add('active');
+            document.getElementById('detailOverlay').classList.add('active');
+        }
+
+        function updateDetailStatus(id) {
+            var newStatus = document.getElementById('detailStatusSelect').value;
+            changeStatus(id, newStatus);
+            viewOrder(id);
+        }
+
+        function statusToProgress(status) {
+            switch(status) {
+                case 'Pending': return 0;
+                case 'Processing': return 1;
+                case 'Completed': return 4;
+                default: return 0;
+            }
+        }
+
+        function progressToStatus(progress) {
+            if (progress <= 0) return 'Pending';
+            if (progress >= 4) return 'Completed';
+            return 'Processing';
+        }
+
+        function advanceProgress(id) {
+            var orders = getOrders();
+            var order = orders.find(function(o) { return o.id === id; });
+            if (!order || order.progress >= 4) return;
+            order.progress = order.progress + 1;
+            order.status = progressToStatus(order.progress);
+            order.updatedAt = new Date().toISOString();
+            saveOrders(orders);
+            renderOrders();
+            viewOrder(id);
+        }
+
+        function closeDetail() {
+            document.getElementById('detailModal').classList.remove('active');
+            document.getElementById('detailOverlay').classList.remove('active');
+        }
+
+        // Status tabs filter
+        document.querySelectorAll('.status-tab').forEach(function(tab) {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.status-tab').forEach(function(t) { t.classList.remove('active'); });
+                this.classList.add('active');
+                currentFilter = this.getAttribute('data-status');
+                renderOrders();
+            });
+        });
+
+        // Detail overlay close
+        document.getElementById('detailOverlay').addEventListener('click', closeDetail);
+        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeDetail(); });
+
+        // Close status dropdowns on outside click
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.status-menu')) {
+                document.querySelectorAll('.status-dropdown').forEach(function(m) { m.classList.remove('show'); });
+            }
+        });
+
+        // Initial render
+        document.addEventListener('DOMContentLoaded', function() {
+            renderOrders();
+            if (typeof AOS !== 'undefined') setTimeout(function() { AOS.refresh(); }, 200);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>পাড়া-প্রতিবেশী গ্রুপ অর্ডার | রংপুর সেবা</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/svg+xml" href="icons/favicon.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body { background: var(--bg); }
+        .group-section { padding: 2rem 0; }
+
+        .how-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
+        .how-card { background: var(--bg-white); border-radius: var(--radius-xl); padding: 1.75rem; text-align: center; border: 1px solid var(--border); box-shadow: var(--shadow-sm); position: relative; transition: var(--transition); }
+        .how-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+        .how-card .step-num { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8125rem; font-weight: 700; }
+        .how-card .how-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+        .how-card h3 { font-size: 1rem; font-weight: 600; color: var(--text-dark); margin-bottom: 0.375rem; }
+        .how-card p { font-size: 0.8125rem; color: var(--text-light); line-height: 1.5; }
+
+        .group-form-card { background: var(--bg-white); border-radius: var(--radius-xl); padding: 2rem; border: 1px solid var(--border); box-shadow: var(--shadow-sm); max-width: 560px; margin: 0 auto 2rem; }
+        .group-form-card h2 { font-size: 1.25rem; font-weight: 700; color: var(--text-dark); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+        @media (max-width: 640px) { .form-row { grid-template-columns: 1fr; } }
+
+        .group-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
+        .group-card { background: var(--bg-white); border-radius: var(--radius-xl); border: 1px solid var(--border); box-shadow: var(--shadow-sm); overflow: hidden; transition: var(--transition); cursor: pointer; }
+        .group-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+        .group-card .gc-head { padding: 1.25rem 1.25rem 0.75rem; display: flex; justify-content: space-between; align-items: flex-start; }
+        .group-card .gc-name { font-size: 1.0625rem; font-weight: 700; color: var(--text-dark); }
+        .group-card .gc-area { font-size: 0.8125rem; color: var(--text-light); display: flex; align-items: center; gap: 0.25rem; margin-top: 0.125rem; }
+        .group-card .gc-body { padding: 0 1.25rem 1rem; }
+        .group-card .gc-stats { display: flex; gap: 1rem; font-size: 0.8125rem; color: var(--text-body); }
+        .group-card .gc-stats span { display: flex; align-items: center; gap: 0.25rem; }
+        .group-card .gc-footer { padding: 0.75rem 1.25rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .group-card .gc-status { font-size: 0.75rem; font-weight: 600; padding: 0.2rem 0.5rem; border-radius: var(--radius-full); }
+        .gc-status.active { background: #D1FAE5; color: #059669; }
+        .gc-status.closed { background: #FEE2E2; color: #DC2626; }
+
+        .group-detail-overlay, .group-detail-modal { position: fixed; z-index: 3000; opacity: 0; pointer-events: none; transition: all 0.3s ease; }
+        .group-detail-overlay { inset: 0; background: rgba(0,0,0,0.5); }
+        .group-detail-modal { top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.9); width: 640px; max-width: calc(100vw - 2rem); max-height: 85vh; overflow-y: auto; background: var(--bg-white); border-radius: var(--radius-xl); padding: 2rem; box-shadow: 0 25px 60px rgba(0,0,0,0.2); }
+        .group-detail-overlay.active, .group-detail-modal.active { opacity: 1; pointer-events: all; }
+        .group-detail-modal.active { transform: translate(-50%, -50%) scale(1); }
+        .group-detail-modal .close-btn { position: absolute; top: 1rem; right: 1rem; width: 36px; height: 36px; border: none; background: var(--bg); border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-body); transition: var(--transition); }
+        .group-detail-modal .close-btn:hover { background: #FEE2E2; color: #DC2626; }
+
+        .member-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.625rem 0; border-bottom: 1px solid var(--border); }
+        .member-item:last-child { border-bottom: none; }
+        .member-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--primary-bg); color: var(--primary); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.875rem; flex-shrink: 0; }
+        .member-info { flex: 1; }
+        .member-name { font-weight: 600; color: var(--text-dark); font-size: 0.9375rem; }
+        .member-items { font-size: 0.8125rem; color: var(--text-light); }
+
+        .combined-item { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid var(--border); font-size: 0.875rem; }
+        .combined-item:last-child { border-bottom: none; }
+        .combined-item .ci-info { display: flex; align-items: center; gap: 0.5rem; }
+        .combined-item .ci-qty { color: var(--text-light); font-size: 0.8125rem; }
+        .combined-item .ci-price { font-weight: 600; color: var(--text-dark); }
+
+        .add-item-form { display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: 0.5rem; align-items: end; }
+        @media (max-width: 640px) { .add-item-form { grid-template-columns: 1fr 1fr; } }
+
+        .notify-btn { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; border: none; padding: 0.625rem 1.5rem; border-radius: var(--radius-md); font-family: var(--font-bn); font-size: 0.9375rem; font-weight: 600; cursor: pointer; transition: var(--transition); display: inline-flex; align-items: center; gap: 0.5rem; }
+        .notify-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(22,163,74,0.3); }
+
+        .empty-state { text-align: center; padding: 3rem 1rem; color: var(--text-muted); }
+        .empty-state i { font-size: 3rem; margin-bottom: 1rem; }
+        .empty-state p { font-size: 0.9375rem; }
+
+        .toast-notification { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); background: #0F172A; color: white; padding: 0.75rem 1.5rem; border-radius: 12px; font-size: 0.9375rem; font-family: 'Hind Siliguri', sans-serif; z-index: 9999; box-shadow: 0 8px 24px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 0.5rem; opacity: 0; transition: opacity 0.3s ease; pointer-events: none; }
+
+        @media (max-width: 768px) {
+            .how-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+    <div id="floating-buttons"></div>
+    <div id="sticky-mobile-cta"></div>
+
+    <main>
+        <section class="page-header" style="padding:6rem 0 2.5rem;">
+            <div class="page-header-content" data-aos="fade-up">
+                <h1 class="page-title">পাড়া-প্রতিবেশী গ্রুপ অর্ডার</h1>
+                <div class="page-breadcrumb">
+                    <a href="index.html">হোম</a>
+                    <span><i class="fas fa-chevron-right" style="font-size:0.625rem;"></i></span>
+                    <span>গ্রুপ অর্ডার</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="group-section">
+            <div class="container">
+                <div class="how-grid" data-aos="fade-up">
+                    <div class="how-card">
+                        <div class="step-num">১</div>
+                        <div class="how-icon">👥</div>
+                        <h3>গ্রুপ তৈরি করুন</h3>
+                        <p>একটি নাম দিয়ে গ্রুপ তৈরি করুন। আপনার পাড়া বা এলাকার নাম দিতে পারেন। পুরো প্রক্রিয়াটি সম্পূর্ণ বিনামূল্যে।</p>
+                    </div>
+                    <div class="how-card">
+                        <div class="step-num">২</div>
+                        <div class="how-icon">🔗</div>
+                        <h3>লিংক শেয়ার করুন</h3>
+                        <p>গ্রুপের অনন্য লিংক আপনার প্রতিবেশীদের সাথে শেয়ার করুন। WhatsApp, Messenger বা যেকোনো মাধ্যমে।</p>
+                    </div>
+                    <div class="how-card">
+                        <div class="step-num">৩</div>
+                        <div class="how-icon">🚚</div>
+                        <h3>একসাথে অর্ডার</h3>
+                        <p>সবাই মিলে অর্ডার দিন, একসাথে ডেলিভারি নিন এবং ডেলিভারি চার্জ ভাগ করে নিন। সাশ্রয়ী ও সুবিধাজনক!</p>
+                    </div>
+                </div>
+
+                <div class="group-form-card" data-aos="fade-up">
+                    <h2><i class="fas fa-users" style="color:var(--primary);"></i> নতুন গ্রুপ তৈরি করুন</h2>
+                    <form id="groupForm" onsubmit="createGroup(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">গ্রুপের নাম *</label>
+                                <input type="text" class="form-input" id="groupName" placeholder="যেমন: বেগমগঞ্জ কলোনি" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">এলাকা / পাড়া *</label>
+                                <input type="text" class="form-input" id="groupArea" placeholder="যেমন: বেগমগঞ্জ, রংপুর" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">পছন্দের ডেলিভারি সময়</label>
+                                <select class="form-input" id="groupTime">
+                                    <option value="সকাল ৯-১০টা">সকাল ৯-১০টা</option>
+                                    <option value="দুপুর ১২-১টা">দুপুর ১২-১টা</option>
+                                    <option value="বিকাল ৩-৪টা">বিকাল ৩-৪টা</option>
+                                    <option value="সন্ধ্যা ৬-৭টা">সন্ধ্যা ৬-৭টা</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">আপনার নাম *</label>
+                                <input type="text" class="form-input" id="creatorName" placeholder="আপনার নাম" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-lg btn-primary" style="width:100%;">
+                            <i class="fas fa-plus-circle"></i> গ্রুপ তৈরি করুন
+                        </button>
+                    </form>
+                </div>
+
+                <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;margin-bottom:1rem;" data-aos="fade-up">
+                    <h2 style="font-size:1.25rem;font-weight:700;color:var(--text-dark);display:flex;align-items:center;gap:0.5rem;">
+                        <i class="fas fa-layer-group" style="color:var(--primary);"></i> সক্রিয় গ্রুপ
+                    </h2>
+                    <span id="groupCount" style="font-size:0.875rem;color:var(--text-light);">০ টি গ্রুপ</span>
+                </div>
+
+                <div class="group-grid" id="groupGrid" data-aos="fade-up"></div>
+                <div class="empty-state" id="groupEmpty" style="display:none;">
+                    <i class="fas fa-users"></i>
+                    <p>কোনো গ্রুপ তৈরি হয়নি। উপরের ফর্ম ব্যবহার করে প্রথম গ্রুপ তৈরি করুন!</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <!-- Group Detail Modal -->
+    <div class="group-detail-overlay" id="detailOverlay"></div>
+    <div class="group-detail-modal" id="detailModal">
+        <button class="close-btn" onclick="closeDetail()"><i class="fas fa-times"></i></button>
+        <div id="detailContent"></div>
+    </div>
+
+    <div class="toast-notification" id="toastNote"><i class="fas fa-check-circle" style="color:var(--primary-light);"></i> <span id="toastText"></span></div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+        function getGroups() {
+            return JSON.parse(localStorage.getItem('rangpurseba_groups')) || [];
+        }
+
+        function saveGroups(groups) {
+            localStorage.setItem('rangpurseba_groups', JSON.stringify(groups));
+        }
+
+        function formatBDT(amount) {
+            return '৳ ' + Number(amount).toLocaleString('bn-BD');
+        }
+
+        function generateId() {
+            return 'GRP-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).substring(2, 6).toUpperCase();
+        }
+
+        function showToast(msg) {
+            var t = document.getElementById('toastNote');
+            document.getElementById('toastText').textContent = msg;
+            t.style.opacity = '1';
+            setTimeout(function() { t.style.opacity = '0'; }, 2500);
+        }
+
+        function createGroup(e) {
+            e.preventDefault();
+            var name = document.getElementById('groupName').value.trim();
+            var area = document.getElementById('groupArea').value.trim();
+            var time = document.getElementById('groupTime').value;
+            var creator = document.getElementById('creatorName').value.trim();
+
+            if (!name || !area || !creator) {
+                alert('দয়া করে প্রয়োজনীয় তথ্য দিন');
+                return;
+            }
+
+            var groups = getGroups();
+            var group = {
+                id: generateId(),
+                name: name,
+                area: area,
+                time: time,
+                creator: creator,
+                createdAt: new Date().toISOString(),
+                status: 'active',
+                members: [{
+                    name: creator,
+                    joinedAt: new Date().toISOString(),
+                    items: []
+                }]
+            };
+            groups.push(group);
+            saveGroups(groups);
+            renderGroups();
+
+            document.getElementById('groupForm').reset();
+            showToast('গ্রুপ "' + name + '" সফলভাবে তৈরি হয়েছে!');
+        }
+
+        function joinGroup(groupId) {
+            var name = prompt('আপনার নাম লিখুন:');
+            if (!name || !name.trim()) return;
+
+            var groups = getGroups();
+            var group = groups.find(function(g) { return g.id === groupId; });
+            if (!group) return;
+
+            var existing = group.members.find(function(m) { return m.name === name.trim(); });
+            if (existing) {
+                showToast('আপনি ইতিমধ্যে এই গ্রুপে রয়েছেন!');
+                return;
+            }
+
+            group.members.push({ name: name.trim(), joinedAt: new Date().toISOString(), items: [] });
+            saveGroups(groups);
+            renderGroups();
+            showToast('স্বাগতম! আপনি গ্রুপে যোগ দিয়েছেন।');
+        }
+
+        function deleteGroup(groupId) {
+            if (!confirm('এই গ্রুপটি মুছতে চান?')) return;
+            var groups = getGroups().filter(function(g) { return g.id !== groupId; });
+            saveGroups(groups);
+            renderGroups();
+            closeDetail();
+            showToast('গ্রুপ মুছে ফেলা হয়েছে');
+        }
+
+        function renderGroups() {
+            var groups = getGroups();
+            var grid = document.getElementById('groupGrid');
+            var empty = document.getElementById('groupEmpty');
+            var count = document.getElementById('groupCount');
+
+            count.textContent = groups.length + ' টি গ্রুপ';
+
+            if (groups.length === 0) {
+                grid.innerHTML = '';
+                empty.style.display = 'block';
+                return;
+            }
+            empty.style.display = 'none';
+
+            var html = '';
+            groups.forEach(function(g) {
+                var totalItems = 0;
+                g.members.forEach(function(m) { totalItems += (m.items ? m.items.length : 0); });
+                var statusClass = g.status === 'active' ? 'active' : 'closed';
+                var statusText = g.status === 'active' ? 'সক্রিয়' : 'বন্ধ';
+                html += '<div class="group-card" onclick="openDetail(\'' + g.id + '\')">';
+                html += '<div class="gc-head">';
+                html += '<div>';
+                html += '<div class="gc-name">' + g.name + '</div>';
+                html += '<div class="gc-area"><i class="fas fa-map-marker-alt" style="color:var(--primary);"></i> ' + g.area + '</div>';
+                html += '</div>';
+                html += '<span class="gc-status ' + statusClass + '">' + statusText + '</span>';
+                html += '</div>';
+                html += '<div class="gc-body">';
+                html += '<div class="gc-stats">';
+                html += '<span><i class="fas fa-user"></i> ' + g.members.length + ' জন</span>';
+                html += '<span><i class="fas fa-box"></i> ' + totalItems + ' টি পণ্য</span>';
+                html += '<span><i class="fas fa-clock"></i> ' + g.time + '</span>';
+                html += '</div>';
+                html += '</div>';
+                html += '<div class="gc-footer">';
+                html += '<span style="font-size:0.8125rem;color:var(--text-light);">তৈরি করেছেন: ' + g.creator + '</span>';
+                html += '<button class="btn btn-sm btn-primary" onclick="event.stopPropagation();joinGroup(\'' + g.id + '\')"><i class="fas fa-user-plus"></i> যোগ দিন</button>';
+                html += '</div>';
+                html += '</div>';
+            });
+            grid.innerHTML = html;
+        }
+
+        function openDetail(groupId) {
+            var groups = getGroups();
+            var group = groups.find(function(g) { return g.id === groupId; });
+            if (!group) return;
+
+            var totalItems = 0;
+            group.members.forEach(function(m) { totalItems += (m.items ? m.items.length : 0); });
+
+            var combinedItems = [];
+            var combinedTotal = 0;
+            group.members.forEach(function(m) {
+                if (m.items) {
+                    m.items.forEach(function(item) {
+                        var existing = combinedItems.find(function(c) { return c.name === item.name; });
+                        if (existing) {
+                            existing.qty += Number(item.qty);
+                        } else {
+                            combinedItems.push({ name: item.name, qty: Number(item.qty), unit: item.unit || 'টি', price: Number(item.price) || 0, emoji: item.emoji || '📦' });
+                        }
+                        combinedTotal += (Number(item.price) || 0) * (Number(item.qty) || 0);
+                    });
+                }
+            });
+
+            var html = '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.5rem;">';
+            html += '<div>';
+            html += '<h2 style="font-size:1.25rem;font-weight:700;color:var(--text-dark);display:flex;align-items:center;gap:0.5rem;"><i class="fas fa-users" style="color:var(--primary);"></i> ' + group.name + '</h2>';
+            html += '<p style="font-size:0.875rem;color:var(--text-light);"><i class="fas fa-map-marker-alt" style="color:var(--primary);"></i> ' + group.area + ' &middot; ' + group.time + '</p>';
+            html += '</div>';
+            html += '<div style="display:flex;gap:0.5rem;">';
+            html += '<button class="notify-btn" onclick="notifyGroup(\'' + group.id + '\')" style="font-size:0.8125rem;padding:0.5rem 1rem;"><i class="fas fa-bell"></i> নোটিফাই</button>';
+            html += '<button class="btn btn-sm btn-outline" style="border-color:#DC2626;color:#DC2626;" onclick="deleteGroup(\'' + group.id + '\')"><i class="fas fa-trash-alt"></i></button>';
+            html += '</div>';
+            html += '</div>';
+
+            html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem;">';
+            html += '<div style="background:var(--primary-bg);border-radius:var(--radius-md);padding:1rem;text-align:center;"><div style="font-size:1.5rem;font-weight:700;color:var(--primary);">' + group.members.length + '</div><div style="font-size:0.8125rem;color:var(--text-light);">সদস্য</div></div>';
+            html += '<div style="background:var(--primary-bg);border-radius:var(--radius-md);padding:1rem;text-align:center;"><div style="font-size:1.5rem;font-weight:700;color:var(--primary);">' + formatBDT(combinedTotal) + '</div><div style="font-size:0.8125rem;color:var(--text-light);">মোট মূল্য</div></div>';
+            html += '</div>';
+
+            html += '<h3 style="font-size:1rem;font-weight:600;color:var(--text-dark);margin-bottom:0.75rem;"><i class="fas fa-user-friends" style="color:var(--primary);"></i> সদস্যগণ</h3>';
+            html += '<div style="margin-bottom:1.25rem;">';
+            group.members.forEach(function(m) {
+                var initial = m.name.charAt(0);
+                var itemCount = m.items ? m.items.length : 0;
+                html += '<div class="member-item"><div class="member-avatar">' + initial + '</div><div class="member-info"><div class="member-name">' + m.name + '</div><div class="member-items">' + itemCount + ' টি পণ্য যোগ করেছেন</div></div></div>';
+            });
+            html += '</div>';
+
+            html += '<h3 style="font-size:1rem;font-weight:600;color:var(--text-dark);margin-bottom:0.75rem;"><i class="fas fa-shopping-basket" style="color:var(--primary);"></i> সম্মিলিত কার্ট</h3>';
+            if (combinedItems.length === 0) {
+                html += '<p style="font-size:0.875rem;color:var(--text-muted);text-align:center;padding:1rem;">কোনো পণ্য যোগ করা হয়নি</p>';
+            } else {
+                combinedItems.forEach(function(item) {
+                    html += '<div class="combined-item"><div class="ci-info">' + item.emoji + ' ' + item.name + ' <span class="ci-qty">(' + item.qty + ' × ' + item.unit + ')</span></div><div class="ci-price">' + formatBDT(item.price * item.qty) + '</div></div>';
+                });
+                html += '<div class="combined-item" style="border-top:2px solid var(--border);margin-top:0.5rem;padding-top:0.75rem;font-weight:700;"><span>মোট</span><span style="color:var(--primary);font-size:1.125rem;">' + formatBDT(combinedTotal) + '</span></div>';
+            }
+
+            html += '<div style="margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid var(--border);">';
+            html += '<h4 style="font-size:0.9375rem;font-weight:600;color:var(--text-dark);margin-bottom:0.75rem;"><i class="fas fa-plus-circle" style="color:var(--primary);"></i> পণ্য যোগ করুন</h4>';
+            html += '<div class="add-item-form">';
+            html += '<div class="form-group"><input type="text" class="form-input" id="addItemName" placeholder="পণ্যের নাম"></div>';
+            html += '<div class="form-group"><input type="number" class="form-input" id="addItemQty" placeholder="পরিমাণ" min="1" value="1"></div>';
+            html += '<div class="form-group"><input type="text" class="form-input" id="addItemUnit" placeholder="একক" value="কেজি"></div>';
+            html += '<button class="btn btn-sm btn-primary" onclick="addItemToGroup(\'' + group.id + '\')" style="white-space:nowrap;"><i class="fas fa-plus"></i> যোগ</button>';
+            html += '</div>';
+            html += '</div>';
+
+            document.getElementById('detailContent').innerHTML = html;
+            document.getElementById('detailModal').classList.add('active');
+            document.getElementById('detailOverlay').classList.add('active');
+        }
+
+        function addItemToGroup(groupId) {
+            var name = document.getElementById('addItemName').value.trim();
+            var qty = parseInt(document.getElementById('addItemQty').value);
+            var unit = document.getElementById('addItemUnit').value.trim() || 'কেজি';
+
+            if (!name || !qty || qty < 1) {
+                showToast('পণ্যের নাম ও পরিমাণ দিন');
+                return;
+            }
+
+            var memberName = prompt('আপনার নাম লিখুন (যে নামে যোগ দিয়েছেন):');
+            if (!memberName || !memberName.trim()) return;
+
+            var groups = getGroups();
+            var group = groups.find(function(g) { return g.id === groupId; });
+            if (!group) return;
+
+            var member = group.members.find(function(m) { return m.name === memberName.trim(); });
+            if (!member) {
+                group.members.push({ name: memberName.trim(), joinedAt: new Date().toISOString(), items: [] });
+                member = group.members[group.members.length - 1];
+            }
+
+            var price = prompt('মূল্য (ঐচ্ছিক, টাকা):', '0');
+            var priceNum = parseInt(price) || 0;
+
+            member.items.push({ name: name, qty: qty, unit: unit, price: priceNum, emoji: '📦' });
+            saveGroups(groups);
+
+            document.getElementById('addItemName').value = '';
+            document.getElementById('addItemQty').value = '1';
+            openDetail(groupId);
+            showToast('পণ্য যোগ করা হয়েছে!');
+        }
+
+        function notifyGroup(groupId) {
+            var groups = getGroups();
+            var group = groups.find(function(g) { return g.id === groupId; });
+            if (!group) return;
+
+            var memberCount = group.members.length;
+            var msg = '🛒 ' + group.name + ' গ্রুপের সবার জন্য নোটিফিকেশন!\n';
+            msg += '📍 এলাকা: ' + group.area + '\n';
+            msg += '👥 মোট সদস্য: ' + memberCount + ' জন\n';
+            msg += '⏰ ডেলিভারি সময়: ' + group.time + '\n';
+            msg += '🔗 গ্রুপ আইডি: ' + group.id + '\n\n';
+            msg += 'সবাইকে জানানো হয়েছে!';
+            showToast('✅ ' + memberCount + ' জন সদস্যকে নোটিফাই করা হয়েছে!');
+        }
+
+        function closeDetail() {
+            document.getElementById('detailModal').classList.remove('active');
+            document.getElementById('detailOverlay').classList.remove('active');
+        }
+
+        document.getElementById('detailOverlay').addEventListener('click', closeDetail);
+        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeDetail(); });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            renderGroups();
+            if (typeof AOS !== 'undefined') setTimeout(function() { AOS.refresh(); }, 200);
+        });
+    </script>
+</body>
+</html>
