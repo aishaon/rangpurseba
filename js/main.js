@@ -14,19 +14,27 @@
         deliveryAreas: ['রংপুর সদর', 'হাজিরহাট', 'বেগমগঞ্জ', 'মধুপুর', 'পীরগাছা', 'তারাগঞ্জ', 'বদরগঞ্জ', 'কাউনিয়া', 'মিঠাপুকুর', 'গঙ্গাচড়া']
     };
 
-    // ===== DOM ELEMENTS =====
-    const navbar = document.querySelector('.navbar');
-    const hamburger = document.querySelector('.hamburger');
-    const mobileMenu = document.querySelector('.mobile-menu');
-    const mobileOverlay = document.querySelector('.mobile-menu-overlay');
-    const scrollTopBtn = document.querySelector('.scroll-top');
-    const faqItems = document.querySelectorAll('.faq-item');
-    const statNumbers = document.querySelectorAll('.stat-number');
-    const categoryTabs = document.querySelectorAll('.category-tab');
+    // ===== DOM ELEMENTS (lazy - queried after components inject) =====
+    let navbar = null;
+    let hamburger = null;
+    let mobileMenu = null;
+    let mobileOverlay = null;
+    let scrollTopBtn = null;
+    let faqItems = [];
+    let statNumbers = [];
+    let categoryTabs = [];
     const countersAnimated = new Set();
 
     // ===== INITIALIZATION =====
     document.addEventListener('DOMContentLoaded', function() {
+        navbar = document.querySelector('.navbar');
+        hamburger = document.querySelector('.hamburger');
+        mobileMenu = document.querySelector('.mobile-menu');
+        mobileOverlay = document.querySelector('.mobile-menu-overlay');
+        scrollTopBtn = document.querySelector('.scroll-top');
+        faqItems = document.querySelectorAll('.faq-item');
+        statNumbers = document.querySelectorAll('.stat-number');
+        categoryTabs = document.querySelectorAll('.category-tab');
         initNavbar();
         initMobileMenu();
         initScrollToTop();

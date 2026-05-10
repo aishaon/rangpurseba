@@ -1994,7 +1994,7 @@ a {
     .hero-visual .float-element { display: none; }
     .particle { display: none; }
 
-    /* Nav adjustments for smaller screens */
+    /* Nav adjustments for tablet — keep action buttons visible with desktop nav */
     .nav-links { gap: 1rem; }
     .nav-actions .btn span { display: none; }
 }
@@ -2007,7 +2007,8 @@ a {
     
     .nav-links { display: none; }
     .hamburger { display: flex; }
-    .nav-actions .btn span { display: none; }
+    .nav-actions .btn { display: none; }
+    .nav-actions .hamburger { display: flex; }
     
     .hero { min-height: auto; padding: 6rem 0 3rem; }
     .hero-trust { gap: 1rem; }
