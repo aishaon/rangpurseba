@@ -1967,6 +1967,36 @@ a {
 @media (max-width: 1024px) {
     .section { padding: 4rem 0; }
     .section-lg { padding: 5rem 0; }
+
+    /* Stack inline 2-column grids on tablets too */
+    .hero .row,
+    #coverage > .container > div,
+    #app > .container > div,
+    #submit-review > .container > div,
+    #earnings > .container > div,
+    #apply > .container > div,
+    .partner-hero .row,
+    .application-form .form-row,
+    [style*="1fr 1fr"][style*="gap:2"],
+    [style*="1fr 1fr"][style*="gap: 2"],
+    [style*="1fr 1fr"][style*="gap:3"],
+    [style*="1fr 1fr"][style*="gap: 3"],
+    [style*="1fr 1fr 1fr"],
+    [style*="repeat(3, 1fr)"] {
+        grid-template-columns: 1fr !important;
+    }
+    .hero .row { gap: 1rem !important; }
+    #coverage > .container > div { gap: 1.5rem !important; }
+    #app > .container > div { gap: 2rem !important; }
+
+    /* Resize hero mockup for tablets */
+    .hero-mockup { width: 260px; height: 520px; }
+    .hero-visual .float-element { display: none; }
+    .particle { display: none; }
+
+    /* Nav adjustments for smaller screens */
+    .nav-links { gap: 1rem; }
+    .nav-actions .btn span { display: none; }
 }
 
 @media (max-width: 768px) {
